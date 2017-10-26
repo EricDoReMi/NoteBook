@@ -43,6 +43,52 @@ git remote -v
 推送远程库
 git push -u origin restructure
 
+创建并切换分支
+git checkout -b dev
+
+切换分支了
+git checkout dev
+
+查看分支了
+git branch
+
+在一个分支上merge其他的分支
+git merge dev
+
+保留dev分支的合并
+git merge --no-ff -m "merge with no-ff" dev
+
+删除单个分支
+git branch -d dev
+
+保存工作区
+git stash
+
+=====标签就是给版本号一个别名============
+
+创建一个标签---默认是最后一个版本
+git tag v1.0
+
+给具体版本打标签
+git tag v0.9 6224937
+
+查看具体标签
+git tag
+
+创建带说明的标签
+git tag -a v0.1 -m "version 0.1 released" 3628164
+
+查看标签说明文字
+git show v0.1
+
+删除一个标签
+git tag -d v0.1
+
+推送某个标签
+git push origin v1.0
+
+推送全部标签
+git push origin --tags
 
 
 
