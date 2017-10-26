@@ -13,6 +13,17 @@ git commit -m "startLearn"
 显示版本库
 git log --pretty=oneline
 
+查看工作区的状态
+git status
+
+版本库返回上一个版本
+git reset --hard HEAD^
+
+版本库退回到指定版本
+git reset --hard 3628164
+
+查看版本库历史
+git reflog
 
 
 
