@@ -25,5 +25,15 @@ git reset --hard 3628164
 查看版本库历史
 git reflog
 
+查看版本库和工作区的区别
+git diff HEAD -- readme.txt
+
+撤销工作区的修改---将版本库里的文档退回到工作区文档
+git checkout -- readme.txt
+
+撤销暂存区的修改
+git reset HEAD readme.txt
+
+
 
 
