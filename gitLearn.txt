@@ -1,3 +1,18 @@
 克隆远程库
 git clone git@github.com:EricDoReMi/NoteBook.git
 
+创建版本库
+git init
+
+添加暂存区
+git add gitLearn.txt
+
+commit版本库
+git commit -m "startLearn"
+
+显示版本库
+git log --pretty=oneline
+
+
+
+
