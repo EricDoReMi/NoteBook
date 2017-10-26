@@ -34,6 +34,16 @@ git checkout -- readme.txt
 撤销暂存区的修改
 git reset HEAD readme.txt
 
+添加远程库---远程库的名字默认为origin
+git remote add origin git@github.com:EricDoReMi/gitLearn.git
+
+列出远程库
+git remote -v
+
+推送远程库
+git push -u origin restructure
+
+
 
 
 
