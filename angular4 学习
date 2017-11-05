@@ -1,2 +1,22 @@
-安装Angularcli:npm insall -g @angular/cli
+安装Angularcli:npm install -g @angular/cli
 查看angular版本:ng -v
+创建项目：ng new TestAngular(项目名)
+Angular的目录结构
+  ---e2e:端到端的测试目录
+  ---src:源代码目录
+    ---app：包含应用中的组件和模块（绝大部分代码存在这个目录下）
+    ---assets:用于存放静态资源
+    ---environmens：环境配置文件
+    ---index.html：整个系统启动后的根html
+    ---main.ts：整个web应用脚本的执行点入口，angular通过这个文件来启动整个项目
+    ---polyfills.ts：导入一些必要的库，使angular能够运行在一些老版本的浏览器中
+    ---styles.css:放置应用的一些全局的样式
+    ---test.ts：用于进行自动化测试的
+    ---tsconfig.json：typescript编译器的配置文件
+  ---angular-cli.json：angular命令行工具的配置文件
+  ---karma.conf.js：进行自动化测试
+  ---package.json：列出了当前项目所依赖的第三方的包
+  ---protractor.conf.js：用于自动化测试的配置文件
+  ---tslink.json：是用于定义typescript代码质量检查的一些规范
+  ---node_modules：存放的是第三方的包，是根据package.json中列示的第三方包下载存放的第三方包
+  
