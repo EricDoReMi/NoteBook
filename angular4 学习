@@ -1,0 +1,2 @@
+安装Angularcli:npm insall -g @angular/cli
+查看angular版本:ng -v
