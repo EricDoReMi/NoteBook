@@ -20,3 +20,13 @@ Angular的目录结构
   ---tslink.json：是用于定义typescript代码质量检查的一些规范
   ---node_modules：存放的是第三方的包，是根据package.json中列示的第三方包下载存放的第三方包
   
+ 安装第三方库
+ 安装jquery：进入项目目录-->npm install jquery --save (--save表示将jquery的依赖计入到package.json文件中,并下载jquery到node_modules目录中)
+ 安装bootstrap-->npm install bootstrap --save
+ 
+ 让typescript代码认识到jquery和bootstrap
+ npm install @types/jquery --save-dev
+ npm install @types/bootstrap --save-dev
+ 
+ 生成组件
+ ng g component navba ---生成导航栏组件
