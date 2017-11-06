@@ -28,5 +28,11 @@ Angular的目录结构
  npm install @types/jquery --save-dev
  npm install @types/bootstrap --save-dev
  
+ 同时安装完上面的包之后，需要到根目录下找到.angular-cli.json文件，把其中的 “scripts”: []修改成如下：
+"scripts": [    "../node_modules/jquery/dist/jquery.min.js",    "../node_modules/bootstrap/dist/js/bootstrap.min.js"]同时需要把.angular-cli.json文件中的"styles": [“styles.css”]修改成如下：
+ "styles": [        "styles.css",        "../node_modules/bootstrap/dist/css/bootstrap.min.css" ],
+安装完成后，修改src目录下的tsconfig.app.json文件，将jquery添加到types数组中。把其中的"types": []修改成如下(此步现在最新版本已经不需要改了)：
+ "types": ["jquery"]
+ 
  生成组件
  ng g component navba ---生成导航栏组件
