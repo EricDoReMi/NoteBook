@@ -36,3 +36,4 @@ Angular的目录结构
  
  生成组件
  ng g component navba ---生成导航栏组件
+ 
