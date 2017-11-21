@@ -1,6 +1,7 @@
 安装Angularcli:npm install -g @angular/cli
 查看angular版本:ng -v
 创建项目：ng new TestAngular(项目名)
+创建一个带路由的项目：ng new router（项目名） --routing
 Angular的目录结构
   ---e2e:端到端的测试目录
   ---src:源代码目录
