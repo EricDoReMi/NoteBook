@@ -1,0 +1,33 @@
+1 DOC头：16位系统用的
+WORD e_magic; //必记，判断是不是PE文件，5A4D
+WORD e_cblp;
+WORD e_cp;
+WORD e_crlc;
+WORD e_cparhdr;
+WORD e_minalloc;
+WORD e_maxalloc;
+WORD e_ss;
+WORD e_sp;
+WORD e_csum;
+WORD e_ip;
+WORD e_cs;
+WORD e_lfarlc;
+WORD e_ovno;
+WORD e_res[4]; //数组，8个字节
+WORD e_oemid;
+WORD e_oeminfo;
+WORD e_res2[10];
+DWORD e_lfanew; //必记，指向了PE文件开始的位置
+
+2 标准PE头
+WORD Machine;
+WORD NumberOfSections;
+DWORD TimeDateStamp;
+DWORD PointerToSymbolTable;
+DWORD NumberOfSymbols;
+WORD SizeOfAptionalHeader;
+WORD Characteristics;
+
+3 可选PE头
+WORD Magic;
+BYTE

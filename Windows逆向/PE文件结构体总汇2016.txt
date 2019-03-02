@@ -1,0 +1,141 @@
+PE文件结构体总汇， @  是必须记住的
+
+
+*①：IMAGE_DOS_HEADER STRUCT 【M_DOS头部 共64字节】*
+
+{
++00 h WORD e_magic // DOS可执行文件标记 MZ(4Dh 5Ah) @
++02 h WORD e_cblp ; Bytes on last page of file
++04 h WORD e_cp ; Pages in file
++06 h WORD e_crlc ; Relocations
++08 h WORD e_cparhdr ; Size of header in paragraphs
++0A h WORD e_minalloc ; Minimun extra paragraphs needs
++0C h WORD e_maxalloc ; Maximun extra paragraphs needs
++0E h WORD e_ss // DOS代码的初始化堆栈SS
++10 h WORD e_sp // DOS代码的初始化堆栈指针SP
++12 h WORD e_csum ; Checksum
++14 h WORD e_ip // DOS代码的初始化指令入口[指针IP]
++16 h WORD e_cs // DOS代码的初始堆栈入口
++18 h WORD e_lfarlc ; File Address of relocation table
++1A h WORD e_ovno ; Overlay number
++1C h WORD e_res[4] ; Reserved words
++24 h WORD e_oemid ; OEM identifier(for e_oeminfo)
++26 h WORD e_oeminfo ; OEM information;e_oemid specific
++29 h WORD e_res2[10] ; Reserved words
++3C h LONG e_lfanew // 指向PE文件头 @
+} IMAGE_DOS_HEADER ENDS
+
+*②：DOS Stub【大约100个字节左右<此处字节数可选>】*
+
+*③：typedef struct _IMAGE_NT_HEADERS 【PE文件头 共248字节】*
+{
++00 h DWORD Signature // PE标识头PE(50h 45h)，共4字节
++04 h IMAGE_FILE_HEADER FileHeader // 结构体一，PE头共20个字节
++18 h IMAGE_OPTIONAL_HEADER32 OptionalHeader // 结构体二，PE文件共224字节
+} IMAGE_NT_HEADERS ENDS, *PIMAGE_NT_HEADERS32;
+
+*结构体一：typedef struct _IMAGE_FILE_HEADER 【PE头共20个字节】*
+{
++04 h WORD Machine; // 运行平台 @
++06 h WORD NumberOfSections; // 文件的区块数目 @
++08 h DWORD TimeDateStamp; // 文件创建日期和时间 @
++0C h DWORD PointerToSymbolTable; // 指向COFF符号表(主要用于调试)
++10 h DWORD NumberOfSymbols; // COFF符号表中符号个数(同上)
++14 h WORD SizeOfOptionalHeader; // IMAGE_OPTIONAL_HEADER3 2 结构大小 @
++16 h WORD Characteristics; // 文件属性 @
+} IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
+
+*结构体二：typedef struct _IMAGE_OPTIONAL_HEADER【PE文件共224字节，其中
+数据目录表占128字节】*
+{
++18 h WORD Magic; // 标志字, ROM 映像（0107h）,普通可执行文件（010Bh）@
++1A h BYTE MajorLinkerVersion; // 链接程序的主版本号
++1B h BYTE MinorLinkerVersion; // 链接程序的次版本号
++1C h DWORD SizeOfCode; // 所有含代码的节的总大小 @
++20 h DWORD SizeOfInitializedData; // 所有含已初始化数据的节的总大小 @
++24 h DWORD SizeOfUninitializedData; // 所有含未初始化数据的节的大小 @
++28 h DWORD AddressOfEntryPoint; // 程序执行入口RVA @
++2C h DWORD BaseOfCode; // 代码的区块的起始RVA @
++30 h DWORD BaseOfData; // 数据的区块的起始RVA @
++34 h DWORD ImageBase; // 程序的首选装载地址 @
++38 h DWORD SectionAlignment; // 内存中的区块的对齐大小 @
++3C h DWORD FileAlignment; // 文件中的区块的对齐大小 @
++40 h WORD MajorOperatingSystemVersion; // 要求操作系统最低版本号的主版本号
++42 h WORD MinorOperatingSystemVersion; // 要求操作系统最低版本号的副版本号
++44 h WORD MajorImageVersion; // 可运行于操作系统的主版本号
++46 h WORD MinorImageVersion; // 可运行于操作系统的次版本号
++48 h WORD MajorSubsystemVersion; // 要求最低子系统版本的主版本号
++4A h WORD MinorSubsystemVersion; // 要求最低子系统版本的次版本号
++4C h DWORD Win32VersionValue; // 莫须有字段，不被病毒利用的话一般为0
++50 h DWORD SizeOfImage; // 映像装入内存后的总尺寸 @
++54 h DWORD SizeOfHeaders; // 所有头 + 区块表的尺寸大小 @
++58 h DWORD CheckSum; // 映像的校检和 @
++5C h WORD Subsystem; // 可执行文件期望的子系统
++5E h WORD DllCharacteristics; // DllMain()函数何时被调用，默认为 0
++60 h DWORD SizeOfStackReserve; // 初始化时的栈大小
++64 h DWORD SizeOfStackCommit; // 初始化时实际提交的栈大小
++68 h DWORD SizeOfHeapReserve; // 初始化时保留的堆大小
++6C h DWORD SizeOfHeapCommit; // 初始化时实际提交的堆大小
++70 h DWORD LoaderFlags; // 与调试有关，默认为 0
++74 h DWORD NumberOfRvaAndSizes; // 下边数据目录的项数，Windows NT 发布是16
++78 h IMAGE_DATA_DIRECTORY
+DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES]; // 数据目录表【共占
+128字节16个子参数】；结构体一
+} IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;
+
+*结构体一:typedef struct _IMAGE_DATA_DIRECTORY 【共占8字节】*
+{
++00 h DWORD VirtualAddress; //数据的RVA
++04 h DWORD Size; //数据的大小
+}IMAGE_DATA_DIRECTORY,*PIMAGE_DATA_DIRECTORY;
+
+
+*④：typedef struct _IMAGE_SECTION_HEADER 【区块表，共占40字节】*
+
+{
++00 h BYTE Name[IMAGE_SIZEOF_SHORT_NAME]; // 节表名称,如“.text”【共占8字节】
++08 h union
+{ DWORD PhysicalAddress; // 物理地址
+DWORD VirtualSize; // 真实长度，这两个值是一个联合结构，可以使
+用其中的任何一个，一般是取后一个
+} Misc;
++0C h DWORD VirtualAddress; // 节区的虚拟内存中RVA地址
++10 h DWORD SizeOfRawData; // 节表在文件中对齐后的尺寸
++14 h DWORD PointerToRawData; // 节表在文件中的偏移量
++18 h DWORD PointerToRelocations; // 在OBJ文件中使用，重定位的偏移
++1C h DWORD PointerToLinenumbers; // 行号表的偏移（供调试使用地）
++20 h WORD NumberOfRelocations; // 在OBJ文件中使用，重定位项数目
++22 h WORD NumberOfLinenumbers; // 行号表中行号的数目
++24 h DWORD Characteristics; // 节属性如可读，可写，可执行等
+} IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+
+
+*⑤：IMAGE_IMPORT_DESCRIPTOR STRUCT 【输入表结构，共20字节】*
+
+{
++00 h union
+{DWORD Characteristics ; 不知到是神马浮云，不重要
+DWORD OriginalFirstThunk //指向IMAGE_THUNK_DATA数组的指针
+}ends
++04 h DWORD TimeDateStamp //可执行文件是否与DLL绑定，不绑定为0
++08 h DWORD ForwarderChain //第一个转向的API索引
++0C h DWORD Name //指向DLL的虚拟RVA
++10 h DWORD FirstThunk //实际指向IMAGE_THUNK_DATA数组的指针，结构体一
+};IMAGE_IMPORT_DESCRIPTOR ENDS
+
+*结构体一：IMAGE_THUNK_DATA STRUC 【共占4字节】*
+
+{
+union u1
+{DWORD ForwarderString ; 指向一个转向者字符串的RVA
+DWORD Function ; 被输入的函数的内存地址
+DWORD Ordinal ; 被输入的API的序数值
+DWORD AddressOfData ; 高位为0则指向IMAGE_IMPORT_BY_NAME 结构体二
+}ends
+}IMAGE_THUNK_DATA ENDS
+
+*结构体二：IMAGE_IMPORT_BY_NAME STRUCT 【共占大小动态分配】*
+{
++00 h WORD Hint //可选指向函数字段，神马的浮云
++04 h BYTE Name ？ //此处内存大小动态分配，定义了导入函数的以0结尾的字符串
+};IMAGE_IMPORT_BY_NAME ENDS
