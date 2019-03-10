@@ -1,0 +1,50 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: CPPDemo - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSPEB24.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/CPPDemo.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\GitHub—ßœ∞± º«\CPPBasic\VirtualFunTest01.cpp"
+]
+Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSPEB24.tmp" 
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSPEB25.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/CPPDemo.pdb" /debug /machine:I386 /out:"Debug/CPPDemo.exe" /pdbtype:sept 
+".\Debug\ClassDemo01.obj"
+".\Debug\ClassDemo02.obj"
+".\Debug\ClassDemo03.obj"
+".\Debug\ClassDemo05.obj"
+".\Debug\Constructor01.obj"
+".\Debug\DateTimeInfoTest.obj"
+".\Debug\DateTimeInfoTest2.obj"
+".\Debug\Extend01.obj"
+".\Debug\Extend02.obj"
+".\Debug\Extend03.obj"
+".\Debug\MyStringTest.obj"
+".\Debug\StructTest.obj"
+".\Debug\StructTest2.obj"
+".\Debug\thisPointer01.obj"
+".\Debug\thisPointer02.obj"
+".\Debug\VirtualFun.obj"
+".\Debug\VirtualFun02.obj"
+".\Debug\VirtualFun03.obj"
+".\Debug\VirtualFunTest01.obj"
+]
+Creating command line "link.exe @C:\Users\shimao\AppData\Local\Temp\RSPEB25.tmp"
+<h3>Output Window</h3>
+Compiling...
+VirtualFunTest01.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+CPPDemo.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
