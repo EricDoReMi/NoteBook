@@ -71,11 +71,8 @@ TimeInfo::TimeInfo(){
 		
 	}
 
-TimeInfo::TimeInfo(int year,int month,int day,int hour,int min,int sec){
-		DateInfo* pFather=(DateInfo*)this;
-		pFather->setYear(year);
-		pFather->setMonth(month);
-		pFather->setDay(day);
+TimeInfo::TimeInfo(int year,int month,int day,int hour,int min,int sec):DateInfo(year,month,day){
+	
 		this->hour=hour;
 		this->min=min;
 		this->sec=sec;
@@ -110,7 +107,7 @@ void TimeInfo::setHour(int hour){
 	}
 
 
-/*int main(int argc,char* argv[]){
+/*t main(int argc,char* argv[]){
 	TimeInfo timeInfo(2018,1,16,11,15,32);
 	printf("Year:%d Mon:%d Day:%d Hour:%d Min:%d Sec:%d\n",timeInfo.getYear(),timeInfo.getMonth(),timeInfo.getDay(),timeInfo.getHour(),timeInfo.getMin(),timeInfo.getSec());
 	//timeInfo.test();
