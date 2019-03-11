@@ -129,7 +129,23 @@ SOURCE=.\Extend03.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\FriendClassDemo01.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyStringTest.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\OperationOverLoadDemo01.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\referDemo01.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\referDemo02.cpp
 # End Source File
 # Begin Source File
 
@@ -138,6 +154,10 @@ SOURCE=.\StructTest.cpp
 # Begin Source File
 
 SOURCE=.\StructTest2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\TemplateDemo01.cpp
 # End Source File
 # Begin Source File
 

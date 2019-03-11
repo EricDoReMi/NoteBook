@@ -55,16 +55,11 @@ void printArr(T* arr,int arrLen){
 }
 
 
-int main(int argc,char* argv[]){
-	char arr[]={1,8,2,3,1,10};
+/*int main(int argc,char* argv[]){
+	int arr[]={2,6,1,5,6};
+	char arrChr[]={2,6,1,5,6};
+	bubbleSort(arr,5);
+	bubbleSort(arrChr,5);
 
-	bubbleSort(arr,6);
-	
-	int result=findByMid(arr,6,(char)8);
-
-	printf("%d\n",result);
-	printf("------------------\n");
-	printArr(arr,6);
-	
 	return 0;
-}
+}*/

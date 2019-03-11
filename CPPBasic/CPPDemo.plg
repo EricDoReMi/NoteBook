@@ -6,13 +6,13 @@
 --------------------Configuration: CPPDemo - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP1F9A.tmp" with contents
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP70A6.tmp" with contents
 [
 /nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/CPPDemo.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"F:\GitHub学习笔记\CPPBasic\BubbleSort.cpp"
+"F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp"
 ]
-Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSP1F9A.tmp" 
-Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP1F9B.tmp" with contents
+Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSP70A6.tmp" 
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP70A7.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/CPPDemo.pdb" /debug /machine:I386 /out:"Debug/CPPDemo.exe" /pdbtype:sept 
 ".\Debug\BubbleSort.obj"
@@ -29,23 +29,40 @@ kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32
 ".\Debug\MyStringTest.obj"
 ".\Debug\StructTest.obj"
 ".\Debug\StructTest2.obj"
+".\Debug\TemplateDemo01.obj"
 ".\Debug\thisPointer01.obj"
 ".\Debug\thisPointer02.obj"
 ".\Debug\VirtualFun.obj"
 ".\Debug\VirtualFun02.obj"
 ".\Debug\VirtualFun03.obj"
 ".\Debug\VirtualFunTest01.obj"
+".\Debug\referDemo01.obj"
+".\Debug\referDemo02.obj"
+".\Debug\FriendClassDemo01.obj"
+".\Debug\OperationOverLoadDemo01.obj"
 ]
-Creating command line "link.exe @C:\Users\shimao\AppData\Local\Temp\RSP1F9B.tmp"
+Creating command line "link.exe @C:\Users\shimao\AppData\Local\Temp\RSP70A7.tmp"
 <h3>Output Window</h3>
 Compiling...
-BubbleSort.cpp
-Linking...
+OperationOverLoadDemo01.cpp
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(18) : error C2801: 'operator =' must be a <Unknown> member
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(67) : error C2801: 'operator =' must be a <Unknown> member
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(68) : error C2248: 'x' : cannot access private member declared in class 'Number'
+        F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(8) : see declaration of 'x'
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(68) : error C2248: 'x' : cannot access private member declared in class 'Number'
+        F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(8) : see declaration of 'x'
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(69) : error C2248: 'y' : cannot access private member declared in class 'Number'
+        F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(9) : see declaration of 'y'
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(69) : error C2248: 'y' : cannot access private member declared in class 'Number'
+        F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(9) : see declaration of 'y'
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(80) : error C2659: '=' : overloaded function as left operand
+F:\GitHub学习笔记\CPPBasic\OperationOverLoadDemo01.cpp(82) : error C2228: left of '.Print' must have class/struct/union type
+Error executing cl.exe.
 
 
 
 <h3>Results</h3>
-CPPDemo.exe - 0 error(s), 0 warning(s)
+CPPDemo.exe - 8 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

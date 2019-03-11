@@ -36,7 +36,9 @@ struct Cal
 	Cal pC;
 	pC.x=9;
 	pC.y=3;
-
+	Cal pC2;
+	pC2=pC;
+	printf("%d\n",pC2.x);
 	int z=pC.add(2,3);
 	printf("%d\n",z);
 	pC.div();
