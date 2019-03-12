@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://www.cnblogs.com/zpcdbky/p/5027481.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="never">
+    <title>一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园</title>
+<meta property="og:description" content="本文详细而又清楚地介绍了C++赋值运算符重载函数(operator=)的参数、返回值的情况，调用时机，需显式提供的时机，不能定义为友元函数的原因以及其它需要注意的问题，同时还介绍了什么是浅拷贝和深拷贝">
+    <link type="text/css" rel="stylesheet" href="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/bundle-red_autumnal_leaves.css">
+<link type="text/css" rel="stylesheet" href="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/188663.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/bundle-red_autumnal_leaves-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/zpcdbky/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/zpcdbky/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/zpcdbky/wlwmanifest.xml">
+    <script src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/amp4ads-host-v0.js.下载"></script><script src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/pubads_impl_rendering_319.js.下载"></script><script async="" src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/encoder.js.下载"></script><script src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script>var currentBlogId=188663;var currentBlogApp='zpcdbky',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/f.txt"></script><script src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/pubads_impl_319.js.下载" async=""></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-32/html/container.html"></head>
+<body>
+<a name="top"></a>
+
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/zpcdbky/"><img id="blogLogo" src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/zpcdbky/">同勉共进</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/zpcdbky/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%90%8C%E5%8B%89%E5%85%B1%E8%BF%9B">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/zpcdbky/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/zpcdbky/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 28&nbsp; </span>
+<span id="stats_article_count">文章 - 1&nbsp; </span>
+<span id="stats-comment_count">评论 - 104</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/zpcdbky/p/5027481.html">一文说尽C++赋值运算符重载函数(operator=)</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p><span style="background-color: #ff0000;"><strong>写在前面：</strong></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 关于C++的赋值运算符重载函数(operator=)，网络以及各种教材上都有很多介绍，但可惜的是，内容大多雷同且不全面。面对这一局面，在下在整合各种资源及融入个人理解的基础上，整理出一篇较为全面/详尽的文章，以飨读者。</p>
+<p><span style="background-color: #ff0000;"><strong>正文：</strong></span></p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅰ</strong><strong>.</strong><strong>举例</strong></span></p>
+<p align="left">例1</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include&lt;iostream&gt;<span style="color: #000000;">
+#include</span>&lt;<span style="color: #0000ff;">string</span>&gt;
+<span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+
+</span><span style="color: #0000ff;">class</span><span style="color: #000000;"> MyStr
+{
+</span><span style="color: #0000ff;">private</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">char</span> *<span style="color: #000000;">name;
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> id;
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    MyStr() {}
+    MyStr(</span><span style="color: #0000ff;">int</span> _id, <span style="color: #0000ff;">char</span> *_name)   <span style="color: #008000;">//</span><span style="color: #008000;">constructor</span>
+<span style="color: #000000;">    {
+        cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">constructor</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+        id </span>=<span style="color: #000000;"> _id;
+        name </span>= <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">char</span>[strlen(_name) + <span style="color: #800080;">1</span><span style="color: #000000;">];
+        strcpy_s(name, strlen(_name) </span>+ <span style="color: #800080;">1</span><span style="color: #000000;">, _name);
+    }
+    MyStr(</span><span style="color: #0000ff;">const</span> MyStr&amp;<span style="color: #000000;"> str)
+    {
+        cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">copy constructor</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+        id </span>=<span style="color: #000000;"> str.id;
+        </span><span style="color: #0000ff;">if</span> (name !=<span style="color: #000000;"> NULL)
+            </span><span style="color: #0000ff;">delete[]</span><span style="color: #000000;"> name;
+        name </span>= <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">char</span>[strlen(str.name) + <span style="color: #800080;">1</span><span style="color: #000000;">];
+        strcpy_s(name, strlen(str.name) </span>+ <span style="color: #800080;">1</span><span style="color: #000000;">, str.name);
+    }
+    MyStr</span>&amp; <span style="color: #0000ff;">operator</span> =(<span style="color: #0000ff;">const</span> MyStr&amp; str)<span style="color: #008000;">//</span><span style="color: #008000;">赋值运算符</span>
+<span style="color: #000000;">    {
+        cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">operator =</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+        </span><span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">this</span> != &amp;<span style="color: #000000;">str)
+        {
+            </span><span style="color: #0000ff;">if</span> (name !=<span style="color: #000000;"> NULL)
+                </span><span style="color: #0000ff;">delete[]</span><span style="color: #000000;"> name;
+            </span><span style="color: #0000ff;">this</span>-&gt;id =<span style="color: #000000;"> str.id;
+            </span><span style="color: #0000ff;">int</span> len =<span style="color: #000000;"> strlen(str.name);
+            name </span>= <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">char</span>[len + <span style="color: #800080;">1</span><span style="color: #000000;">];
+            strcpy_s(name, strlen(str.name) </span>+ <span style="color: #800080;">1</span><span style="color: #000000;">, str.name);
+        }
+        </span><span style="color: #0000ff;">return</span> *<span style="color: #0000ff;">this</span><span style="color: #000000;">;
+    }
+    </span>~<span style="color: #000000;">MyStr()
+    {
+        </span><span style="color: #0000ff;">delete[]</span><span style="color: #000000;"> name;
+    }
+};
+
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+{
+    MyStr str1(</span><span style="color: #800080;">1</span>, <span style="color: #800000;">"</span><span style="color: #800000;">hhxx</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+    cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">====================</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+    MyStr str2;
+    str2 </span>=<span style="color: #000000;"> str1;
+    cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">====================</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+    MyStr str3 </span>=<span style="color: #000000;"> str2;
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>结果：</strong></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKgAAABPCAIAAADwaBnZAAACkUlEQVR4nO2d0XGsMAxFaTEVvHJSRjp4NbiB9JSPzOw42JJlGwPLPedrV1Yk4wPMLgzZ7fvr3//Pjw3UQLwoiBflTPEppbeu/yhOE59SWipmdf2n8RKfMvKEajz9pTf/NZS/LePl6976zfyyvgq/4iOLPvO6fFvGe3eCSP1IfrlbSFCKz1khuBrf+Q72atZvzrNsp8Lh4q1g1w5xmvhqKQnOP9VHBBxVH/EmMx/uytdOnXyoN7lsF6zvz1/aPRdwREG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KNVLttYlUuLvGzfFgxYc8SJxUzxogXhREC8K4kVBvCiIFwXxoiBeFMSLgnhREC/KHcSb15NhHZeL924kwDr8R6heb60hK7gVRv38+foW0btVavgPTe7eVhfdyrcW2qnvNw3WhxAz4quHUR4p/9bK382qOZ+yvoUzVWnmj/gdYyIn86Gbdaf6nEi+lYP4JXQ9H18KiAR3Q5vh0ukbqQ99NL/OscrPxBfPEfZYLr+AA9eAeFEQLwriRUG8KIgXBfGiIF4UnpYViZviQQuOeJG4KR60QLwoiBcF8aIgXhTEi4J4URAvCuJFQbwoiBdFQbx5vfpN6i/h8eK9GxXvUH8Vkz8x6gxtsUUZ6Ducn4pbWM6EnVLN+s384OIsZOxHhYNpzW3rLTI5z2prS8ZM/Uh+3vcCxn5G3Bly/sSvH+k7I7ga3/ke2JAx8WW7s3mMeCsYadHVd6aOX+pUDj/Vb9lO3dzC3r4z84wIOKp+cN2uZOzD3S5e3ZLgFnb1bS5otalVp5lctgvW9+cfXJm1DH+d82d/i20DhzHxXYcp3JHHX8CBOpF/hdI12jzWqwmRM8RYZX+odzLDk78bP0F+c7Rsdix2AAAAAElFTkSuQmCC" alt=""></p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅱ</strong><strong>.</strong><strong>参数</strong></span></p>
+<p align="left"><span style="color: #ff0000;"> 一般地，赋值运算符重载函数的参数是函数所在类的const类型的引用</span>（如上面例1），<span style="background-color: #ffff00;">加const是因为</span>：</p>
+<p align="left">①我们不希望在这个函数中对用来进行赋值的“原版”做任何修改。</p>
+<p align="left">②加上const，对于const的和非const的实参，函数就能接受；如果不加，就只能接受非const的实参。</p>
+<p align="left"><span style="background-color: #ffff00;">用引用是因为</span>：</p>
+<p align="left">这样可以避免在函数调用时对实参的一次拷贝，提高了效率。</p>
+<p align="left"><strong>注意</strong>：</p>
+<p align="left">上面的规定都不是强制的，可以不加const，也可以没有引用，甚至参数可以不是函数所在的对象，正如后面例2中的那样。</p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅲ</strong><strong>.</strong><strong>返回值</strong></span></p>
+<p align="left"><span style="color: #ff0000;">一般地，返回值是被赋值者的引用，即*this</span>（如上面例1），<span style="background-color: #ffff00;">原因是</span></p>
+<p align="left">①这样在函数返回时避免一次拷贝，提高了效率。</p>
+<p align="left">②更重要的，这样可以实现连续赋值，即类似a=b=c这样。如果不是返回引用而是返回值类型，那么，执行a=b时，调用赋值运算符重载函数，在函数返回时，由于返回的是值类型，所以要对return后边的“东西”进行一次拷贝，得到一个未命名的副本（有些资料上称之为“匿名对象”），然后将这个副本返回，而这个副本是右值，所以，执行a=b后，得到的是一个右值，再执行=c就会出错。</p>
+<p align="left"><strong>注意</strong>：</p>
+<p align="left">这也不是强制的，我们可以将函数返回值声明为void，然后什么也不返回，只不过这样就不能够连续赋值了。</p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅳ</strong><strong>.</strong><strong>调用时机</strong></span></p>
+<p align="left"><span style="color: #ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 当为一个类对象赋值</span>（注意：可以用本类对象为其赋值（如上面例1），也可以用其它类型（如内置类型）的值为其赋值，关于这一点，见后面的例2）<span style="color: #ff0000;">时，会由该对象调用该类的赋值运算符重载函数。</span></p>
+<p align="left">如上边代码中</p>
+<p align="left">str2 = str1;</p>
+<p align="left">一句，用str1为str2赋值，会由str2调用MyStr类的赋值运算符重载函数。</p>
+<p align="left"><span style="background-color: #ffff00;">需要注意的是</span>，</p>
+<p align="left">MyStr str2;</p>
+<p align="left">str2 = str1;</p>
+<p align="left">和</p>
+<p align="left">MyStr str3 = str2;</p>
+<p align="left">在调用函数上是有区别的。正如我们在上面结果中看到的那样。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 前者MyStr str2;一句是str2的声明加定义，调用无参构造函数，所以str2 = str1;一句是在str2已经存在的情况下，用str1来为str2赋值，调用的是拷贝赋值运算符重载函数；而后者，是用str2来初始化str3，调用的是拷贝构造函数。</p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅴ</strong><strong>.</strong><strong>提供默认赋值运算符重载函数的时机</strong></span></p>
+<p align="left"><span style="color: #ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 当程序没有显式地提供一个<span style="background-color: #ffff00;">以本类或本类的引用为参数</span>的赋值运算符重载函数时，编译器会自动生成这样一个赋值运算符重载函数。</span>注意我们的限定条件，不是说只要程序中有了显式的赋值运算符重载函数，编译器就一定不再提供默认的版本，而是说只有程序显式提供了以本类或本类的引用为参数的赋值运算符重载函数时，编译器才不会提供默认的版本。可见，所谓默认，就是“以本类或本类的引用为参数”的意思。</p>
+<p align="left">见下面的例2</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include&lt;iostream&gt;<span style="color: #000000;">
+#include</span>&lt;<span style="color: #0000ff;">string</span>&gt;
+<span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+
+</span><span style="color: #0000ff;">class</span><span style="color: #000000;"> Data
+{
+</span><span style="color: #0000ff;">private</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> data;
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    Data() {};
+    Data(</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> _data)
+        :data(_data)
+    {
+        cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">constructor</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+    }
+    Data</span>&amp; <span style="color: #0000ff;">operator</span>=(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> _data)
+    {
+        cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">operator=(int _data)</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+        data </span>=<span style="color: #000000;"> _data;
+        </span><span style="color: #0000ff;">return</span> *<span style="color: #0000ff;">this</span><span style="color: #000000;">;
+    }
+};
+
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+{
+    Data data1(</span><span style="color: #800080;">1</span><span style="color: #000000;">);
+    Data data2,data3;
+    cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">=====================</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+    data2 </span>= <span style="color: #800080;">1</span><span style="color: #000000;">;
+    cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">=====================</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+    data3 </span>=<span style="color: #000000;"> data2;
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>结果：</strong></p>
+<p><strong><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALIAAAA8CAIAAABNUneXAAACOElEQVR4nO2c0XWDMAxFWbETZJyOkQ06gxfITv3hUIqeLBkbSsq9XyAUSca3Scs56fR6Pl7Px9fnxwSwgBYgQAsQnKxFKeWt69+FM7UopRy6bUfXvxFrLcqKdY6Ml9+05i+X1qc2bo9b64f5tj78aJHZkp5je2rjrYpk6mfyrTR3R2qx5ojtl/GNDcleYf1wTtsODtHCCzbpcpoWstTd+ZMPkcz2jKqPFnvo/JXTHlfqrC+1Jtt2yfr1+TFDw+MsEKAFCNACBGgBArQAAVqAAC1AgBYgQAsQoAUIvIff3sNm4v8vHmgBMMO7BfFAC4AZtAABWoAALUCAFiBACxCgBQjQAgRoAQK0AMGttJBPfIPHwAcPc0TrAWUvosUJG+PdrKabOHbOfOvWvr1mXEGLE35eh7QYPmey4L6+XdOGXzZcTr1LXtBOVs8fW399ybtBmXkyc7ayb73JfNtoz4jhV5M3p8txJt8bulK/3jRZv94uP0xmzlYq9TMjhTUz8ZhOLdZs8otjj5dfWdK++t7LK40yfb06STLrSvb18gcMPOTdIjNN6+0euz35acf2rbfLHHt9K/kDpj30QyS5jLDmkO3xXpVZbGXOnjFa15vM75xwmtr/v4UdNxPcXLJzh30z9UMqpeRglZFaW3tFbLsd9yccu5nMH6gD2twP69w73cZQi/dbEvRzhcdZcDnQAgRoAQK0AAFagAAtQIAWIEALEPCNdeKBFgAzvFsQD7QAmEELEKAFCNACLN9qwok2IECViAAAAABJRU5ErkJggg==" alt=""></strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 上面的例子中，我们提供了一个带int型参数的赋值运算符重载函数，data2 = 1;一句调用了该函数，如果编译器不再提供默认的赋值运算符重载函数，那么，data3 = data2;一句将不会编译通过，但我们看到事实并非如此。所以，这个例子有力地证明了我们的结论。</p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅵ</strong><strong>.</strong><strong>构造函数还是赋值运算符重载函数</strong></span></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp; 如果我们将上面例子中的赋值运算符重载函数注释掉，main函数中的代码依然可以编译通过。只不过结论变成了</p>
+<p align="left"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALEAAAA9CAIAAABtOR8xAAABYUlEQVR4nO3c0U3DMBiFUa/IBB2HMboBM3iB7sQDUhWuncRRSRD4nKfUjf5U5FNBkXB53G+P++3j/a3AF02QNEG6uIla65+eP4Urm6i1nnrPzp4/i2UTdWF5Tne9fnf0/Odby5ftent8dP7u+e382T2bGLkfrxy3L9v1o32MzB85vy1mat0mls649931SGHwWrvzdz9ne7nZndHE2uKhVi5rojtqar/yu2Pk3vzUfE0c9uLfmO3xxpzlW0dPbi83OH/788uiwzMrkiZImiBpgqQJkiZImiBpgqQJkiZIa8+2154lW/9/61tNQCm+J6xvNwGlaIKWJkiaIGmCpAmSJkiaIGmCpAmSJkj2nyDZf4Jk/4l2/uzsPxHXxf4TncvNzv4T3VFTs/9E54cyOftPyCJ5ZkXSBEkTJE2QNEHSBEkTJE2QNEHSBMn/lVvfagJK8T1hfbsJKEUTtDRB0gRJE4RPlNoCQ25/y38AAAAASUVORK5CYII=" alt=""></p>
+<p align="left">可见，<span style="color: #ff0000;">当用一个非类A的值（如上面的int型值）为类A的对象赋值时</span></p>
+<p align="left">①<span style="color: #ff0000;">如果匹配的构造函数和赋值运算符重载函数同时存在</span>（如例2）<span style="color: #ff0000;">，会调用赋值运算符重载函数。</span></p>
+<p align="left">②<span style="color: #ff0000;">如果只有匹配的构造函数存在，就会调用这个构造函数。</span></p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅶ</strong><strong>.</strong><strong>显式提供赋值运算符重载函数的时机</strong></span></p>
+<p align="left">①<span style="color: #ff0000;">用非类A类型的值为类A的对象赋值时</span>（当然，从Ⅵ中可以看出，这种情况下我们可以不提供相应的赋值运算符重载函数而只提供相应的构造函数来完成任务）。</p>
+<p align="left"><span style="color: #000000;">②<span style="color: #ff0000;">当用类A类型的值为类A的对象赋值且类A的成员变量中含有指针时</span>，为避免浅拷贝（关于浅拷贝和深拷贝，下面会讲到），必须显式提供赋值运算符重载函数（如例1）。</span></p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅷ</strong><strong>.</strong><strong>浅拷贝和深拷贝</strong></span></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拷贝构造函数和赋值运算符重载函数都会涉及到这个问题。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 所谓浅拷贝，就是说编译器提供的默认的拷贝构造函数和赋值运算符重载函数，仅仅是将对象a中各个数据成员的值拷贝给对象b中对应的数据成员（这里假设a、b为同一个类的两个对象，且用a拷贝出b或用a来给b赋值），而不做其它任何事。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 假设我们将例1中显式提供的拷贝构造函数注释掉，然后同样执行MyStr str3 = str2;语句，此时调用默认的拷贝构造函数，它只是将str2的id值和nane值拷贝到str3，这样，str2和str3中的name值是相同的，即它们指向内存中的同一区域（在例1中，是字符串”hhxx”）。如下图</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="data:image/png;base64,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" alt=""></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp; 这样，会有两个致命的错误</p>
+<p align="left">①当我们通过str2修改它的name时，str3的name也会被修改！</p>
+<p align="left">②当执行str2和str3的析构函数时，会导致同一内存区域释放两次，程序崩溃！</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这是万万不可行的，所以我们必须通过显式提供拷贝构造函数以避免这样的问题。就像我们在例1中做的那样，先判断被拷贝者的name是否为空，若否，delete[] name（后面会解释为什么要这么做），然后，为name重新申请空间，再将拷贝者name中的数据拷贝到被拷贝者的name中。执行后，如图</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="data:image/png;base64,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" alt=""></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这样，str2.name和str3.name各自独立，避免了上面两个致命错误。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我们是以拷贝构造函数为例说明的，赋值运算符重载函数也是同样的道理。</p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅸ</strong><strong>.</strong><strong>赋值运算符重载函数只能是类的非静态的成员函数</strong></span></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C++规定，<span style="color: #ff0000;">赋值运算符重载函数只能是类的非静态的成员函数</span>，不能是静态成员函数，也不能是友元函数。关于原因，有人说，赋值运算符重载函数往往要返回*this，而无论是静态成员函数还是友元函数都没有this指针。这乍看起来很有道理，但仔细一想，我们完全可以写出这样的代码</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">static</span> friend MyStr&amp; <span style="color: #0000ff;">operator</span>=<span style="color: #000000;">(<span style="color: #0000ff;">const</span> MyStr str1,<span style="color: #0000ff;">const</span> MyStr str2)
+{
+    ……
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> str1;
+}</span></pre>
+</div>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 可见，这种说法并不能揭露C++这么规定的原因。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 其实，之所以不是静态成员函数，是因为静态成员函数只能操作类的静态成员，不能操作非静态成员。如果我们将赋值运算符重载函数定义为静态成员函数，那么，该函数将无法操作类的非静态成员，这显然是不可行的。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在前面的讲述中我们说过，当程序没有显式地提供一个以本类或本类的引用为参数的赋值运算符重载函数时，编译器会自动提供一个。现在，假设C++允许将赋值运算符重载函数定义为友元函数并且我们也确实这么做了，而且以类的引用为参数。与此同时，我们在类内却没有显式提供一个以本类或本类的引用为参数的赋值运算符重载函数。由于友元函数并不属于这个类，所以，此时编译器一看，类内并没有一个以本类或本类的引用为参数的赋值运算符重载函数，所以会自动提供一个。此时，我们再执行类似于str2=str1这样的代码，那么，编译器是该执行它提供的默认版本呢，还是执行我们定义的友元函数版本呢？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 为了避免这样的二义性，C++强制规定，赋值运算符重载函数只能定义为类的成员函数，这样，编译器就能够判定是否要提供默认版本了，也不会再出现二义性。</p>
+<p align="left"><span style="font-size: 16px;"><strong>Ⅹ</strong><strong>. </strong><strong>赋值运算符重载函数不能被继承</strong></span></p>
+<p>见下面的例3</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include&lt;iostream&gt;<span style="color: #000000;">
+#include</span>&lt;<span style="color: #0000ff;">string</span>&gt;
+<span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+
+</span><span style="color: #0000ff;">class</span><span style="color: #000000;"> A
+{
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> X;
+    A() {}
+    A</span>&amp; <span style="color: #0000ff;">operator</span> =(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> x)
+    {
+        X </span>=<span style="color: #000000;"> x;
+        </span><span style="color: #0000ff;">return</span> *<span style="color: #0000ff;">this</span><span style="color: #000000;">;
+    }    
+};
+</span><span style="color: #0000ff;">class</span> B :<span style="color: #0000ff;">public</span><span style="color: #000000;"> A
+{
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    B(</span><span style="color: #0000ff;">void</span><span style="color: #000000;">) :A() {}
+};<br>
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+{
+    A a;
+    B b;
+    a </span>= <span style="color: #800080;">45</span><span style="color: #000000;">;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">b = 67;</span>
+    (A)b = <span style="color: #800080;">67</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注释掉的一句无法编译通过。报错提示：没有与这些操作数匹配的”=”运算符。对于b = 67;一句，首先，没有可供调用的构造函数（前面说过，在没有匹配的赋值运算符重载函数时，类似于该句的代码可以调用匹配的构造函数），此时，代码不能编译通过，说明父类的operator =函数并没有被子类继承。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color: #ffff00;">为什么赋值运算符重载函数不能被继承呢？</span></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp; 因为相较于基类，派生类往往要添加一些自己的数据成员和成员函数，如果允许派生类继承基类的赋值运算符重载函数，那么，在派生类不提供自己的赋值运算符重载函数时，就只能调用基类的，但基类版本只能处理基类的数据成员，在这种情况下，派生类自己的数据成员怎么办？</p>
+<p align="left">&nbsp;&nbsp; &nbsp; 所以，C++规定，赋值运算符重载函数不能被继承。</p>
+<p align="left">&nbsp;&nbsp;&nbsp; 上面代码中， (A)b = 67; 一句可以编译通过，原因是我们将B类对象b强制转换成了A类对象。</p>
+<p align="left"><strong><span style="font-size: 16px;">Ⅺ.赋值运算符重载函数要避免自赋值</span></strong></p>
+<p align="left">&nbsp;&nbsp;&nbsp; &nbsp; <span style="color: #ff0000;">对于赋值运算符重载函数，我们要避免自赋值情况</span>（即自己给自己赋值）<span style="color: #ff0000;">的发生</span>，一般地，我们通过比较赋值者与被赋值者的地址是否相同来判断两者是否是同一对象（正如例1中的if (this != &amp;str)一句）。</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ffff00;"> 为什么要避免自赋值呢？</span></p>
+<p align="left">&nbsp;①<span style="color: #ff0000;">为了效率。</span>显然，自己给自己赋值完全是毫无意义的无用功，特别地，对于基类数据成员间的赋值，还会调用基类的赋值运算符重载函数，开销是很大的。如果我们一旦判定是自赋值，就立即return *this，会避免对其它函数的调用。</p>
+<p align="left">②<span style="color: #ff0000;">如果类的数据成员中含有指针，自赋值有时会导致灾难性的后果。</span>对于指针间的赋值（注意这里指的是指针所指内容间的赋值，这里假设用_p给p赋值），先要将p所指向的空间delete掉（为什么要这么做呢？因为指针p所指的空间通常是new来的，如果在为p重新分配空间前没有将p原来的空间delete掉，会造成内存泄露），然后再为p重新分配空间，将_p所指的内容拷贝到p所指的空间。如果是自赋值，那么p和_p是同一指针，在赋值操作前对p的delete操作，将导致p所指的数据同时被销毁。那么重新赋值时，拿什么来赋？</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 所以，对于赋值运算符重载函数，一定要先检查是否是自赋值，如果是，直接return *this。</p>
+<p align="left"><span style="background-color: #ff0000;"><strong>结束语：</strong></span></p>
+<p align="left">&nbsp;&nbsp; &nbsp; &nbsp;至此，本文的所有内容都介绍完了。由于在下才疏学浅，错误纰漏之处在所难免，如果您在阅读的过程中发现了在下的错误和不足，请您务必指出。您的批评指正就是在下前进的不竭动力！&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="https://www.cnblogs.com/zpcdbky/tag/C%2B%2B/">C++</a>, <a href="https://www.cnblogs.com/zpcdbky/tag/%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0/">赋值运算符重载函数</a>, <a href="https://www.cnblogs.com/zpcdbky/tag/%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0/">友元函数</a>, <a href="https://www.cnblogs.com/zpcdbky/tag/%E6%B5%85%E6%8B%B7%E8%B4%9D/">浅拷贝</a>, <a href="https://www.cnblogs.com/zpcdbky/tag/%E6%B7%B1%E6%8B%B7%E8%B4%9D/">深拷贝</a>, <a href="https://www.cnblogs.com/zpcdbky/tag/%E7%BB%A7%E6%89%BF/">继承</a>, <a href="https://www.cnblogs.com/zpcdbky/tag/%E8%87%AA%E8%B5%8B%E5%80%BC/">自赋值</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5027481,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;9220accf-0af2-e311-8d02-90b11c0b17d6&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zpcdbky/" target="_blank"><img src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/20141117233155.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zpcdbky/">同勉共进</a><br>
+            <a href="http://home.cnblogs.com/u/zpcdbky/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/zpcdbky/followers">粉丝 - 66</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;9220accf-0af2-e311-8d02-90b11c0b17d6&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5027481,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">16</span>
+    </div>
+    <div class="buryit" onclick="votePost(5027481,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/zpcdbky/p/4902688.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/zpcdbky/p/4902688.html" title="发布于2015-10-22 20:45">理清C++常量指针和指针常量这团乱麻</a><br><a href="https://www.cnblogs.com/zpcdbky/p/5275959.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/zpcdbky/p/5275959.html" title="发布于2016-03-14 18:16">话说C++中的左值、纯右值、将亡值</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-12-07 21:23</span> <a href="https://www.cnblogs.com/zpcdbky/">同勉共进</a> 阅读(<span id="post_view_count">72249</span>) 评论(<span id="post_comment_count">16</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5027481" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#" onclick="AddToWz(5027481);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=188663,cb_entryId=5027481,cb_blogApp=currentBlogApp,cb_blogUserGuid='9220accf-0af2-e311-8d02-90b11c0b17d6',cb_entryCreatedDate='2015/12/7 21:23:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#3322513" class="layer">#1楼</a><a name="3322513" id="comment_anchor_3322513"></a>  <span class="comment_date">2015-12-07 22:42</span> <a id="a_comment_author_3322513" href="https://www.cnblogs.com/QG-whz/" target="_blank">melonstreet</a> <a href="http://msg.cnblogs.com/send/melonstreet" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3322513" class="blog_comment_body">博主你好，你的正文Ⅱ<br>“一般地，赋值运算符重载函数的参数是函数所在类的const类型的引用（如上面例1）”，而例子1中的赋值构造函数的参数并不是const，是否疏漏了？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3322513,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3322513,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3322513_avatar" style="display:none;">http://pic.cnblogs.com/face/610439/20160507224401.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#3322524" class="layer">#2楼</a><a name="3322524" id="comment_anchor_3322524"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2015-12-07 23:18</span> <a id="a_comment_author_3322524" href="https://www.cnblogs.com/zpcdbky/" target="_blank">同勉共进</a> <a href="http://msg.cnblogs.com/send/%E5%90%8C%E5%8B%89%E5%85%B1%E8%BF%9B" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3322524" class="blog_comment_body">多谢指教，的确是疏忽了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3322524,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3322524,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3322524_avatar" style="display:none;">http://pic.cnblogs.com/face/642223/20141117233155.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#3663005" class="layer">#3楼</a><a name="3663005" id="comment_anchor_3663005"></a>  <span class="comment_date">2017-04-09 10:56</span> <a id="a_comment_author_3663005" href="https://www.cnblogs.com/pangzigege/" target="_blank">我爷他孙子帅爆了</a> <a href="http://msg.cnblogs.com/send/%E6%88%91%E7%88%B7%E4%BB%96%E5%AD%99%E5%AD%90%E5%B8%85%E7%88%86%E4%BA%86" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3663005" class="blog_comment_body">写的不错  我感觉能接受</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3663005,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3663005,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#3704957" class="layer">#4楼</a><a name="3704957" id="comment_anchor_3704957"></a>  <span class="comment_date">2017-06-01 16:16</span> <a id="a_comment_author_3704957" href="https://www.cnblogs.com/carolunar/" target="_blank">要当一只小林鼠的草草</a> <a href="http://msg.cnblogs.com/send/%E8%A6%81%E5%BD%93%E4%B8%80%E5%8F%AA%E5%B0%8F%E6%9E%97%E9%BC%A0%E7%9A%84%E8%8D%89%E8%8D%89" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3704957" class="blog_comment_body"><fieldset class="comment_quote"><legend>引用</legend>②更重要的，这样可以实现连续赋值，即类似a=b=c这样。如果不是返回引用而是返回值类型，那么，执行a=b时，调用赋值运算符重载函数，在函数返回时，由于返回的是值类型，所以要对return后边的“东西”进行一次拷贝，得到一个未命名的副本（有些资料上称之为“匿名对象”），然后将这个副本返回，而这个副本是右值，所以，执行a=b后，得到的是一个右值，再执行=c就会出错。</fieldset><br><br>您好，这里的 a=b=c 应该为 (a=b)=c 吧^ ^</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3704957,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3704957,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3704957_avatar" style="display:none;">http://pic.cnblogs.com/face/948557/20170210143814.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#3717955" class="layer">#5楼</a><a name="3717955" id="comment_anchor_3717955"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2017-06-19 21:51</span> <a id="a_comment_author_3717955" href="https://www.cnblogs.com/zpcdbky/" target="_blank">同勉共进</a> <a href="http://msg.cnblogs.com/send/%E5%90%8C%E5%8B%89%E5%85%B1%E8%BF%9B" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3717955" class="blog_comment_body"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#3704957" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3704957);">@</a>
+要当一只小林鼠的草草<br>是的，是在下疏忽了，谢谢您的指正!</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3717955,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3717955,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3717955_avatar" style="display:none;">http://pic.cnblogs.com/face/642223/20141117233155.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#3871444" class="layer">#6楼</a><a name="3871444" id="comment_anchor_3871444"></a>  <span class="comment_date">2017-12-22 10:22</span> <a id="a_comment_author_3871444" href="http://home.cnblogs.com/u/982399/" target="_blank">yetf</a> <a href="http://msg.cnblogs.com/send/yetf" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3871444" class="blog_comment_body">厉害了，大师级人物啊</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3871444,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3871444,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4012338" class="layer">#7楼</a><a name="4012338" id="comment_anchor_4012338"></a>  <span class="comment_date">2018-07-04 14:15</span> <a id="a_comment_author_4012338" href="http://home.cnblogs.com/u/1312318/" target="_blank">Adano1</a> <a href="http://msg.cnblogs.com/send/Adano1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4012338" class="blog_comment_body">例1中，默认构造函数和拷贝构造函数应该给指针变量赋初始值。修改如下：<br>MyStr(): name(NULL) {}<br>MyStr(const MyStr&amp; str): name(NULL)<br>	{<br>		cout &lt;&lt; "copy constructor" &lt;&lt; endl;<br>		id = str.id;<br>		if (name != NULL)<br>			delete name;<br>		name = new char[strlen(str.name) + 1];<br>		strcpy_s(name, strlen(str.name) + 1, str.name);<br>	}</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4012338,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4012338,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4027148" class="layer">#8楼</a><a name="4027148" id="comment_anchor_4027148"></a>  <span class="comment_date">2018-07-23 21:27</span> <a id="a_comment_author_4027148" href="https://www.cnblogs.com/wendyy/" target="_blank">Wendyy</a> <a href="http://msg.cnblogs.com/send/Wendyy" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4027148" class="blog_comment_body">学到很多，感谢分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4027148,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4027148,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4027148_avatar" style="display:none;">http://pic.cnblogs.com/face/1437831/20180710093045.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4042227" class="layer">#9楼</a><a name="4042227" id="comment_anchor_4042227"></a>  <span class="comment_date">2018-08-13 22:30</span> <a id="a_comment_author_4042227" href="https://www.cnblogs.com/jxgapyw/" target="_blank">阿文的博客</a> <a href="http://msg.cnblogs.com/send/%E9%98%BF%E6%96%87%E7%9A%84%E5%8D%9A%E5%AE%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4042227" class="blog_comment_body">博主您好，我跑了一下，发现 a = b = c 等价于 a = (b = c)，与您在文章提到的不一致，可参考<a href="https://blog.csdn.net/nice_wen/article/details/81637682%E7%9A%84%E4%BE%8B3" target="_blank">https://blog.csdn.net/nice_wen/article/details/81637682的例3</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4042227,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4042227,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4042227_avatar" style="display:none;">http://pic.cnblogs.com/face/801017/20151214172707.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4042228" class="layer">#10楼</a><a name="4042228" id="comment_anchor_4042228"></a>  <span class="comment_date">2018-08-13 22:30</span> <a id="a_comment_author_4042228" href="https://www.cnblogs.com/jxgapyw/" target="_blank">阿文的博客</a> <a href="http://msg.cnblogs.com/send/%E9%98%BF%E6%96%87%E7%9A%84%E5%8D%9A%E5%AE%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4042228" class="blog_comment_body">博主您好，我跑了一下，发现 a = b = c 等价于 a = (b = c)，与您在文章提到的不一致，可参考<a href="https://blog.csdn.net/nice_wen/article/details/81637682" target="_blank">https://blog.csdn.net/nice_wen/article/details/81637682</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4042228,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4042228,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4042228_avatar" style="display:none;">http://pic.cnblogs.com/face/801017/20151214172707.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4138390" class="layer">#11楼</a><a name="4138390" id="comment_anchor_4138390"></a>  <span class="comment_date">2018-12-13 14:49</span> <a id="a_comment_author_4138390" href="https://www.cnblogs.com/k51312/" target="_blank">thomas.k</a> <a href="http://msg.cnblogs.com/send/thomas.k" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4138390" class="blog_comment_body">当用一个非类A的值（如上面的int型值）为类A的对象赋值时<br><br>①如果匹配的构造函数和赋值运算符重载函数同时存在（如例2），会调用赋值运算符重载函数。<br><br>②如果只有匹配的构造函数存在，就会调用这个构造函数。<br><br>---"如果只有匹配的构造函数存在，就会调用这个构造函数。"这一句似乎不正确，我理解为先用整数构造一个对象（导致构造函数调用），然后会调用编译器默认的赋值函数</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4138390,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4138390,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4162806" class="layer">#12楼</a><a name="4162806" id="comment_anchor_4162806"></a>  <span class="comment_date">2019-01-14 19:02</span> <a id="a_comment_author_4162806" href="https://www.cnblogs.com/guomc/" target="_blank">生活本平淡</a> <a href="http://msg.cnblogs.com/send/%E7%94%9F%E6%B4%BB%E6%9C%AC%E5%B9%B3%E6%B7%A1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4162806" class="blog_comment_body">这篇文章对我帮助很大，共勉之！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4162806,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4162806,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4165199" class="layer">#13楼</a><a name="4165199" id="comment_anchor_4165199"></a>  <span class="comment_date">2019-01-17 16:42</span> <a id="a_comment_author_4165199" href="https://www.cnblogs.com/cwjeveryday/" target="_blank">junjun005</a> <a href="http://msg.cnblogs.com/send/junjun005" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4165199" class="blog_comment_body">写的太好了 有点小笔误 ........ delete name;     应该改写为  delete [] name;</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4165199,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4165199,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4165371" class="layer">#14楼</a><a name="4165371" id="comment_anchor_4165371"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2019-01-17 20:13</span> <a id="a_comment_author_4165371" href="https://www.cnblogs.com/zpcdbky/" target="_blank">同勉共进</a> <a href="http://msg.cnblogs.com/send/%E5%90%8C%E5%8B%89%E5%85%B1%E8%BF%9B" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4165371" class="blog_comment_body"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4165199" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,4165199);">@</a>
+junjun005<br>谢谢您的提醒，已修改。不过需要说一下的是，对于int，char等C++内置的简单类型的数组来说，delete和delete[]的效果是一样的，并不会造成内存泄漏。但话说回来，这里delete[]确实更严谨一些。谢谢您！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4165371,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4165371,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4165371_avatar" style="display:none;">http://pic.cnblogs.com/face/642223/20141117233155.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4179736" class="layer">#15楼</a><a name="4179736" id="comment_anchor_4179736"></a>  <span class="comment_date">2019-02-14 18:43</span> <a id="a_comment_author_4179736" href="http://home.cnblogs.com/u/1602266/" target="_blank">shewhen</a> <a href="http://msg.cnblogs.com/send/shewhen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4179736" class="blog_comment_body">优秀啊！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4179736,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4179736,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4189958" class="layer">#16楼</a><a name="4189958" id="comment_anchor_4189958"></a><span id="comment-maxId" style="display:none;">4189958</span><span id="comment-maxDate" style="display:none;">2019/2/27 23:05:42</span>  <span class="comment_date">2019-02-27 23:05</span> <a id="a_comment_author_4189958" href="https://www.cnblogs.com/sim-lou/" target="_blank">惜暮</a> <a href="http://msg.cnblogs.com/send/%E6%83%9C%E6%9A%AE" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4189958" class="blog_comment_body">写的很好</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4189958,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4189958,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="https://www.cnblogs.com/cmt/p/10496052.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-51CTO&#39;)">【课程】开学季给程序员们送福利啦！限量X-box等你来拿！</a><br><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://cloud.baidu.com/campaign/purchase-2019/index.html?track=cp:dsp|pf:pc|pp:chui-bokeyuan-huodong-19caigouji-BCC-neiyeCH-190311|pu:neiyeCH-wenzilian|ci:2019cgj|kw:2105959" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-百度云&#39;)">【推荐】百度云“猪”你开年行大运，红包疯狂拿</a><br><a href="https://news.cnblogs.com/n/621139/" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-Open Source Summit&#39;)">【活动】2019开源技术盛宴(6.24~26上海世博中心)</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【推荐】55K刚面完Java架构师岗，这些技术你必须掌握</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/gpt.js.下载"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CLqVvtjq--ACFRAZKgodqocFWQ"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/wolenski/archive/2012/08/06/2625237.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">赋值运算符重载函数</a><br>·  <a href="https://www.cnblogs.com/ATMvip/archive/2012/11/18/2776005.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">c++   重载赋值运算符</a><br>·  <a href="https://www.cnblogs.com/null2/p/4829304.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">C++ 运算符重载-赋值</a><br>·  <a href="https://www.cnblogs.com/curo0119/p/8539070.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">C++中的赋值运算符重载函数(operator=)</a><br>·  <a href="https://www.cnblogs.com/stemon/p/4625407.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">C++重载赋值运算符</a><br></div></div>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CL2pv9jq--ACFRAZKgodqocFWQ"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="./一文说尽C++赋值运算符重载函数(operator=) - 同勉共进 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/621508/" target="_blank">五个月内两起空难 波音史上最畅销机型 被推上风口浪尖</a><br> ·  <a href="https://news.cnblogs.com/n/621507/" target="_blank">竞选美国总统，从“肢解”苹果、谷歌开始</a><br> ·  <a href="https://news.cnblogs.com/n/621506/" target="_blank">非盈利AI研究机构OpenAI重组：成立“有限盈利”企业</a><br> ·  <a href="https://news.cnblogs.com/n/621505/" target="_blank">转型学微信，Facebook最大的对手会是苹果</a><br> ·  <a href="https://news.cnblogs.com/n/621504/" target="_blank">入股圆通中通申通 阿里“吃”下三通快递格局生变？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/zpcdbky/">同勉共进</a><br>园龄：<a href="https://home.cnblogs.com/u/zpcdbky/" title="入园时间：2014-06-12">4年9个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/zpcdbky/followers/">66</a><br>关注：<a href="https://home.cnblogs.com/u/zpcdbky/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;9220accf-0af2-e311-8d02-90b11c0b17d6&#39;)">+加关注</a></div><script>getFollowStatus('9220accf-0af2-e311-8d02-90b11c0b17d6')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/02/01&#39;);return false;">&lt;</a></td><td align="center">2019年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">24</td><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td class="CalTodayDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/zpcdbky/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/zpcdbky/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/zpcdbky/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/zpcdbky/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/zpcdbky/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/zpcdbky/tag/C%2B%2B/">C++</a>(17)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>(5)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/%E7%AE%97%E6%B3%95/">算法</a>(5)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/C%E8%AF%AD%E8%A8%80/">C语言</a>(4)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/C%2B%2B11/">C++11</a>(3)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/string/">string</a>(3)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/">右值引用</a>(3)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/%E5%BF%AB%E6%8E%92/">快排</a>(3)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/%E6%A8%A1%E6%9D%BF/">模板</a>(3)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/%E9%80%89%E6%8B%A9/">选择</a>(3)</li><li><a href="http://www.cnblogs.com/zpcdbky/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/zpcdbky/archive/2018/10.html">2018年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/zpcdbky/archive/2017/04.html">2017年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/zpcdbky/archive/2016/10.html">2016年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/zpcdbky/archive/2016/09.html">2016年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/zpcdbky/archive/2016/08.html">2016年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/zpcdbky/archive/2016/03.html">2016年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/zpcdbky/archive/2015/12.html">2015年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/zpcdbky/archive/2015/10.html">2015年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/zpcdbky/archive/2015/07.html">2015年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="https://www.cnblogs.com/zpcdbky/archive/2015/05.html">2015年5月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="https://www.cnblogs.com/zpcdbky/archive/2015/04.html">2015年4月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="https://www.cnblogs.com/zpcdbky/archive/2014/11.html">2014年11月 (7)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4189958">1. Re:一文说尽C++赋值运算符重载函数(operator=)</a></li>
+        <li class="recent_comment_body">写的很好</li>
+        <li class="recent_comment_author">--惜暮</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4179736">2. Re:一文说尽C++赋值运算符重载函数(operator=)</a></li>
+        <li class="recent_comment_body">优秀啊！</li>
+        <li class="recent_comment_author">--shewhen</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4165371">3. Re:一文说尽C++赋值运算符重载函数(operator=)</a></li>
+        <li class="recent_comment_body">@junjun005谢谢您的提醒，已修改。不过需要说一下的是，对于int，char等C++内置的简单类型的数组来说，delete和delete[]的效果是一样的，并不会造成内存泄漏。但话说回来，这里d......</li>
+        <li class="recent_comment_author">--同勉共进</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4165199">4. Re:一文说尽C++赋值运算符重载函数(operator=)</a></li>
+        <li class="recent_comment_body">写的太好了 有点小笔误 ........ delete name;     应该改写为  delete [] name;</li>
+        <li class="recent_comment_author">--junjun005</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#4162806">5. Re:一文说尽C++赋值运算符重载函数(operator=)</a></li>
+        <li class="recent_comment_body">这篇文章对我帮助很大，共勉之！</li>
+        <li class="recent_comment_author">--生活本平淡</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/zpcdbky/p/4471454.html">1. C++string中用于查找的find系列函数浅析(88419)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html">2. 一文说尽C++赋值运算符重载函数(operator=)(72245)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/4478089.html">3. JavaGUI——设置框架背景颜色和按钮颜色(13199)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/6724772.html">4. VS2015下OpenGL库的配置(12261)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/4652151.html">5. 图解说明——究竟什么是Windows句柄(9115)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/zpcdbky/p/6724772.html">1. VS2015下OpenGL库的配置(55)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html">2. 一文说尽C++赋值运算符重载函数(operator=)(16)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/4652151.html">3. 图解说明——究竟什么是Windows句柄(12)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/4656449.html">4. 源码剖析——深入Windows句柄本质(4)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/4902688.html">5. 理清C++常量指针和指针常量这团乱麻(4)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html">1. 一文说尽C++赋值运算符重载函数(operator=)(16)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/6724772.html">2. VS2015下OpenGL库的配置(8)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/4652151.html">3. 图解说明——究竟什么是Windows句柄(8)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/5939793.html">4. 基于东北F4的设计模式情景剧——第一幕 装饰模式(Decorator Pattern)(5)</a></li><li><a href="https://www.cnblogs.com/zpcdbky/p/4902688.html">5. 理清C++常量指针和指针常量这团乱麻(5)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2019 同勉共进
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+<!--PageEndHtml Block Begin-->
+<span id="back-to-top"><a href="https://www.cnblogs.com/zpcdbky/p/5027481.html#top">TOP</a></span>
+<!--PageEndHtml Block End-->
+
+
+</body></html>
