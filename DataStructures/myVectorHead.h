@@ -2,6 +2,7 @@
 #define __MYVECTOR_H__
 #include <windows.h>
 #include "myVectorHead.h"
+
 					
 #define SUCCESS           	-5 // 成功		
 #define ERRORS            	-1 // 失败		
@@ -16,15 +17,15 @@ public:
 	~Vector();
 
 public:
-	DWORD 	at(DWORD dwIndex,OUT T_ELE* pEle);				//根据给定的索引得到元素,返回值 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
-    DWORD   push_back(T_ELE myElement);						//将元素存储到容器最后一个位置,返回下一个元素索引 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
-	//DWORD	pop_back(OUT T_ELE* pEle);					    //删除最后一个元素 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
-	//DWORD	insert(DWORD dwIndex, IN T_ELE* Element);		//向指定位置新增一个元素，返回下一个元素索引 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
-	//DWORD	capacity();			//返回在不增容的情况下，还能存储多少元素
-	//VOID	clear();			//清空所有元素
-	//BOOL	empty();			//判断Vector是否为空 返回true时为空
-	//VOID	erase(DWORD dwIndex);		//删除指定元素	或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR			
-	//DWORD	size();					//返回Vector元素数量的大小
+	DWORD 	at(DWORD dwIndex,OUT T_ELE& pEle);				//根据给定的索引得到元素,返回值 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
+    DWORD   push_back(T_ELE& myElement);						//将元素存储到容器最后一个位置,返回下一个元素索引 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
+	DWORD	pop_back(OUT T_ELE& pEle);					    //删除最后一个元素 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
+	DWORD	insertInto(DWORD dwIndex,IN T_ELE& pElement);		//向指定位置新增一个元素，返回下一个元素索引 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
+	DWORD	capacity();			//返回在不增容的情况下，还能存储多少元素
+	VOID	clear();			//清空所有元素
+	BOOL	empty();			//判断Vector是否为空 返回true时为空
+	DWORD	erase(DWORD dwIndex,OUT T_ELE& pEle);		//删除指定元素	或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR			
+	DWORD	size();					//返回Vector元素数量的大小
 private:
 	DWORD expand();
 private:
@@ -76,7 +77,8 @@ DWORD Vector<T_ELE>::expand()
 	if(!pT_ELE){
 		return MALLOC_ERROR;
 	}
-	memcpy(pT_ELE,m_pVector,sizeof(T_ELE)*newLen);
+	memset(pT_ELE,0,newLen*sizeof(T_ELE));
+	memcpy(pT_ELE,m_pVector,sizeof(T_ELE)*m_dwLen);
 	delete[] m_pVector;
 	m_pVector=pT_ELE;
 	m_dwIndex=m_dwLen;
@@ -87,7 +89,7 @@ DWORD Vector<T_ELE>::expand()
 
 //将元素存储到容器最后一个位置,返回下一个元素索引 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
 template<class T_ELE>
-DWORD  Vector<T_ELE>::push_back(T_ELE myElement)
+DWORD  Vector<T_ELE>::push_back(T_ELE& myElement)
 {
 	if(m_dwLen<=m_dwIndex){
 		if(expand()!=SUCCESS){
@@ -103,16 +105,111 @@ DWORD  Vector<T_ELE>::push_back(T_ELE myElement)
 
 //根据给定的索引得到元素,返回值 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
 template<class T_ELE>
-DWORD Vector<T_ELE>::at(DWORD dwIndex,OUT T_ELE* pEle){
+DWORD Vector<T_ELE>::at(DWORD dwIndex,OUT T_ELE& pEle){
+
 	if(dwIndex<0 || dwIndex>=m_dwLen){
 		return INDEX_ERROR;
 	}
 	
-	memcpy(pEle,m_pVector+dwIndex,sizeof(T_ELE));
+	memcpy(&pEle,m_pVector+dwIndex,sizeof(T_ELE));
 	
 	return SUCCESS;
 
 }
 
+//向指定位置新增一个元素，返回下一个元素索引 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
+template<class T_ELE>
+DWORD Vector<T_ELE>::insertInto(DWORD dwIndex,IN T_ELE& pElement){
+
+	//判断序号是否在范围内
+	if(dwIndex<0 || dwIndex>=m_dwLen){
+		return INDEX_ERROR;
+	}
+
+	//扩容
+	if(m_dwIndex>=m_dwLen){
+		if(expand()!=SUCCESS){
+			return ERRORS;
+		}
+	}
+
+	//将dwIndex之后的元素后移
+	int i=0;
+	for(i=m_dwIndex;i>=dwIndex;i--){
+		*(m_pVector+i)=*(m_pVector+i-1);
+	}
+
+	*(m_pVector+dwIndex)=pElement;
+	
+	m_dwIndex++;
+
+	return m_dwIndex;
+
+}
+
+//删除指定元素	
+//返回 m_dwIndex 或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
+template<class T_ELE>
+DWORD Vector<T_ELE>::erase(DWORD dwIndex,OUT T_ELE& pEle){
+	//判断序号是否在范围内
+	if(dwIndex<0 || dwIndex>=m_dwLen){
+		return INDEX_ERROR;
+	}
+   
+	//获得指定元素
+	pEle=*(m_pVector+dwIndex);
+
+	int i=0;
+	for(i=dwIndex;i<m_dwIndex;i++){
+		*(m_pVector+i)=*(m_pVector+i+1);
+	}
+
+	m_dwIndex--;
+
+	return m_dwIndex;
+}	
+
+//删除最后一个元素 
+//返回，m_dwIndex或 SUCCESS ERROR MALLOC_ERROR INDEX_ERROR
+template<class T_ELE>
+DWORD Vector<T_ELE>::pop_back(OUT T_ELE& pEle){
+	//判断动态数组是否为空
+	if(!m_dwIndex){
+		return INDEX_ERROR;
+	}
+	
+	pEle=*(m_pVector+(m_dwIndex-1));
+	m_dwIndex--;
+
+	return m_dwIndex;
+
+}
+
+//返回Vector元素数量的大小
+template<class T_ELE>
+DWORD Vector<T_ELE>::size(){
+	return m_dwIndex;
+}
+
+//返回在不增容的情况下，还能存储多少元素
+template<class T_ELE>
+DWORD Vector<T_ELE>::capacity(){
+	return m_dwLen-m_dwIndex;
+}
+
+//清空所有元素
+template<class T_ELE>
+VOID Vector<T_ELE>::clear(){
+	m_dwIndex=0;
+}
+
+//判断Vector是否为空 返回true时为空
+template<class T_ELE>
+BOOL Vector<T_ELE>::empty(){
+	if(m_dwIndex){
+		return false;
+	}
+	return true;
+}		
 
 #endif

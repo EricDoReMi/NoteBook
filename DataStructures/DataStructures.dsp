@@ -95,6 +95,10 @@ SOURCE=.\myTest.cpp
 
 SOURCE=.\myVectorHead.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\WrapperClass.h
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 
