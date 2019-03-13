@@ -93,6 +93,14 @@ SOURCE=.\myTest.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\myErrorHead.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\myListHead.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\myVectorHead.h
 # End Source File
 # Begin Source File

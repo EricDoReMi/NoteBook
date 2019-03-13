@@ -2,12 +2,8 @@
 #define __MYVECTOR_H__
 #include <windows.h>
 #include "myVectorHead.h"
+#include "myErrorHead.h"
 
-					
-#define SUCCESS           	-5 // 成功		
-#define ERRORS            	-1 // 失败		
-#define MALLOC_ERROR		-2 // 申请内存失败		
-#define INDEX_ERROR		 	-3 // 错误的索引号
 
 template <class T_ELE>
 class Vector{

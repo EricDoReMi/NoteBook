@@ -1,5 +1,8 @@
-#include "myVectorHead.h"
 #include <stdio.h>
+
+#include "myVectorHead.h"
+
+#include "myListHead.h"
 
 void testVector(){
 
@@ -27,11 +30,9 @@ Vector<int> * pMyVector=new Vector<int>(6);
 
 	pMyVector->push_back(m);
 
-	
-
 
 //TestPrint
-	for(i=1;i<=pMyVector->size();i++){
+	for(i=1;(DWORD)i<=(pMyVector->size());i++){
 		int j=0;
 		pMyVector->at(i-1,j);
 		printf("%d\n",j);
@@ -41,8 +42,19 @@ Vector<int> * pMyVector=new Vector<int>(6);
 
 }
 
+void testLinkedList()
+{
+	LinkedList<int> * pLinkedList=new LinkedList<int>();
+	int i=0;
+	for(i=0;i<9;i++){
+		pLinkedList->Insert(i);
+	}
+
+}
+
 
 int main(){
-	testVector();
+	//testVector();
+	testLinkedList();
 	return 0;
 }
