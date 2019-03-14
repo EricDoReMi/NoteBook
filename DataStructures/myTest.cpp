@@ -4,6 +4,17 @@
 
 #include "myListHead.h"
 
+struct My{
+	int x[10];
+	int y[10];
+	int z[10];
+	My(int i){
+		memcpy(this->x,&i,10);
+		memcpy(this->y,&i,10);
+		memcpy(this->z,&i,10);
+	}
+};
+
 void testVector(){
 
 
@@ -50,11 +61,29 @@ void testLinkedList()
 		pLinkedList->Insert(i);
 	}
 
+	int p=99;
+	pLinkedList->Insert(0,p);
+	p=98;
+	pLinkedList->Insert(2,p);
+	p=100;
+	pLinkedList->Insert(10,p);
+
+//TestPrint
+	for(i=0;i<12;i++){
+		int j=0;
+		pLinkedList->GetElement(i,j);
+		printf("%d\n",j);
+	}
+	p=98;
+	p=pLinkedList->GetElementIndex(p);
+	printf("%d\n",p);
+
 }
 
 
 int main(){
 	//testVector();
 	testLinkedList();
+
 	return 0;
 }
