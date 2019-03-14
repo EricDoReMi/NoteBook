@@ -175,6 +175,8 @@ void LinkedList<T_ELELIST>::Clear()
 			delete pDeleteNode;
 			pDeleteNode=pDeleteNextNode;	
 		}
+
+		m_dwLength=0;
 	}
 }
 
@@ -233,12 +235,33 @@ DWORD LinkedList<T_ELELIST>::Delete(IN DWORD dwIndex)
 	if(!CurrentNode){
 		return ERRORS;
 	}
+	
+	//改指针
+	if(m_dwLength==1 && dwIndex==0){
+		m_pLeftPoint=NULL;
+		m_pRightPoint=NULL;
+	}else if(dwIndex==0 && m_dwLength>1){
+		CurrentNode->pNext->pPrev=NULL;
+		m_pLeftPoint=CurrentNode->pNext;
+	}else if(dwIndex>0 && dwIndex<(m_dwLength-1)){
+		CurrentNode->pPrev->pNext=CurrentNode->pNext;
+		CurrentNode->pNext->pPrev=CurrentNode->pPrev;
+
+	}else if(dwIndex>0 && dwIndex==(m_dwLength-1)){
+		CurrentNode->pPrev->pNext=NULL;
+		m_pRightPoint=CurrentNode->pPrev;
+	}
 
 	//删除
-	CurrentNode->pPrev->pNext=CurrentNode->pNext;
-	CurrentNode->pNext->pPrev=CurrentNode->pPrev;
 	delete CurrentNode->pData;
 	delete CurrentNode;
+	m_dwLength--;
 	return SUCCESS;
-}						
+}
+
+//获取链表中元素的数量
+template<class T_ELELIST>
+DWORD LinkedList<T_ELELIST>::GetSize(){
+	return m_dwLength;
+}
 #endif

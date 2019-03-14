@@ -67,16 +67,22 @@ void testLinkedList()
 	pLinkedList->Insert(2,p);
 	p=100;
 	pLinkedList->Insert(10,p);
+	
+	pLinkedList->Delete(0);
+
+	pLinkedList->Delete(2);
+
+	pLinkedList->Delete(pLinkedList->GetSize()-1);
 
 //TestPrint
-	for(i=0;i<12;i++){
+	for(i=0;i<pLinkedList->GetSize();i++){
 		int j=0;
 		pLinkedList->GetElement(i,j);
 		printf("%d\n",j);
 	}
 	p=98;
 	p=pLinkedList->GetElementIndex(p);
-	printf("%d\n",p);
+	printf("-----%d\n",p);
 
 }
 
