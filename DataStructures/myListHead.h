@@ -1,8 +1,8 @@
 #ifndef __MYLIST_H__
 #define __MYLIST_H__
-#include <windows.h>
+
 #include "myListHead.h"
-#include "myErrorHead.h"
+
 
 //Ë«ÏòÁ´±í
 template<class T_ELELIST>

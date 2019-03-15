@@ -6,36 +6,29 @@
 --------------------Configuration: DataStructures - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP7265.tmp" with contents
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP7F2B.tmp" with contents
 [
 /nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/DataStructures.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
 "F:\GitHub学习笔记\DataStructures\myTest.cpp"
 ]
-Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSP7265.tmp" 
-Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP7266.tmp" with contents
+Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSP7F2B.tmp" 
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP7F2C.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/DataStructures.pdb" /debug /machine:I386 /out:"Debug/DataStructures.exe" /pdbtype:sept 
 ".\Debug\myTest.obj"
 ]
-Creating command line "link.exe @C:\Users\shimao\AppData\Local\Temp\RSP7266.tmp"
+Creating command line "link.exe @C:\Users\shimao\AppData\Local\Temp\RSP7F2C.tmp"
 <h3>Output Window</h3>
 Compiling...
 myTest.cpp
-F:\GitHub学习笔记\DataStructures\myTest.cpp(78) : warning C4018: '<' : signed/unsigned mismatch
-f:\github学习笔记\datastructures\myvectorhead.h(134) : warning C4018: '>=' : signed/unsigned mismatch
-        F:\GitHub学习笔记\DataStructures\myTest.cpp(96) : while compiling class-template member function 'unsigned long __thiscall Vector<int>::insertInto(unsigned long,int &)'
-f:\github学习笔记\datastructures\myvectorhead.h(159) : warning C4018: '<' : signed/unsigned mismatch
-        F:\GitHub学习笔记\DataStructures\myTest.cpp(96) : while compiling class-template member function 'unsigned long __thiscall Vector<int>::erase(unsigned long,int &)'
-f:\github学习笔记\datastructures\mylisthead.h(214) : warning C4018: '<' : signed/unsigned mismatch
-        F:\GitHub学习笔记\DataStructures\myTest.cpp(96) : while compiling class-template member function 'unsigned long __thiscall LinkedList<int>::GetElementIndex(int &)'
-f:\github学习笔记\datastructures\mylisthead.h(150) : warning C4018: '<' : signed/unsigned mismatch
-        F:\GitHub学习笔记\DataStructures\myTest.cpp(96) : while compiling class-template member function 'struct LinkedList<int>::_NODE *__thiscall LinkedList<int>::GetIndexCurrentNode(unsigned long)'
-Linking...
+f:\github学习笔记\datastructures\myseachtree.h(45) : error C2143: syntax error : missing ';' before 'template'
+F:\GitHub学习笔记\DataStructures\myTest.cpp(82) : warning C4018: '<' : signed/unsigned mismatch
+Error executing cl.exe.
 
 
 
 <h3>Results</h3>
-DataStructures.exe - 0 error(s), 5 warning(s)
+DataStructures.exe - 1 error(s), 1 warning(s)
 </pre>
 </body>
 </html>

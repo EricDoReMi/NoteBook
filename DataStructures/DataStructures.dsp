@@ -101,6 +101,10 @@ SOURCE=.\myListHead.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\mySeachTree.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\myVectorHead.h
 # End Source File
 # Begin Source File

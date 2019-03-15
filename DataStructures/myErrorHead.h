@@ -8,5 +8,10 @@
 #define MALLOC_ERROR		-2 // ÉêÇëÄÚ´æÊ§°Ü		
 #define INDEX_ERROR		 	-3 // ´íÎóµÄË÷ÒıºÅ
 
-					
+//SearchTree Errors
+#define TREESUCCESS   1
+#define TREEERROR    -1
+
+
+
 #endif

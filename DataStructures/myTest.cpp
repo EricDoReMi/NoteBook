@@ -1,8 +1,12 @@
 #include <stdio.h>
+#include <windows.h>
+#include "myErrorHead.h"
 
 #include "myVectorHead.h"
 
 #include "myListHead.h"
+
+#include "mySeachTree.h"
 
 struct My{
 	int x[10];

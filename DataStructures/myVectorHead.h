@@ -1,8 +1,8 @@
 #ifndef __MYVECTOR_H__
 #define __MYVECTOR_H__
-#include <windows.h>
+
 #include "myVectorHead.h"
-#include "myErrorHead.h"
+
 
 
 template <class T_ELE>
