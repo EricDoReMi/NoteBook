@@ -8,16 +8,66 @@
 
 #include "mySeachTree.h"
 
-struct My{
-	int x[10];
-	int y[10];
-	int z[10];
-	My(int i){
-		memcpy(this->x,&i,10);
-		memcpy(this->y,&i,10);
-		memcpy(this->z,&i,10);
+
+struct Monster{
+	int id;
+	char* name;
+	Monster(){
+	
 	}
+	Monster(int id,char*name){
+		this->id=id;
+		this->name=name;
+	}
+	
+	void printData(){
+		printf("%d,%s\n",id,name);
+	}
+	
+	bool operator>(Monster& m){
+		if(this->id>m.id){
+			return true;
+		}else{
+			return false;
+		}
+	
+	}
+
+	bool operator<(Monster& m){
+		if(this->id>m.id){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	bool operator==(Monster& m){
+		if(this->id==m.id){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 };
+
+void testMySearchTree(){
+	MySortTree<Monster>* pMySortTree=new MySortTree<Monster>();
+	Monster* m1=new Monster(5,"xiaobai");
+	Monster* m2=new Monster(2,"xiaoxin");
+	Monster* m3=new Monster(3,"xiaotu");
+	Monster* m4=new Monster(9,"xiaotu");
+	Monster* m5=new Monster(6,"xiaotu");
+	pMySortTree->Insert(*m1);
+	pMySortTree->Insert(*m2);
+	pMySortTree->Insert(*m3);
+	pMySortTree->Insert(*m4);
+	pMySortTree->Insert(*m5);
+	pMySortTree->InOrderTraverse();
+	printf("------------------------\n");
+	pMySortTree->Delete(*m3);
+	pMySortTree->InOrderTraverse();
+}
 
 void testVector(){
 
@@ -93,7 +143,7 @@ void testLinkedList()
 
 int main(){
 	//testVector();
-	testLinkedList();
-
+	//testLinkedList();
+	testMySearchTree();
 	return 0;
 }
