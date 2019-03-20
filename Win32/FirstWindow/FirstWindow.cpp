@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 
+HINSTANCE hAppInstance;//将当前程序的ImageBase定义为全局变量，方便各个窗口取用
 LRESULT CALLBACK WindowProc(  									
 							IN  HWND hwnd,  		//窗口的句柄
 							IN  UINT uMsg,  		//消息的类型
@@ -10,12 +11,70 @@ LRESULT CALLBACK WindowProc(
 							IN  LPARAM lParam  		
 							);
 
+void CreateButton(HWND hwnd)								
+{								
+	HWND hwndPushButton;							
+	HWND hwndCheckBox;							
+	HWND hwndRadio;							
+								
+	hwndPushButton = CreateWindow ( 							
+		TEXT("button"),//直接写button是因为windows已经帮我们定义好了按钮的样式 						
+		TEXT("普通按钮"),//按钮的显示名字					
+		//WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_DEFPUSHBUTTON,						
+		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_DEFPUSHBUTTON,//按钮的属性					
+		10, 10,						
+		80, 20,						
+		hwnd, 						
+		(HMENU)1001,		//子窗口ID，创建母窗口的时候这里是一个句柄，但创建子窗口的时候，这里应该写子窗口编号，用于唯一标识子窗口
+		hAppInstance, 						
+		NULL);	
+
+	//获取button的WNDCLASS 用于观察系统是如何帮我们创建button类的
+	TCHAR szBuffer[0x20];					
+	GetClassName(hwndPushButton,szBuffer,0x20);					
+						
+	WNDCLASS wc;					
+	GetClassInfo(hAppInstance,szBuffer,&wc);					
+	OutputDebugStringF("-->%s\n",wc.lpszClassName);					
+	OutputDebugStringF("-->%x\n",wc.lpfnWndProc);					
+
+
+	hwndCheckBox = CreateWindow ( 					
+	TEXT("button"), 				
+	TEXT("复选框"),				
+	//WS_CHILD | WS_VISIBLE | BS_CHECKBOX | BS_AUTOCHECKBOX,				
+	WS_CHILD | WS_VISIBLE | BS_CHECKBOX |BS_AUTOCHECKBOX ,				
+	10, 40,				
+	80, 20,				
+	hwnd, 				
+	(HMENU)1002,		//子窗口ID		
+	hAppInstance, 				
+	NULL);				
+					
+	hwndRadio = CreateWindow ( 					
+		TEXT("button"), 				
+		TEXT("单选按钮"),				
+		//WS_CHILD | WS_VISIBLE | BS_RADIOBUTTON | BS_AUTORADIOBUTTON,				
+		WS_CHILD | WS_VISIBLE | BS_RADIOBUTTON  ,				
+		10, 70,				
+		80, 20,				
+		hwnd, 				
+		(HMENU)1003,		//子窗口ID		
+		hAppInstance, 				
+		NULL);				
+					
+
+								
+						
+} 								
+
+
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow)
 {
-
+	hAppInstance=hInstance;
 	DbgPrintf("Hello World:%s\n",lpCmdLine);//打印命令行参数
 
  	//创建一个自己的窗口
@@ -47,7 +106,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 								
 	if(hwnd == NULL)					//是否创建成功  		
 		return 0;  	
-	
+	CreateButton(hwnd);
 	// 显示窗口  		
 	ShowWindow(hwnd, SW_SHOW);  		
 
@@ -128,10 +187,32 @@ LRESULT CALLBACK WindowProc(
 			DbgPrintf("WM_LBUTTONDOWN %d %d\n",points.x,points.y);						
 									
 			return 0;						
-		}							
-	}								
+		}
+	case WM_COMMAND:								
+		{								
+			switch(LOWORD(wParam))							
+			{							
+				case 1001://子窗口编号						
+					MessageBox(hwnd,"Hello Button 1","Demo",MB_OK);					
+					return 0;					
+				case 1002:						
+					MessageBox(hwnd,"Hello Button 2","Demo",MB_OK);					
+					return 0;					
+				case 1003:						
+					MessageBox(hwnd,"Hello Button 3","Demo",MB_OK);					
+					return 0;					
+			}							
+			return DefWindowProc(hwnd,uMsg,wParam,lParam);							
+		}									
+
+	}
+	
 	return DefWindowProc(hwnd,uMsg,wParam,lParam);								
-}  									
+}  	
+
+
+								
+								
 
 
 
