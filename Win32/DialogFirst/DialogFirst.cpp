@@ -4,13 +4,18 @@
 #include "stdafx.h"
 #include "resource.h"
 
+HINSTANCE hAppInstance;
+
 BOOL CALLBACK DialogProc(									
 						 HWND hwndDlg,  // handle to dialog box			
 						 UINT uMsg,     // message			
 						 WPARAM wParam, // first message parameter			
 						 LPARAM lParam  // second message parameter			
 						 )			
-{									
+{	
+	HICON hBigIcon=NULL;	
+	HICON hSmallIcon=NULL;	
+
 	HWND hEditUser=NULL;
 	HWND hPassWord=NULL;
 
@@ -18,9 +23,14 @@ BOOL CALLBACK DialogProc(
 	switch(uMsg)								
 	{								
 	case  WM_INITDIALOG :								
-									
-		//MessageBox(NULL,TEXT("WM_INITDIALOG"),TEXT("INIT"),MB_OK);							
-									
+		//获得图标句柄						
+		hBigIcon = LoadIcon (hAppInstance, MAKEINTRESOURCE (IDI_ICON_BIG));	
+		hSmallIcon = LoadIcon (hAppInstance, MAKEINTRESOURCE (IDI_ICON_SMALL));	
+
+		//设置图标	
+		SendMessage(hwndDlg,WM_SETICON,ICON_BIG,(DWORD)hBigIcon);	
+		SendMessage(hwndDlg,WM_SETICON,ICON_SMALL,(DWORD)hSmallIcon);	
+
 		return TRUE ;							
 									
 	case  WM_COMMAND :								
@@ -65,6 +75,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow)
 {
+	hAppInstance=hInstance;
  	DialogBox(hInstance,MAKEINTRESOURCE(IDD_DIALOG1_MAIN),NULL,DialogProc);
 
 	return 0;

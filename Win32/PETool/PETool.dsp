@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="DialogFirst" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="PETool" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
-CFG=DialogFirst - Win32 Debug
+CFG=PETool - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "DialogFirst.mak".
+!MESSAGE NMAKE /f "PETool.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "DialogFirst.mak" CFG="DialogFirst - Win32 Debug"
+!MESSAGE NMAKE /f "PETool.mak" CFG="PETool - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "DialogFirst - Win32 Release" (based on "Win32 (x86) Application")
-!MESSAGE "DialogFirst - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE "PETool - Win32 Release" (based on "Win32 (x86) Application")
+!MESSAGE "PETool - Win32 Debug" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -29,7 +29,7 @@ CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "DialogFirst - Win32 Release"
+!IF  "$(CFG)" == "PETool - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -54,7 +54,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
 
-!ELSEIF  "$(CFG)" == "DialogFirst - Win32 Debug"
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -83,18 +83,18 @@ LINK32=link.exe
 
 # Begin Target
 
-# Name "DialogFirst - Win32 Release"
-# Name "DialogFirst - Win32 Debug"
+# Name "PETool - Win32 Release"
+# Name "PETool - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\DialogFirst.cpp
+SOURCE=.\PETool.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyFirstResource.rc
+SOURCE=.\PEToolResource.rc
 # End Source File
 # Begin Source File
 
@@ -117,22 +117,6 @@ SOURCE=.\StdAfx.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-# Begin Source File
-
-SOURCE=.\icon1.ico
-# End Source File
-# Begin Source File
-
-SOURCE=.\Icon_1.ico
-# End Source File
-# Begin Source File
-
-SOURCE=.\LoadPE.ico
-# End Source File
-# Begin Source File
-
-SOURCE=.\slash2.bin
-# End Source File
 # End Group
 # Begin Source File
 

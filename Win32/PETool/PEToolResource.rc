@@ -52,17 +52,20 @@ END
 // Dialog
 //
 
-IDD_DIALOG1_MAIN DIALOG DISCARDABLE  0, 0, 252, 129
+IDD_DIALOG_MAIN DIALOG DISCARDABLE  0, 0, 450, 205
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "My First Dialog"
-FONT 10, "System"
+CAPTION "PETool"
+FONT 10, "幼圆"
 BEGIN
-    LTEXT           "UserName",IDC_STATIC,19,27,46,10
-    LTEXT           "PassWord",IDC_STATIC,19,70,46,10
-    EDITTEXT        IDC_EDIT_USERNAME,75,26,109,17,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_PASSWORD,75,63,109,17,ES_AUTOHSCROLL
-    PUSHBUTTON      "OK",IDC_BUTTON_OK,149,105,37,17
-    PUSHBUTTON      "Error",IDC_BUTTON_ERROR,194,105,37,17
+    GROUPBOX        "",IDC_STATIC,7,7,318,191
+    GROUPBOX        "",IDC_STATIC,338,7,92,191
+    PUSHBUTTON      "PE查看",IDC_BUTTON_PE,348,19,71,21
+    PUSHBUTTON      "关  于",IDC_BUTTON_About,348,148,71,14
+    PUSHBUTTON      "退  出",IDC_BUTTON_LOGOUT,348,173,71,14
+    CONTROL         "List1",IDC_LIST_PROCESS,"SysListView32",LVS_REPORT | 
+                    WS_BORDER | WS_TABSTOP,13,19,306,83
+    CONTROL         "List1",IDC_LIST_MODULE,"SysListView32",LVS_REPORT | 
+                    WS_BORDER | WS_TABSTOP,13,108,306,83
 END
 
 
@@ -74,42 +77,16 @@ END
 #ifdef APSTUDIO_INVOKED
 GUIDELINES DESIGNINFO DISCARDABLE 
 BEGIN
-    IDD_DIALOG1_MAIN, DIALOG
+    IDD_DIALOG_MAIN, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 245
+        RIGHTMARGIN, 443
         TOPMARGIN, 7
-        BOTTOMMARGIN, 122
+        BOTTOMMARGIN, 198
     END
 END
 #endif    // APSTUDIO_INVOKED
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDI_ICON_BIG            ICON    DISCARDABLE     "Icon_1.ico"
-IDI_ICON_SMALL          ICON    DISCARDABLE     "LoadPE.ico"
-IDI_ICON1               ICON    DISCARDABLE     "icon1.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// SLASH
-//
-
-IDR_SLASH1              SLASH   DISCARDABLE     "slash1.bin"
-IDR_SLASH2              SLASH   DISCARDABLE     "slash2.bin"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// PNG
-//
-
-IDR_PNG1                PNG     DISCARDABLE     "9.png"
 #endif    // Chinese (P.R.C.) resources
 /////////////////////////////////////////////////////////////////////////////
 
