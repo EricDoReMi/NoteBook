@@ -1,0 +1,109 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_MAIN DIALOG DISCARDABLE  0, 0, 344, 245
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "吃字母"
+FONT 10, "System"
+BEGIN
+    LTEXT           "吃货A:",IDC_STATIC,19,80,25,12
+    EDITTEXT        IDC_EDIT_RESOURCE,49,17,265,18,ES_AUTOHSCROLL
+    LTEXT           "资源:",IDC_STATIC,19,20,25,12
+    LTEXT           "缓冲区:",IDC_STATIC,19,45,38,12
+    EDITTEXT        IDC_EDIT_CASH1,51,57,118,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CASH2,189,57,118,15,ES_AUTOHSCROLL
+    LTEXT           "吃货B:",IDC_STATIC,17,117,25,12
+    LTEXT           "吃货C:",IDC_STATIC,18,153,25,12
+    LTEXT           "吃货D:",IDC_STATIC,17,187,25,12
+    EDITTEXT        IDC_EDIT_EATER1,47,79,265,18,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EATER3,47,150,265,18,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EATER4,47,182,265,18,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EATER2,47,110,265,18,ES_AUTOHSCROLL
+    PUSHBUTTON      "Start",IDC_BUTTON_START,259,217,52,15
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_DIALOG_MAIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 337
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 238
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
