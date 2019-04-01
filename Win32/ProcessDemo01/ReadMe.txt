@@ -1,28 +1,28 @@
 ========================================================================
-       WIN32 APPLICATION : zzzzzz
+       CONSOLE APPLICATION : ProcessDemo01
 ========================================================================
 
 
-AppWizard has created this zzzzzz application for you.  
+AppWizard has created this ProcessDemo01 application for you.  
 
 This file contains a summary of what you will find in each of the files that
-make up your zzzzzz application.
+make up your ProcessDemo01 application.
 
-zzzzzz.cpp
-    This is the main application source file.
-
-zzzzzz.dsp
+ProcessDemo01.dsp
     This file (the project file) contains information at the project level and
     is used to build a single project or subproject. Other users can share the
     project (.dsp) file, but they should export the makefiles locally.
-	
+
+ProcessDemo01.cpp
+    This is the main application source file.
+
 
 /////////////////////////////////////////////////////////////////////////////
 Other standard files:
 
 StdAfx.h, StdAfx.cpp
     These files are used to build a precompiled header (PCH) file
-    named zzzzzz.pch and a precompiled types file named StdAfx.obj.
+    named ProcessDemo01.pch and a precompiled types file named StdAfx.obj.
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -30,6 +30,5 @@ Other notes:
 
 AppWizard uses "TODO:" to indicate parts of the source code you
 should add to or customize.
-
 
 /////////////////////////////////////////////////////////////////////////////
