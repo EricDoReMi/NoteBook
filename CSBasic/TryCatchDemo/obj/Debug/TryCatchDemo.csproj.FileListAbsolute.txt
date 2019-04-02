@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\TryCatchDemo\bin\Debug\TryCatchDemo.exe.config
+E:\VSWorkSpace\CSBasic\TryCatchDemo\bin\Debug\TryCatchDemo.exe
+E:\VSWorkSpace\CSBasic\TryCatchDemo\bin\Debug\TryCatchDemo.pdb
+E:\VSWorkSpace\CSBasic\TryCatchDemo\obj\Debug\TryCatchDemo.exe
+E:\VSWorkSpace\CSBasic\TryCatchDemo\obj\Debug\TryCatchDemo.pdb

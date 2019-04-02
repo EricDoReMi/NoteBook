@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\SwitchExample\bin\Debug\SwitchExample.exe.config
+E:\VSWorkSpace\CSBasic\SwitchExample\bin\Debug\SwitchExample.exe
+E:\VSWorkSpace\CSBasic\SwitchExample\bin\Debug\SwitchExample.pdb
+E:\VSWorkSpace\CSBasic\SwitchExample\obj\Debug\SwitchExample.exe
+E:\VSWorkSpace\CSBasic\SwitchExample\obj\Debug\SwitchExample.pdb

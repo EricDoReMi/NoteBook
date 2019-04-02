@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\TypeCShape\bin\Debug\TypeCShape.exe.config
+E:\VSWorkSpace\CSBasic\TypeCShape\bin\Debug\TypeCShape.exe
+E:\VSWorkSpace\CSBasic\TypeCShape\bin\Debug\TypeCShape.pdb
+E:\VSWorkSpace\CSBasic\TypeCShape\obj\Debug\TypeCShape.exe
+E:\VSWorkSpace\CSBasic\TypeCShape\obj\Debug\TypeCShape.pdb

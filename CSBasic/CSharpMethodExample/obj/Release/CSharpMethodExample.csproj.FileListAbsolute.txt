@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\bin\Release\CSharpMethodExample.exe.config
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\bin\Release\CSharpMethodExample.exe
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\bin\Release\CSharpMethodExample.pdb
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\obj\Release\CSharpMethodExample.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\obj\Release\CSharpMethodExample.exe
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\obj\Release\CSharpMethodExample.pdb

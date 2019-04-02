@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\IndexerExample\bin\Debug\IndexerExample.exe.config
+E:\VSWorkSpace\CSBasic\IndexerExample\bin\Debug\IndexerExample.exe
+E:\VSWorkSpace\CSBasic\IndexerExample\bin\Debug\IndexerExample.pdb
+E:\VSWorkSpace\CSBasic\IndexerExample\obj\Debug\IndexerExample.exe
+E:\VSWorkSpace\CSBasic\IndexerExample\obj\Debug\IndexerExample.pdb

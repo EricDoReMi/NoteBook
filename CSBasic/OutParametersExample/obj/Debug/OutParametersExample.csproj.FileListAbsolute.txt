@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\OutParametersExample\bin\Debug\OutParametersExample.exe.config
+E:\VSWorkSpace\CSBasic\OutParametersExample\bin\Debug\OutParametersExample.exe
+E:\VSWorkSpace\CSBasic\OutParametersExample\bin\Debug\OutParametersExample.pdb
+E:\VSWorkSpace\CSBasic\OutParametersExample\obj\Debug\OutParametersExample.exe
+E:\VSWorkSpace\CSBasic\OutParametersExample\obj\Debug\OutParametersExample.pdb

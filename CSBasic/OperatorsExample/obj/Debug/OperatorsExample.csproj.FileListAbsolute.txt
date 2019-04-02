@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\OperatorsExample\bin\Debug\OperatorsExample.exe.config
+E:\VSWorkSpace\CSBasic\OperatorsExample\bin\Debug\OperatorsExample.exe
+E:\VSWorkSpace\CSBasic\OperatorsExample\bin\Debug\OperatorsExample.pdb
+E:\VSWorkSpace\CSBasic\OperatorsExample\obj\Debug\OperatorsExample.exe
+E:\VSWorkSpace\CSBasic\OperatorsExample\obj\Debug\OperatorsExample.pdb

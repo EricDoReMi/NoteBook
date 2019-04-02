@@ -1,0 +1,13 @@
+E:\VSWorkSpace\CSBasic\ClassEvent\bin\Debug\ClassEvent.exe.config
+E:\VSWorkSpace\CSBasic\ClassEvent\bin\Debug\ClassEvent.exe
+E:\VSWorkSpace\CSBasic\ClassEvent\bin\Debug\ClassEvent.pdb
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\MainWindow.g.cs
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\App.g.cs
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent_MarkupCompile.cache
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent_MarkupCompile.lref
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\MainWindow.baml
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.g.resources
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.Properties.Resources.resources
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.csproj.GenerateResource.Cache
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.exe
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.pdb

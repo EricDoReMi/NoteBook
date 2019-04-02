@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\ClassAndInstance\bin\Release\ClassAndInstance.exe.config
+E:\VSWorkSpace\CSBasic\ClassAndInstance\bin\Release\ClassAndInstance.exe
+E:\VSWorkSpace\CSBasic\ClassAndInstance\bin\Release\ClassAndInstance.pdb
+E:\VSWorkSpace\CSBasic\ClassAndInstance\obj\Release\ClassAndInstance.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\ClassAndInstance\obj\Release\ClassAndInstance.exe
+E:\VSWorkSpace\CSBasic\ClassAndInstance\obj\Release\ClassAndInstance.pdb

@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\PropertyExample\bin\Debug\PropertyExample.exe.config
+E:\VSWorkSpace\CSBasic\PropertyExample\bin\Debug\PropertyExample.exe
+E:\VSWorkSpace\CSBasic\PropertyExample\bin\Debug\PropertyExample.pdb
+E:\VSWorkSpace\CSBasic\PropertyExample\obj\Debug\PropertyExample.exe
+E:\VSWorkSpace\CSBasic\PropertyExample\obj\Debug\PropertyExample.pdb

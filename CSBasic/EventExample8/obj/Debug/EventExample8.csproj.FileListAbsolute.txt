@@ -1,0 +1,9 @@
+E:\VSWorkSpace\CSBasic\EventExample8\bin\Debug\EventExample8.exe.config
+E:\VSWorkSpace\CSBasic\EventExample8\bin\Debug\EventExample8.exe
+E:\VSWorkSpace\CSBasic\EventExample8\bin\Debug\EventExample8.pdb
+E:\VSWorkSpace\CSBasic\EventExample8\obj\Debug\EventExample8.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\EventExample8\obj\Debug\EventExample8.Form1.resources
+E:\VSWorkSpace\CSBasic\EventExample8\obj\Debug\EventExample8.Properties.Resources.resources
+E:\VSWorkSpace\CSBasic\EventExample8\obj\Debug\EventExample8.csproj.GenerateResource.Cache
+E:\VSWorkSpace\CSBasic\EventExample8\obj\Debug\EventExample8.exe
+E:\VSWorkSpace\CSBasic\EventExample8\obj\Debug\EventExample8.pdb

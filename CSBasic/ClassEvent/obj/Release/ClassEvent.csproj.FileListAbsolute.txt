@@ -1,0 +1,14 @@
+E:\VSWorkSpace\CSBasic\ClassEvent\bin\Release\ClassEvent.exe.config
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\MainWindow.g.cs
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\App.g.cs
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent_MarkupCompile.cache
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent_MarkupCompile.lref
+E:\VSWorkSpace\CSBasic\ClassEvent\bin\Release\ClassEvent.exe
+E:\VSWorkSpace\CSBasic\ClassEvent\bin\Release\ClassEvent.pdb
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\MainWindow.baml
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent.g.resources
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent.Properties.Resources.resources
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent.csproj.GenerateResource.Cache
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent.exe
+E:\VSWorkSpace\CSBasic\ClassEvent\obj\Release\ClassEvent.pdb

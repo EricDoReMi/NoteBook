@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\Struct01\bin\Debug\Struct01.exe.config
+E:\VSWorkSpace\CSBasic\Struct01\bin\Debug\Struct01.exe
+E:\VSWorkSpace\CSBasic\Struct01\bin\Debug\Struct01.pdb
+E:\VSWorkSpace\CSBasic\Struct01\obj\Debug\Struct01.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\Struct01\obj\Debug\Struct01.exe
+E:\VSWorkSpace\CSBasic\Struct01\obj\Debug\Struct01.pdb

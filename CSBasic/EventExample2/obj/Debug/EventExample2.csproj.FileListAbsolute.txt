@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\EventExample2\bin\Debug\EventExample2.exe.config
+E:\VSWorkSpace\CSBasic\EventExample2\bin\Debug\EventExample2.exe
+E:\VSWorkSpace\CSBasic\EventExample2\bin\Debug\EventExample2.pdb
+E:\VSWorkSpace\CSBasic\EventExample2\obj\Debug\EventExample2.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\EventExample2\obj\Debug\EventExample2.exe
+E:\VSWorkSpace\CSBasic\EventExample2\obj\Debug\EventExample2.pdb

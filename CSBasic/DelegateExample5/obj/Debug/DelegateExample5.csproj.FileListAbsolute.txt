@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\DelegateExample5\bin\Debug\DelegateExample5.exe.config
+E:\VSWorkSpace\CSBasic\DelegateExample5\bin\Debug\DelegateExample5.exe
+E:\VSWorkSpace\CSBasic\DelegateExample5\bin\Debug\DelegateExample5.pdb
+E:\VSWorkSpace\CSBasic\DelegateExample5\obj\Debug\DelegateExample5.exe
+E:\VSWorkSpace\CSBasic\DelegateExample5\obj\Debug\DelegateExample5.pdb

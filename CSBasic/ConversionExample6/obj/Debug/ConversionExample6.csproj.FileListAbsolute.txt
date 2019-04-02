@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\ConversionExample6\bin\Debug\ConversionExample6.exe.config
+E:\VSWorkSpace\CSBasic\ConversionExample6\bin\Debug\ConversionExample6.exe
+E:\VSWorkSpace\CSBasic\ConversionExample6\bin\Debug\ConversionExample6.pdb
+E:\VSWorkSpace\CSBasic\ConversionExample6\obj\Debug\ConversionExample6.exe
+E:\VSWorkSpace\CSBasic\ConversionExample6\obj\Debug\ConversionExample6.pdb

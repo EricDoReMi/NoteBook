@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\DataMemberExample\bin\Debug\DataMemberExample.exe.config
+E:\VSWorkSpace\CSBasic\DataMemberExample\bin\Debug\DataMemberExample.exe
+E:\VSWorkSpace\CSBasic\DataMemberExample\bin\Debug\DataMemberExample.pdb
+E:\VSWorkSpace\CSBasic\DataMemberExample\obj\Debug\DataMemberExample.exe
+E:\VSWorkSpace\CSBasic\DataMemberExample\obj\Debug\DataMemberExample.pdb

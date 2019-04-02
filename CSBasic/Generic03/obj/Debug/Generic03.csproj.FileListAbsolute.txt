@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\Generic03\bin\Debug\Generic03.exe.config
+E:\VSWorkSpace\CSBasic\Generic03\bin\Debug\Generic03.exe
+E:\VSWorkSpace\CSBasic\Generic03\bin\Debug\Generic03.pdb
+E:\VSWorkSpace\CSBasic\Generic03\obj\Debug\Generic03.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\Generic03\obj\Debug\Generic03.exe
+E:\VSWorkSpace\CSBasic\Generic03\obj\Debug\Generic03.pdb

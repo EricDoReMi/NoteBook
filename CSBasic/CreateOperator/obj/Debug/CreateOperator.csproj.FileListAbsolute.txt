@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\CreateOperator\bin\Debug\CreateOperator.exe.config
+E:\VSWorkSpace\CSBasic\CreateOperator\bin\Debug\CreateOperator.exe
+E:\VSWorkSpace\CSBasic\CreateOperator\bin\Debug\CreateOperator.pdb
+E:\VSWorkSpace\CSBasic\CreateOperator\obj\Debug\CreateOperator.exe
+E:\VSWorkSpace\CSBasic\CreateOperator\obj\Debug\CreateOperator.pdb

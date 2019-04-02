@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\InterfaceExample05\bin\Debug\InterfaceExample05.exe.config
+E:\VSWorkSpace\CSBasic\InterfaceExample05\bin\Debug\InterfaceExample05.exe
+E:\VSWorkSpace\CSBasic\InterfaceExample05\bin\Debug\InterfaceExample05.pdb
+E:\VSWorkSpace\CSBasic\InterfaceExample05\obj\Debug\InterfaceExample05.exe
+E:\VSWorkSpace\CSBasic\InterfaceExample05\obj\Debug\InterfaceExample05.pdb

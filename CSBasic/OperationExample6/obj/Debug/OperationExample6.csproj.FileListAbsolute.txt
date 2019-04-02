@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\OperationExample6\bin\Debug\OperationExample6.exe.config
+E:\VSWorkSpace\CSBasic\OperationExample6\bin\Debug\OperationExample6.exe
+E:\VSWorkSpace\CSBasic\OperationExample6\bin\Debug\OperationExample6.pdb
+E:\VSWorkSpace\CSBasic\OperationExample6\obj\Debug\OperationExample6.exe
+E:\VSWorkSpace\CSBasic\OperationExample6\obj\Debug\OperationExample6.pdb

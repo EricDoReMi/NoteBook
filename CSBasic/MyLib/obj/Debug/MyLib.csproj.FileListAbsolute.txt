@@ -1,0 +1,4 @@
+E:\VSWorkSpace\CSBasic\MyLib\bin\Debug\MyLib.dll
+E:\VSWorkSpace\CSBasic\MyLib\bin\Debug\MyLib.pdb
+E:\VSWorkSpace\CSBasic\MyLib\obj\Debug\MyLib.dll
+E:\VSWorkSpace\CSBasic\MyLib\obj\Debug\MyLib.pdb

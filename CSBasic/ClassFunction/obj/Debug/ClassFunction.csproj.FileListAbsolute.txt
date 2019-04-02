@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\ClassFunction\bin\Debug\ClassFunction.exe.config
+E:\VSWorkSpace\CSBasic\ClassFunction\bin\Debug\ClassFunction.exe
+E:\VSWorkSpace\CSBasic\ClassFunction\bin\Debug\ClassFunction.pdb
+E:\VSWorkSpace\CSBasic\ClassFunction\obj\Debug\ClassFunction.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\ClassFunction\obj\Debug\ClassFunction.exe
+E:\VSWorkSpace\CSBasic\ClassFunction\obj\Debug\ClassFunction.pdb

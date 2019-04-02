@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\ClassDemo01\bin\Debug\ClassDemo01.exe.config
+E:\VSWorkSpace\CSBasic\ClassDemo01\bin\Debug\ClassDemo01.exe
+E:\VSWorkSpace\CSBasic\ClassDemo01\bin\Debug\ClassDemo01.pdb
+E:\VSWorkSpace\CSBasic\ClassDemo01\obj\Debug\ClassDemo01.exe
+E:\VSWorkSpace\CSBasic\ClassDemo01\obj\Debug\ClassDemo01.pdb

@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\bin\Debug\CSharpMethodExample.exe.config
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\bin\Debug\CSharpMethodExample.exe
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\bin\Debug\CSharpMethodExample.pdb
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\obj\Debug\CSharpMethodExample.exe
+E:\VSWorkSpace\CSBasic\CSharpMethodExample\obj\Debug\CSharpMethodExample.pdb

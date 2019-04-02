@@ -1,0 +1,6 @@
+D:\VS2017WorkSpace\NoteBook\CSBasic\TryPaseDemo\bin\Debug\TryPaseDemo.exe
+D:\VS2017WorkSpace\NoteBook\CSBasic\TryPaseDemo\bin\Debug\TryPaseDemo.pdb
+D:\VS2017WorkSpace\NoteBook\CSBasic\TryPaseDemo\obj\Debug\TryPaseDemo.csprojAssemblyReference.cache
+D:\VS2017WorkSpace\NoteBook\CSBasic\TryPaseDemo\obj\Debug\TryPaseDemo.csproj.CoreCompileInputs.cache
+D:\VS2017WorkSpace\NoteBook\CSBasic\TryPaseDemo\obj\Debug\TryPaseDemo.exe
+D:\VS2017WorkSpace\NoteBook\CSBasic\TryPaseDemo\obj\Debug\TryPaseDemo.pdb

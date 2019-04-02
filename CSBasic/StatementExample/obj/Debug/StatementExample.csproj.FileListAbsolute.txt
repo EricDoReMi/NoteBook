@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\StatementExample\bin\Debug\StatementExample.exe.config
+E:\VSWorkSpace\CSBasic\StatementExample\bin\Debug\StatementExample.exe
+E:\VSWorkSpace\CSBasic\StatementExample\bin\Debug\StatementExample.pdb
+E:\VSWorkSpace\CSBasic\StatementExample\obj\Debug\StatementExample.exe
+E:\VSWorkSpace\CSBasic\StatementExample\obj\Debug\StatementExample.pdb

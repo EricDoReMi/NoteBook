@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\EventExample11\bin\Debug\EventExample11.exe.config
+E:\VSWorkSpace\CSBasic\EventExample11\bin\Debug\EventExample11.exe
+E:\VSWorkSpace\CSBasic\EventExample11\bin\Debug\EventExample11.pdb
+E:\VSWorkSpace\CSBasic\EventExample11\obj\Debug\EventExample11.exe
+E:\VSWorkSpace\CSBasic\EventExample11\obj\Debug\EventExample11.pdb

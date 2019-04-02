@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\ConstructerExample\bin\Release\ConstructerExample.exe.config
+E:\VSWorkSpace\CSBasic\ConstructerExample\bin\Release\ConstructerExample.exe
+E:\VSWorkSpace\CSBasic\ConstructerExample\bin\Release\ConstructerExample.pdb
+E:\VSWorkSpace\CSBasic\ConstructerExample\obj\Release\ConstructerExample.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\ConstructerExample\obj\Release\ConstructerExample.exe
+E:\VSWorkSpace\CSBasic\ConstructerExample\obj\Release\ConstructerExample.pdb

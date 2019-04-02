@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\MulticastDelegateExample\bin\Debug\MulticastDelegateExample.exe.config
+E:\VSWorkSpace\CSBasic\MulticastDelegateExample\bin\Debug\MulticastDelegateExample.exe
+E:\VSWorkSpace\CSBasic\MulticastDelegateExample\bin\Debug\MulticastDelegateExample.pdb
+E:\VSWorkSpace\CSBasic\MulticastDelegateExample\obj\Debug\MulticastDelegateExample.exe
+E:\VSWorkSpace\CSBasic\MulticastDelegateExample\obj\Debug\MulticastDelegateExample.pdb

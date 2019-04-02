@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\ConstantExample\bin\Debug\ConstantExample.exe.config
+E:\VSWorkSpace\CSBasic\ConstantExample\bin\Debug\ConstantExample.exe
+E:\VSWorkSpace\CSBasic\ConstantExample\bin\Debug\ConstantExample.pdb
+E:\VSWorkSpace\CSBasic\ConstantExample\obj\Debug\ConstantExample.exe
+E:\VSWorkSpace\CSBasic\ConstantExample\obj\Debug\ConstantExample.pdb

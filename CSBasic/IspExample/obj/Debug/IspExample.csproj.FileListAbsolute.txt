@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\IspExample\bin\Debug\IspExample.exe.config
+E:\VSWorkSpace\CSBasic\IspExample\bin\Debug\IspExample.exe
+E:\VSWorkSpace\CSBasic\IspExample\bin\Debug\IspExample.pdb
+E:\VSWorkSpace\CSBasic\IspExample\obj\Debug\IspExample.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\IspExample\obj\Debug\IspExample.exe
+E:\VSWorkSpace\CSBasic\IspExample\obj\Debug\IspExample.pdb

@@ -1,0 +1,9 @@
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\bin\Debug\UnitTestInterfaceExample05.dll
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\bin\Debug\UnitTestInterfaceExample05.pdb
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\bin\Debug\InterfaceExample05.exe
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\bin\Debug\InterfaceExample05.pdb
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\obj\Debug\UnitTestInterfaceExample05.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\obj\Debug\UnitTestInterfaceExample05.dll
+E:\VSWorkSpace\CSBasic\UnitTestInterfaceExample05\obj\Debug\UnitTestInterfaceExample05.pdb

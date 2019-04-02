@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\TypeClasss\bin\Release\TypeClasss.exe.config
+E:\VSWorkSpace\CSBasic\TypeClasss\bin\Release\TypeClasss.exe
+E:\VSWorkSpace\CSBasic\TypeClasss\bin\Release\TypeClasss.pdb
+E:\VSWorkSpace\CSBasic\TypeClasss\obj\Release\TypeClasss.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\TypeClasss\obj\Release\TypeClasss.exe
+E:\VSWorkSpace\CSBasic\TypeClasss\obj\Release\TypeClasss.pdb

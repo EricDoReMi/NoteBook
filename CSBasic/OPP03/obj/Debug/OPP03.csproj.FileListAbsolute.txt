@@ -1,0 +1,6 @@
+E:\VSWorkSpace\CSBasic\OPP03\bin\Debug\OPP03.exe.config
+E:\VSWorkSpace\CSBasic\OPP03\bin\Debug\OPP03.exe
+E:\VSWorkSpace\CSBasic\OPP03\bin\Debug\OPP03.pdb
+E:\VSWorkSpace\CSBasic\OPP03\obj\Debug\OPP03.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\OPP03\obj\Debug\OPP03.exe
+E:\VSWorkSpace\CSBasic\OPP03\obj\Debug\OPP03.pdb

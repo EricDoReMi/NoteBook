@@ -1,0 +1,14 @@
+E:\VSWorkSpace\CSBasic\HeapSample\bin\Release\HeapSample.exe.config
+E:\VSWorkSpace\CSBasic\HeapSample\bin\Release\HeapSample.exe
+E:\VSWorkSpace\CSBasic\HeapSample\bin\Release\HeapSample.pdb
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample.csprojResolveAssemblyReference.cache
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\MainWindow.g.cs
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\App.g.cs
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample_MarkupCompile.cache
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample_MarkupCompile.lref
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\MainWindow.baml
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample.g.resources
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample.Properties.Resources.resources
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample.csproj.GenerateResource.Cache
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample.exe
+E:\VSWorkSpace\CSBasic\HeapSample\obj\Release\HeapSample.pdb

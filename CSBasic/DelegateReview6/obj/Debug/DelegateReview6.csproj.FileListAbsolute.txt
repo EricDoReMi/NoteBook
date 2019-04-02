@@ -1,0 +1,5 @@
+E:\VSWorkSpace\CSBasic\DelegateReview6\bin\Debug\DelegateReview6.exe.config
+E:\VSWorkSpace\CSBasic\DelegateReview6\bin\Debug\DelegateReview6.exe
+E:\VSWorkSpace\CSBasic\DelegateReview6\bin\Debug\DelegateReview6.pdb
+E:\VSWorkSpace\CSBasic\DelegateReview6\obj\Debug\DelegateReview6.exe
+E:\VSWorkSpace\CSBasic\DelegateReview6\obj\Debug\DelegateReview6.pdb
