@@ -6,25 +6,40 @@
 --------------------Configuration: PETool - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSPE0C1.tmp" with contents
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP1D8A.tmp" with contents
 [
 /nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR"Debug/" /Fp"Debug/PETool.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
 "F:\GitHub学习笔记\Win32\PETool\PETool.cpp"
+"F:\GitHub学习笔记\Win32\PETool\ProcessAndMode.cpp"
+"F:\GitHub学习笔记\Win32\PETool\MyProcessManage.cpp"
 ]
-Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSPE0C1.tmp" 
-Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSPE0C2.tmp" with contents
+Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSP1D8A.tmp" 
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP1D8B.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR"Debug/" /Fp"Debug/PETool.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\GitHub学习笔记\Win32\PETool\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\shimao\AppData\Local\Temp\RSP1D8B.tmp" 
+Creating temporary file "C:\Users\shimao\AppData\Local\Temp\RSP1D8C.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/PETool.pdb" /debug /machine:I386 /out:"Debug/PETool.exe" /pdbtype:sept 
-".\Debug\StdAfx.obj"
 ".\Debug\PETool.obj"
+".\Debug\StdAfx.obj"
 ".\Debug\PEToolResource.res"
+".\Debug\ProcessAndMode.obj"
+".\Debug\MyProcessManage.obj"
 ]
-Creating command line "link.exe @C:\Users\shimao\AppData\Local\Temp\RSPE0C2.tmp"
+Creating command line "link.exe @C:\Users\shimao\AppData\Local\Temp\RSP1D8C.tmp"
 <h3>Output Window</h3>
 Compiling...
+StdAfx.cpp
+Compiling...
 PETool.cpp
+ProcessAndMode.cpp
+MyProcessManage.cpp
+Generating Code...
 Linking...
-Creating command line "bscmake.exe /nologo /o"Debug/PETool.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\PETool.sbr""
+Creating command line "bscmake.exe /nologo /o"Debug/PETool.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\PETool.sbr" ".\Debug\ProcessAndMode.sbr" ".\Debug\MyProcessManage.sbr""
 Creating browse info file...
 <h3>Output Window</h3>
 

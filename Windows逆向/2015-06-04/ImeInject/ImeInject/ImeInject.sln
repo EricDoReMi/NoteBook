@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MfcImeInjectDll", "MfcImeInjectDll\MfcImeInjectDll.vcproj", "{98249CCB-FB0B-4F89-AA09-6CF02399ED64}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MfcImeInject", "MfcImeInject\MfcImeInject.vcproj", "{A428A26B-08D1-4BC1-B17A-8C8544CF38A0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyImeDll", "MyImeDll\MyImeDll.vcproj", "{34D1943B-1F9E-4AFE-9209-E9362053B816}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98249CCB-FB0B-4F89-AA09-6CF02399ED64}.Debug|Win32.ActiveCfg = Debug|Win32
+		{98249CCB-FB0B-4F89-AA09-6CF02399ED64}.Debug|Win32.Build.0 = Debug|Win32
+		{98249CCB-FB0B-4F89-AA09-6CF02399ED64}.Release|Win32.ActiveCfg = Release|Win32
+		{98249CCB-FB0B-4F89-AA09-6CF02399ED64}.Release|Win32.Build.0 = Release|Win32
+		{A428A26B-08D1-4BC1-B17A-8C8544CF38A0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A428A26B-08D1-4BC1-B17A-8C8544CF38A0}.Debug|Win32.Build.0 = Debug|Win32
+		{A428A26B-08D1-4BC1-B17A-8C8544CF38A0}.Release|Win32.ActiveCfg = Release|Win32
+		{A428A26B-08D1-4BC1-B17A-8C8544CF38A0}.Release|Win32.Build.0 = Release|Win32
+		{34D1943B-1F9E-4AFE-9209-E9362053B816}.Debug|Win32.ActiveCfg = Debug|Win32
+		{34D1943B-1F9E-4AFE-9209-E9362053B816}.Debug|Win32.Build.0 = Debug|Win32
+		{34D1943B-1F9E-4AFE-9209-E9362053B816}.Release|Win32.ActiveCfg = Release|Win32
+		{34D1943B-1F9E-4AFE-9209-E9362053B816}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

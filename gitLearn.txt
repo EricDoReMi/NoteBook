@@ -90,6 +90,9 @@ git push origin v1.0
 推送全部标签
 git push origin --tags
 
+拉取远程库
+git pull origin
+
 
 
 

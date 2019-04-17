@@ -90,6 +90,10 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\MyProcessManage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\PETool.cpp
 # End Source File
 # Begin Source File
@@ -98,7 +102,7 @@ SOURCE=.\PEToolResource.rc
 # End Source File
 # Begin Source File
 
-SOURCE=.\resource.h
+SOURCE=.\ProcessAndMode.cpp
 # End Source File
 # Begin Source File
 
@@ -109,6 +113,18 @@ SOURCE=.\StdAfx.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\MyProcessManage.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ProcessAndMode.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\resource.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\StdAfx.h

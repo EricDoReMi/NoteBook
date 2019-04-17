@@ -13,6 +13,16 @@
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 
 #include <windows.h>
+#include <Tlhelp32.h>
+#include <commctrl.h>				
+#pragma comment(lib,"comctl32.lib")	
+#include "resource.h"	
+#include "ProcessAndMode.h"
+#include "MyProcessManage.h"
+
+extern HINSTANCE hAppInstance;
+extern HWND g_hwndDlg;//Ö÷´°¿Ú¾ä±ú
+
 
 
 // TODO: reference additional headers your program requires here

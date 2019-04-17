@@ -1,0 +1,21 @@
+	ImeConversionList           //将字符串或字符转换成目标字串
+	ImeConfigure                //配置当前ime参数函数
+	ImeDestroy                  //退出当前使用的IME
+	ImeEscape                   //应用软件访问输入法的接口函数
+	ImeInquire                  //启动并初始化当前ime输入法
+	ImeProcessKey               //ime输入键盘事件管理函数
+	ImeSelect                   //启动当前的ime输入法
+	ImeSetActiveContext         //设置当前的输入处于活动状态
+	ImeSetCompositionString     //由应用程序设置输入法编码
+	ImeToAsciiEx                //将输入的键盘事件转换为汉字编码事件
+	NotifyIME                   //ime事件管理函数
+
+	ImeRegisterWord             //向输入法字典注册字符串
+	ImeUnregisterWord           //删除被注册的字符串
+	ImeGetRegisterWordStyle
+	ImeEnumRegisterWord
+
+	UIWndProc        //用户界面接口函数
+	StatusWndProc    //状态窗口注册函数
+	CompWndProc      //输入编码窗口注册函数
+	CandWndProc      //选择汉字窗口注册函数
