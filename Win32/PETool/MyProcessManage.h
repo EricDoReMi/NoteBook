@@ -7,5 +7,7 @@
 //进程和模块显示的处理
 DWORD WINAPI ProcessAndModeThread(LPVOID lpParameter);
 
+//模块遍历的处理
+DWORD WINAPI EnumModeThread(LPVOID lpParameter);
 #endif
 

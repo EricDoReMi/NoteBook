@@ -13,13 +13,8 @@ BOOL CALLBACK DialogProc(
 						 LPARAM lParam  // second message parameter			
 						 )			
 {	
-	HICON hBigIcon=NULL;	
-	HICON hSmallIcon=NULL;	
 
-	HWND hEditUser=NULL;
-	HWND hPassWord=NULL;
 
-	
 	switch(uMsg)								
 	{								
 		case  WM_INITDIALOG :
@@ -53,7 +48,10 @@ BOOL CALLBACK DialogProc(
 			{
 				NMHDR* pNMHDR = (NMHDR*)lParam;
 				if(wParam == IDC_LIST_PROCESS && pNMHDR->code == NM_CLICK){
-					EnumModules(GetDlgItem(hwndDlg,IDC_LIST_PROCESS),wParam,lParam);
+						//创建遍历模块的线程
+						HANDLE	hEnumMode = ::CreateThread(NULL, 0, EnumModeThread, NULL, 0, NULL);
+						::CloseHandle(hEnumMode);
+					
 					}
 				break;
 			}

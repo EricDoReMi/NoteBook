@@ -13,3 +13,12 @@ DWORD WINAPI ProcessAndModeThread(LPVOID lpParameter){
 	return 0;
 
 }
+
+//模块遍历的处理
+DWORD WINAPI EnumModeThread(LPVOID lpParameter){
+	
+	EnumModules(GetDlgItem(g_hwndDlg,IDC_LIST_PROCESS));
+
+	return 0;
+
+}
