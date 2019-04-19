@@ -1,5 +1,5 @@
 //程序线程处理
-#include "stdafx.h"
+#include "StdAfx.h"
 
 //进程和模块显示的处理
 DWORD WINAPI ProcessAndModeThread(LPVOID lpParameter){
@@ -18,6 +18,24 @@ DWORD WINAPI ProcessAndModeThread(LPVOID lpParameter){
 DWORD WINAPI EnumModeThread(LPVOID lpParameter){
 	
 	EnumModules(GetDlgItem(g_hwndDlg,IDC_LIST_PROCESS));
+
+	return 0;
+
+}
+
+//PE文件查看处理
+DWORD WINAPI PEViewThread(LPVOID lpParameter){
+	
+	ShowPEHead();
+
+	return 0;
+
+}
+
+//读取PE文件内容的线程
+DWORD WINAPI PEReadThread(LPVOID lpParameter){
+	
+	ReadPEHead();
 
 	return 0;
 

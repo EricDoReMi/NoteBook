@@ -90,11 +90,42 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\Common.cpp
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"StdAfx.h"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyProcessManage.cpp
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"StdAfx.h"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\PETool.cpp
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"StdAfx.h"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -102,12 +133,55 @@ SOURCE=.\PEToolResource.rc
 # End Source File
 # Begin Source File
 
+SOURCE=.\PEUtil.cpp
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"StdAfx.h"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\PEView.cpp
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"stdafx.h"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\ProcessAndMode.cpp
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"StdAfx.h"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\StdAfx.cpp
-# ADD CPP /Yc"stdafx.h"
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"stdafx.h"
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -115,7 +189,23 @@ SOURCE=.\StdAfx.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\Common.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyProcessManage.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\PETool.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\PEUtil.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\PEView.h
 # End Source File
 # Begin Source File
 

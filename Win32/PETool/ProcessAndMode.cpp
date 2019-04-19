@@ -1,5 +1,5 @@
 //进程和模块界面的处理
-#include "stdafx.h"
+#include "StdAfx.h"
 
 
 

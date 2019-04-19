@@ -12,18 +12,26 @@
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 
+#include<memory.h>
 #include <windows.h>
+#include<malloc.h>
 #include <stdio.h>
+#include <CommDlg.h>
+#include "Common.h"
+#include "PEUtil.h"
 #include <Tlhelp32.h>
 #include <commctrl.h>				
 #pragma comment(lib,"comctl32.lib")	
 #include "resource.h"	
+#include "PETool.h"
 #include "ProcessAndMode.h"
 #include "MyProcessManage.h"
+#include "PEView.h"
 
 extern HINSTANCE hAppInstance;
 extern HWND g_hwndDlg;//主窗口句柄
-
+extern HWND g_PEDlg;//PE窗口句柄
+extern TCHAR szFileName[256];//PE文件的路径
 
 
 // TODO: reference additional headers your program requires here

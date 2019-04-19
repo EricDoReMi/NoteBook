@@ -1,12 +1,14 @@
 // PETool.cpp : Defines the entry point for the application.
 //
-
-#include "stdafx.h"
+#include "StdAfx.h"
 
 HINSTANCE hAppInstance;
 HWND g_hwndDlg;//主窗口句柄
+HWND g_PEDlg;//PE窗口句柄
+TCHAR szFileName[256];//PE文件的路径
 
-BOOL CALLBACK DialogProc(									
+
+BOOL CALLBACK MainDialogProc(									
 						 HWND hwndDlg,  // handle to dialog box			
 						 UINT uMsg,     // message			
 						 WPARAM wParam, // first message parameter			
@@ -60,20 +62,36 @@ BOOL CALLBACK DialogProc(
 		case  WM_COMMAND:								
 			{							
 				switch (LOWORD (wParam))							
-				{							
+				{	
+					//PE查看
 					case  IDC_BUTTON_PE :					
-												
-						return TRUE;
+						{			
+							//创建查看PE的线程
+							HANDLE	hPEViewThread = ::CreateThread(NULL, 0, PEViewThread, NULL, 0, NULL);
+							::CloseHandle(hPEViewThread);
 
+							return TRUE;
+						}
+					case IDC_BUTTON_ENCRYPT:
+						{
+							return TRUE;
+						}
+					case IDC_BUTTON_INJECTION:
+						{
+							return TRUE;
+						}
+					
 					case IDC_BUTTON_About:
-
-						return TRUE;
+						{	
+							return TRUE;
+						}
 												
 					case IDC_BUTTON_LOGOUT:							
+						{						
+							EndDialog(hwndDlg, 0);						
 												
-						EndDialog(hwndDlg, 0);						
-												
-						return TRUE;						
+							return TRUE;						
+						}
 				}
 
 			break ;	
@@ -84,6 +102,79 @@ BOOL CALLBACK DialogProc(
 										
 								
 }					
+
+//PE展示的Dialog
+BOOL CALLBACK PEDialogProc(									
+						 HWND hwndDlg,  // handle to dialog box			
+						 UINT uMsg,     // message			
+						 WPARAM wParam, // first message parameter			
+						 LPARAM lParam  // second message parameter			
+						 )			
+{	
+
+
+	switch(uMsg)								
+	{								
+		case  WM_INITDIALOG :
+			{
+
+			g_PEDlg=hwndDlg;
+
+			//打开PE文件获取相关信息
+			//创建来读取PE信息的线程
+			HANDLE	hPEReadThread = ::CreateThread(NULL, 0, PEReadThread, NULL, 0, NULL);
+			::CloseHandle(hPEReadThread);
+			
+
+			break;
+			}
+		case WM_CLOSE:
+			{
+			EndDialog(hwndDlg, 0);
+
+			return TRUE;
+			}
+			//处理通用控件的消息
+		case WM_NOTIFY:
+			{
+
+				break;
+			}
+			
+										
+		case  WM_COMMAND:								
+			{							
+				switch (LOWORD (wParam))							
+				{	
+
+					case IDC_BUTTON_HEAD_DIC:
+						{
+							return TRUE;
+						}
+					
+					case IDC_BUTTON_PEHEAD_SECTION:
+						{	
+							return TRUE;
+						}
+												
+					case IDC_BUTTON_PEHEAD_CLOSE:							
+						{						
+							EndDialog(hwndDlg, 0);						
+												
+							return TRUE;						
+						}
+				}
+
+			break ;	
+			}
+		}									
+
+		return FALSE;	
+										
+								
+}					
+
+
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -97,7 +188,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 
  	hAppInstance=hInstance;
-	DialogBox(hInstance,MAKEINTRESOURCE(IDD_DIALOG_MAIN),NULL,DialogProc);
+	DialogBox(hInstance,MAKEINTRESOURCE(IDD_DIALOG_MAIN),NULL,MainDialogProc);
 	return 0;
 }
 
