@@ -64,3 +64,24 @@ DWORD WINAPI PESectionReadThread(LPVOID lpParameter){
 
 }
 
+
+//获取PE目录表对话框的线程
+DWORD WINAPI PEDicThread(LPVOID lpParameter){
+	
+	//展示PEDic信息
+	ShowPEDic();
+
+
+	return 0;
+
+}
+
+
+//读取PE目录表信息的线程
+DWORD WINAPI PEDicReadThread(LPVOID lpParameter){
+	
+	InitPEDicView(g_DICDlg);
+
+	return 0;
+
+}

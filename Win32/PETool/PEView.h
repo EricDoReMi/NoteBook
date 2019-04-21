@@ -18,4 +18,13 @@ VOID InitSectionListView(HWND hDlg);
 //遍历Section
 VOID EnumPESections(HWND hListProcess);
 
+//初始化Dic列表
+VOID InitPEDIcView(HWND hDlg);
+
+//展示PEDic信息
+void ShowPEDic();
+
+//初始化Dic列表
+VOID InitPEDicView(HWND hDlg);
+
 #endif

@@ -27,5 +27,13 @@ BOOL CALLBACK SectionDialogProc(
 						 LPARAM lParam  // second message parameter			
 						 );
 
+//DICÕ¹Ê¾µÄDialog
+BOOL CALLBACK DicDialogProc(									
+						 HWND hwndDlg,  // handle to dialog box			
+						 UINT uMsg,     // message			
+						 WPARAM wParam, // first message parameter			
+						 LPARAM lParam  // second message parameter			
+						 );
+
 
 #endif

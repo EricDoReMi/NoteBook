@@ -6,6 +6,7 @@ HINSTANCE hAppInstance;
 HWND g_hwndDlg;//主窗口句柄
 HWND g_PEDlg;//PE窗口的句柄
 HWND g_SECTIONDlg;//PESection窗口的句柄
+HWND g_DICDlg;//PE目录表窗口的句柄
 TCHAR szFileName[256];//PE文件的路径
 LPVOID pFileBuffer=NULL;//PE文件的FileBuffer
 
@@ -151,6 +152,10 @@ BOOL CALLBACK PEDialogProc(
 
 					case IDC_BUTTON_HEAD_DIC:
 						{
+							//获取PE目录表对话框的线程
+							//创建获得PE目录表的信息的线程
+							HANDLE	hPEDicThread = ::CreateThread(NULL, 0, PEDicThread, NULL, 0, NULL);
+							::CloseHandle(hPEDicThread);
 							return TRUE;
 						}
 					
@@ -231,7 +236,59 @@ BOOL CALLBACK SectionDialogProc(
 		return FALSE;	
 										
 								
-}					
+}		
+
+//DIC展示的Dialog
+BOOL CALLBACK DicDialogProc(									
+						 HWND hwndDlg,  // handle to dialog box			
+						 UINT uMsg,     // message			
+						 WPARAM wParam, // first message parameter			
+						 LPARAM lParam  // second message parameter			
+						 )			
+{	
+
+
+	switch(uMsg)								
+	{								
+		case  WM_INITDIALOG :
+			{
+
+			g_DICDlg=hwndDlg;
+
+
+			//获取Directory相关信息
+			//创建来获取Directory信息的线程
+			HANDLE	hPEDicReadThread = ::CreateThread(NULL, 0, PEDicReadThread, NULL, 0, NULL);
+			::CloseHandle(hPEDicReadThread);
+			
+
+			break;
+			}
+		case WM_CLOSE:
+			{
+			EndDialog(hwndDlg, 0);
+
+			return TRUE;
+			}
+			//处理通用控件的消息
+		case WM_NOTIFY:
+			{
+
+				break;
+			}
+			
+										
+		case  WM_COMMAND:								
+			{							
+			
+				break ;	
+			}
+		}									
+
+		return FALSE;	
+										
+								
+}				
 
 
 

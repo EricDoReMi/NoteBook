@@ -272,3 +272,52 @@ VOID EnumPESections(HWND hListProcess){
    						
 
 }
+
+
+//展示PEDic信息
+void ShowPEDic(){
+	
+	//打开PEDic对话框
+	DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_DIC),g_PEDlg,DicDialogProc);
+	return;
+
+
+}
+
+//初始化Dic列表
+VOID InitPEDicView(HWND hDlg){
+
+	PIMAGE_OPTIONAL_HEADER32 pOptionHeader = NULL;
+	pOptionHeader=getOptionHeader(pFileBuffer);
+	
+	PIMAGE_DATA_DIRECTORY pImageDataDirectory=pOptionHeader->DataDirectory;
+
+	//导出表、导入表、资源表、异常信息表、安全证书表、重定位表、调试信息表、版权所有表、全局指针表
+    //TLS表、加载配置表、绑定导入表、IAT表、延迟导入表、COM信息表 最后一个保留未使用。
+	
+	PIMAGE_DATA_DIRECTORY pDataDirectory=NULL;
+
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x50];
+	
+	
+	DWORD i=0;
+	int DicNum=1010;
+	for(i=0;i<16;i++){
+		DicNum=1010+i*2;
+		pDataDirectory=pImageDataDirectory+i;
+		
+		//获得EDIT控件窗口指针
+		HWND pEditRVA = GetDlgItem(hDlg,DicNum);
+		HWND pEditSIZE = GetDlgItem(hDlg,DicNum+1);
+		
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%X",pDataDirectory->VirtualAddress);	
+		SetWindowText(pEditRVA,szBuffer);	
+	
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%X",pDataDirectory->Size);	
+		SetWindowText(pEditSIZE,szBuffer);
+		
+	}
+}

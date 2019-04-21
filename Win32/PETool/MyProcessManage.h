@@ -22,5 +22,11 @@ DWORD WINAPI PESectionThread(LPVOID lpParameter);
 //读取PE节表信息的线程
 DWORD WINAPI PESectionReadThread(LPVOID lpParameter);
 
+//获取PE目录表对话框的线程
+DWORD WINAPI PEDicThread(LPVOID lpParameter);
+
+//读取PE目录表信息的线程
+DWORD WINAPI PEDicReadThread(LPVOID lpParameter);
+
 #endif
 
