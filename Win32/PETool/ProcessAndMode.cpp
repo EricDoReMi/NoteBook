@@ -1,8 +1,6 @@
 //进程和模块界面的处理
 #include "StdAfx.h"
 
-
-
 //初始化进程列表
 VOID InitProcessListView(HWND hDlg){
 	LV_COLUMN lv;//存储列								

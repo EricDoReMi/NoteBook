@@ -4,6 +4,7 @@
 //
 #define IDD_DIALOG_MAIN                 101
 #define IDD_DIALOG_HEADER               102
+#define IDD_DIALOG_SECTION              103
 #define IDC_BUTTON_PE                   1000
 #define IDC_BUTTON_About                1001
 #define IDC_BUTTON_LOGOUT               1002
@@ -17,6 +18,7 @@
 #define IDC_BUTTON_ENCRYPT              1008
 #define IDC_EDIT_PEHEAD_SizeOfImage     1009
 #define IDC_BUTTON_INJECTION            1009
+#define IDC_LIST_SECTIONVIEW            1009
 #define IDC_EDIT_PEHEAD_BaseOfCode      1010
 #define IDC_EDIT_PEHEAD_BaseOfData      1011
 #define IDC_EDIT_PEHEAD_SectionAlignment 1012
@@ -35,9 +37,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        103
+#define _APS_NEXT_RESOURCE_VALUE        104
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1009
+#define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

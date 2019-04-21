@@ -118,6 +118,15 @@ BEGIN
     EDITTEXT        IDC_EDIT_NumberOfRvaAndSizes,192,148,55,9,ES_AUTOHSCROLL
 END
 
+IDD_DIALOG_SECTION DIALOG DISCARDABLE  0, 0, 325, 116
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "[½Ú±í]"
+FONT 10, "System"
+BEGIN
+    CONTROL         "List1",IDC_LIST_SECTIONVIEW,"SysListView32",LVS_REPORT | 
+                    WS_BORDER | WS_TABSTOP,14,14,290,75
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -141,6 +150,14 @@ BEGIN
         RIGHTMARGIN, 352
         TOPMARGIN, 7
         BOTTOMMARGIN, 186
+    END
+
+    IDD_DIALOG_SECTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 318
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 109
     END
 END
 #endif    // APSTUDIO_INVOKED

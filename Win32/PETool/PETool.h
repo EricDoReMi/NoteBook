@@ -19,5 +19,13 @@ BOOL CALLBACK PEDialogProc(
 						 LPARAM lParam  // second message parameter			
 						 );
 
+//SectionÕ¹Ê¾µÄDialog
+BOOL CALLBACK SectionDialogProc(									
+						 HWND hwndDlg,  // handle to dialog box			
+						 UINT uMsg,     // message			
+						 WPARAM wParam, // first message parameter			
+						 LPARAM lParam  // second message parameter			
+						 );
+
 
 #endif

@@ -4,8 +4,10 @@
 
 HINSTANCE hAppInstance;
 HWND g_hwndDlg;//主窗口句柄
-HWND g_PEDlg;//PE窗口句柄
+HWND g_PEDlg;//PE窗口的句柄
+HWND g_SECTIONDlg;//PESection窗口的句柄
 TCHAR szFileName[256];//PE文件的路径
+LPVOID pFileBuffer=NULL;//PE文件的FileBuffer
 
 
 BOOL CALLBACK MainDialogProc(									
@@ -154,6 +156,10 @@ BOOL CALLBACK PEDialogProc(
 					
 					case IDC_BUTTON_PEHEAD_SECTION:
 						{	
+							//获得PE节表的信息
+							//创建获得PE节表的信息的线程
+						HANDLE	hPESectionThread = ::CreateThread(NULL, 0, PESectionThread, NULL, 0, NULL);
+						::CloseHandle(hPESectionThread);
 							return TRUE;
 						}
 												
@@ -175,12 +181,67 @@ BOOL CALLBACK PEDialogProc(
 }					
 
 
+//Section展示的Dialog
+BOOL CALLBACK SectionDialogProc(									
+						 HWND hwndDlg,  // handle to dialog box			
+						 UINT uMsg,     // message			
+						 WPARAM wParam, // first message parameter			
+						 LPARAM lParam  // second message parameter			
+						 )			
+{	
+
+
+	switch(uMsg)								
+	{								
+		case  WM_INITDIALOG :
+			{
+
+			g_SECTIONDlg=hwndDlg;
+
+
+			//获取Section相关信息
+			//创建来获取Section信息的线程
+			HANDLE	hPESectionReadThread = ::CreateThread(NULL, 0, PESectionReadThread, NULL, 0, NULL);
+			::CloseHandle(hPESectionReadThread);
+			
+
+			break;
+			}
+		case WM_CLOSE:
+			{
+			EndDialog(hwndDlg, 0);
+
+			return TRUE;
+			}
+			//处理通用控件的消息
+		case WM_NOTIFY:
+			{
+
+				break;
+			}
+			
+										
+		case  WM_COMMAND:								
+			{							
+			
+				break ;	
+			}
+		}									
+
+		return FALSE;	
+										
+								
+}					
+
+
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow)
 {
+
+	//使用通用控件
 	INITCOMMONCONTROLSEX icex;				
 	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);				
 	icex.dwICC = ICC_WIN95_CLASSES;				

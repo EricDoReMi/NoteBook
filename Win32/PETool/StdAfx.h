@@ -31,7 +31,9 @@
 extern HINSTANCE hAppInstance;
 extern HWND g_hwndDlg;//主窗口句柄
 extern HWND g_PEDlg;//PE窗口句柄
+extern HWND g_SECTIONDlg;//PESection窗口的句柄
 extern TCHAR szFileName[256];//PE文件的路径
+extern LPVOID pFileBuffer;//PE文件的FileBuffer
 
 
 // TODO: reference additional headers your program requires here

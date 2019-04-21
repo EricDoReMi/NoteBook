@@ -30,7 +30,7 @@ void ReadPEHead(){
 	//用于存储字符串的数组
 	TCHAR szBuffer[256];
 	
-	LPVOID pFileBuffer=NULL;
+	
 	PIMAGE_FILE_HEADER pPEHeader = NULL;
 	PIMAGE_OPTIONAL_HEADER32 pOptionHeader = NULL;
 	
@@ -122,5 +122,153 @@ void ReadPEHead(){
 	memset(szBuffer,0,256);
 	sprintf(szBuffer,"%x",pOptionHeader->NumberOfRvaAndSizes);
 	SendDlgItemMessage(g_PEDlg,IDC_EDIT_NumberOfRvaAndSizes,WM_SETTEXT,0,(DWORD)szBuffer);
+
+}
+
+//展示PESections信息
+void ShowPESections(){
+
+	
+	//打开PESection对话框
+	DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_SECTION),g_PEDlg,SectionDialogProc);
+	return;
+
+
+}
+
+
+//初始化Section列表
+VOID InitSectionListView(HWND hDlg){
+	LV_COLUMN lv;//存储列								
+	HWND hListProcess;//获得ListView句柄							
+									
+	//初始化								
+	memset(&lv,0,sizeof(LV_COLUMN));								
+	//获取IDC_LIST_SECTIONVIEW句柄								
+	hListProcess = GetDlgItem(hDlg,IDC_LIST_SECTIONVIEW);								
+	//设置整行选中								
+	SendMessage(hListProcess,LVM_SETEXTENDEDLISTVIEWSTYLE,LVS_EX_FULLROWSELECT,LVS_EX_FULLROWSELECT);								
+									
+	//第一列								
+	lv.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;								
+	lv.pszText = TEXT("节名");				//列标题				
+	lv.cx = 150;							//列宽
+	lv.iSubItem = 0;								
+	//ListView_InsertColumn(hListProcess, 0, &lv);								
+	SendMessage(hListProcess,LVM_INSERTCOLUMN,0,(DWORD)&lv);								
+	//第二列								
+	lv.pszText = TEXT("文件偏移");								
+	lv.cx = 100;								
+	lv.iSubItem = 1;								
+	//ListView_InsertColumn(hListProcess, 1, &lv);								
+	SendMessage(hListProcess,LVM_INSERTCOLUMN,1,(DWORD)&lv);								
+	//第三列								
+	lv.pszText = TEXT("文件大小");								
+	lv.cx = 100;								
+	lv.iSubItem = 2;								
+	ListView_InsertColumn(hListProcess, 2, &lv);								
+	//第四列								
+	lv.pszText = TEXT("内存偏移");								
+	lv.cx = 100;								
+	lv.iSubItem = 3;								
+	ListView_InsertColumn(hListProcess, 3, &lv);
+	//第五列								
+	lv.pszText = TEXT("内存大小");								
+	lv.cx = 100;								
+	lv.iSubItem = 4;								
+	ListView_InsertColumn(hListProcess, 4, &lv);
+
+	//第六列								
+	lv.pszText = TEXT("节区属性");								
+	lv.cx = 100;								
+	lv.iSubItem = 5;								
+	ListView_InsertColumn(hListProcess, 5, &lv);
+
+	EnumPESections(hListProcess);
+}
+
+//遍历Section
+VOID EnumPESections(HWND hListProcess){
+	//用于存储字符串的缓存区
+	TCHAR szBuffer[0x50];
+
+	LV_ITEM vitem;						
+
+
+	//获取节表信息
+	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
+	
+	pSectionHeader=getSectionHeader(pFileBuffer);
+	
+	WORD sectionNum=getSectionNum(pFileBuffer);
+
+	WORD i=0;
+	for(i=0;i<sectionNum;i++){
+		BYTE names[9]={0};
+		BYTE* p_name=names;
+		p_name=pSectionHeader->Name;
+
+		//初始化
+		memset(&vitem,0,sizeof(LV_ITEM));
+		vitem.mask = LVIF_TEXT;
+
+		//节名
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%s",p_name);
+		vitem.pszText = TEXT(szBuffer);						
+		vitem.iItem = i;//第几行						
+		vitem.iSubItem = 0;	//第几列				
+		//这是一个宏，和SendMessage做的事情是一样的，第一列时要用ListView_InsertItem，后面的列用ListView_SetItem
+		//ListView_InsertItem(hListProcess, &vitem);
+		SendMessage(hListProcess, LVM_INSERTITEM,0,(DWORD)&vitem);
+
+
+		//文件偏移了
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%X",pSectionHeader->PointerToRawData);						
+		vitem.pszText = TEXT(szBuffer);						
+		vitem.iItem = i;						
+		vitem.iSubItem = 1;						
+		ListView_SetItem(hListProcess, &vitem);	
+
+		//文件对齐后的尺寸
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%X",pSectionHeader->SizeOfRawData);						
+		vitem.pszText = TEXT(szBuffer);						
+		vitem.iItem = i;						
+		vitem.iSubItem = 2;						
+		ListView_SetItem(hListProcess, &vitem);	
+
+		//内存偏移了
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%X",FileOffsetToRva(pFileBuffer,pSectionHeader->PointerToRawData));						
+		vitem.pszText = TEXT(szBuffer);						
+		vitem.iItem = i;						
+		vitem.iSubItem = 3;						
+		ListView_SetItem(hListProcess, &vitem);	
+
+		//内存对齐后的尺寸
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%X",pSectionHeader->Misc.VirtualSize);						
+		vitem.pszText = TEXT(szBuffer);						
+		vitem.iItem = i;						
+		vitem.iSubItem = 4;						
+		ListView_SetItem(hListProcess, &vitem);	
+
+		//节属性
+		memset(szBuffer,0,0x50);
+		sprintf(szBuffer,"%X",pSectionHeader->Characteristics);						
+		vitem.pszText = TEXT(szBuffer);						
+		vitem.iItem = i;						
+		vitem.iSubItem = 5;						
+		ListView_SetItem(hListProcess, &vitem);	
+
+		//获得下一个节表信息
+		pSectionHeader=(PIMAGE_SECTION_HEADER)((char*)pSectionHeader+40);
+		
+		
+	}
+	
+   						
 
 }

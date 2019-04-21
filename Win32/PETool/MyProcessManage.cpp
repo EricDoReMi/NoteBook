@@ -40,3 +40,27 @@ DWORD WINAPI PEReadThread(LPVOID lpParameter){
 	return 0;
 
 }
+
+
+//获取PE节表对话框的线程
+DWORD WINAPI PESectionThread(LPVOID lpParameter){
+	
+	//展示PESections信息
+	ShowPESections();
+
+	InitSectionListView(g_hwndDlg);
+
+	return 0;
+
+}
+
+//读取PE节表信息的线程
+DWORD WINAPI PESectionReadThread(LPVOID lpParameter){
+	
+	
+	InitSectionListView(g_SECTIONDlg);
+
+	return 0;
+
+}
+
