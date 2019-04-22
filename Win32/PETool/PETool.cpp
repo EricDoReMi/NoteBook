@@ -7,8 +7,11 @@ HWND g_hwndDlg;//主窗口句柄
 HWND g_PEDlg;//PE窗口的句柄
 HWND g_SECTIONDlg;//PESection窗口的句柄
 HWND g_DICDlg;//PE目录表窗口的句柄
+HWND g_DICDetailDlg;//PE目录表详情窗口的句柄
 TCHAR szFileName[256];//PE文件的路径
 LPVOID pFileBuffer=NULL;//PE文件的FileBuffer
+int IDC_BUTTON_DIC_Index;//被点击了的目录详情的Button的ID
+static HWND hWinRich;
 
 
 BOOL CALLBACK MainDialogProc(									
@@ -228,8 +231,9 @@ BOOL CALLBACK SectionDialogProc(
 										
 		case  WM_COMMAND:								
 			{							
-			
-				break ;	
+				
+
+			break ;	
 			}
 		}									
 
@@ -280,7 +284,57 @@ BOOL CALLBACK DicDialogProc(
 										
 		case  WM_COMMAND:								
 			{							
-			
+				switch (LOWORD (wParam))							
+				{	
+
+					case IDC_BUTTON_DIC_IMPORT:
+						{
+							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_IMPORT;
+							
+							
+
+							AlertDicDetail();		
+							return TRUE;
+						}
+					
+					case IDC_BUTTON_DIC_EXPORT:
+						{	
+							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_EXPORT;
+							//AlertDicDetail();
+							return TRUE;
+						}
+					case IDC_BUTTON_DIC_RESOURSE:
+						{	
+							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_RESOURSE;
+							//AlertDicDetail();
+							return TRUE;
+						}
+					case IDC_BUTTON_DIC_RELOCATION:
+						{	
+							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_RELOCATION;
+							//AlertDicDetail();
+							return TRUE;
+						}
+					case IDC_BUTTON_DIC_BOUND:
+						{	
+							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_BOUND;
+							//AlertDicDetail();
+							return TRUE;
+						}
+					case IDC_BUTTON_DIC_IAT:
+						{	
+							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_IAT;
+							//AlertDicDetail();
+							return TRUE;
+						}
+						
+					case IDC_BUTTON_DIC_CLOSE:							
+						{						
+							EndDialog(hwndDlg, 0);						
+												
+							return TRUE;						
+						}
+				}
 				break ;	
 			}
 		}									
@@ -290,6 +344,58 @@ BOOL CALLBACK DicDialogProc(
 								
 }				
 
+//目录表详情
+BOOL CALLBACK DicDetailDialogProc(									
+						 HWND hwndDlg,  // handle to dialog box			
+						 UINT uMsg,     // message			
+						 WPARAM wParam, // first message parameter			
+						 LPARAM lParam  // second message parameter			
+						 )			
+{	
+
+
+	switch(uMsg)								
+	{								
+		case  WM_INITDIALOG :
+			{
+
+			g_DICDetailDlg=hwndDlg;
+
+
+			//获取PE目录详细信息
+			//创建来获取PE目录详细信息的线程
+			HANDLE	hPEDicDetailReadThread = ::CreateThread(NULL, 0, PEDicDetailReadThread, NULL, 0, NULL);
+			::CloseHandle(hPEDicDetailReadThread);
+			
+
+			break;
+			}
+		case WM_CLOSE:
+			{
+			EndDialog(hwndDlg, 0);
+
+			return TRUE;
+			}
+			//处理通用控件的消息
+		case WM_NOTIFY:
+			{
+
+				break;
+			}
+			
+										
+		case  WM_COMMAND:								
+			{							
+				
+
+			break ;	
+			}
+		}									
+
+		return FALSE;	
+										
+								
+}
 
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -303,10 +409,15 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);				
 	icex.dwICC = ICC_WIN95_CLASSES;				
 	InitCommonControlsEx(&icex);				
-
+	
 
  	hAppInstance=hInstance;
+	HINSTANCE hRich=LoadLibrary(TEXT("RichEd20.dll"));
+
+
 	DialogBox(hInstance,MAKEINTRESOURCE(IDD_DIALOG_MAIN),NULL,MainDialogProc);
+
+	FreeLibrary(hRich);
 	return 0;
 }
 

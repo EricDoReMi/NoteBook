@@ -16,13 +16,15 @@
 #include <windows.h>
 #include<malloc.h>
 #include <stdio.h>
+#include "resource.h"
 #include <CommDlg.h>
 #include "Common.h"
 #include "PEUtil.h"
 #include <Tlhelp32.h>
 #include <commctrl.h>				
 #pragma comment(lib,"comctl32.lib")	
-#include "resource.h"	
+#include <richedit.h>	
+#include "DebugTool.h"
 #include "PETool.h"
 #include "ProcessAndMode.h"
 #include "MyProcessManage.h"
@@ -33,8 +35,10 @@ extern HWND g_hwndDlg;//主窗口句柄
 extern HWND g_PEDlg;//PE窗口句柄
 extern HWND g_SECTIONDlg;//PESection窗口的句柄
 extern HWND g_DICDlg;//PE目录表窗口的句柄
+extern HWND g_DICDetailDlg;//PE目录表详情窗口的句柄
 extern TCHAR szFileName[256];//PE文件的路径
 extern LPVOID pFileBuffer;//PE文件的FileBuffer
+extern int IDC_BUTTON_DIC_Index;//被点击了的目录详情的Button的ID
 
 
 // TODO: reference additional headers your program requires here

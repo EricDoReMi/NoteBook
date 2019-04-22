@@ -103,6 +103,19 @@ SOURCE=.\Common.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\DebugTool.cpp
+
+!IF  "$(CFG)" == "PETool - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "PETool - Win32 Debug"
+
+# ADD CPP /YX"StdAfx.h"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyProcessManage.cpp
 
 !IF  "$(CFG)" == "PETool - Win32 Release"
@@ -190,6 +203,10 @@ SOURCE=.\StdAfx.cpp
 # Begin Source File
 
 SOURCE=.\Common.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DebugTool.h
 # End Source File
 # Begin Source File
 

@@ -192,6 +192,15 @@ BEGIN
     PUSHBUTTON      "关闭",IDC_BUTTON_DIC_CLOSE,233,26,52,19
 END
 
+IDD_DIALOG_DICDETAIL DIALOG DISCARDABLE  0, 0, 276, 235
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "[详细的信息]"
+FONT 10, "System"
+BEGIN
+    CONTROL         "",IDC_RICHEDIT2,"RICHEDIT",ES_AUTOHSCROLL | WS_BORDER | 
+                    WS_TABSTOP,16,23,246,182
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -231,6 +240,14 @@ BEGIN
         RIGHTMARGIN, 294
         TOPMARGIN, 7
         BOTTOMMARGIN, 319
+    END
+
+    IDD_DIALOG_DICDETAIL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 269
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 228
     END
 END
 #endif    // APSTUDIO_INVOKED

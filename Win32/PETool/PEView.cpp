@@ -194,7 +194,6 @@ VOID EnumPESections(HWND hListProcess){
 
 	LV_ITEM vitem;						
 
-
 	//获取节表信息
 	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
 	
@@ -321,3 +320,545 @@ VOID InitPEDicView(HWND hDlg){
 		
 	}
 }
+
+
+//按照目录表点击的.....按钮来显示目录详情对话框
+void AlertDicDetail(){
+		//获得PE目录详细的信息
+		//创建来PE目录详细的信息的线程
+		HANDLE	hPEDicDetailThread = ::CreateThread(NULL, 0, PEDicDetailThread, NULL, 0, NULL);
+		::CloseHandle(hPEDicDetailThread);
+
+		return;
+		
+}
+
+//打开目录详情对话框
+void ShowDicDetail(){
+
+	DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_DICDETAIL),g_DICDlg,DicDetailDialogProc);
+	return;
+}
+
+//初始化PE的目录详情
+void InitPEDicDetailView(HWND hDlg){
+	HWND hDicDetailEdit = GetDlgItem(hDlg,IDC_RICHEDIT2);
+	SendMessage(hDicDetailEdit,EM_SETEVENTMASK,0,ENM_SELCHANGE|ENM_MOUSEEVENTS|ENM_CHANGE|ENM_KEYEVENTS|ENM_SCROLL|ENM_DROPFILES);
+    SendMessage(hDicDetailEdit,EM_EXLIMITTEXT,0,-1);
+
+
+	//打印导出表
+	//PrintExportTable(hDicDetailEdit);
+}
+
+
+//=================打印目录表详情===================
+//打印导出表
+VOID PrintExportTable(HWND hRichEdit){
+
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x1000];
+	TCHAR szTmp[0x100];
+
+	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,1);
+	//获得导出表在FileBuffer中的Address位置
+	DWORD exportDirectoryFileAddress =(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pDataDirectory->VirtualAddress);
+
+	//找到导出表
+	PIMAGE_EXPORT_DIRECTORY pExportDirectory=(PIMAGE_EXPORT_DIRECTORY)exportDirectoryFileAddress;
+	
+	
+	memset(szBuffer,0,0x1000);
+	sprintf(szBuffer,"%s\n","=============导出表信息=================");						
+	
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"Name:%s\n",(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pExportDirectory->Name));						
+	strcat(szBuffer,szTmp);
+	
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"Base:%X\n",pExportDirectory->Base);						
+	strcat(szBuffer,szTmp);
+
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"NumberOfFunctions:%X\n",pExportDirectory->NumberOfFunctions);						
+	strcat(szBuffer,szTmp);
+
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"NumberOfNames:%X\n",pExportDirectory->NumberOfNames);						
+	strcat(szBuffer,szTmp);
+
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"AddressOfFunctions:%X\n",pExportDirectory->AddressOfFunctions);						
+	strcat(szBuffer,szTmp);
+
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"AddressOfNames:%X\n",pExportDirectory->AddressOfNames);						
+	strcat(szBuffer,szTmp);
+
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"AddressOfNameOrdinals:%X\n",pExportDirectory->AddressOfNameOrdinals);						
+	strcat(szBuffer,szTmp);
+
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,"******导出表函数******\n");						
+	strcat(szBuffer,szTmp);
+	
+
+	DWORD i=0;
+	DWORD j=0;
+
+	PDWORD pFileAddressOfFunctions=(PDWORD)((DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pExportDirectory->AddressOfFunctions));
+	PDWORD pFileAddressOfNames=(PDWORD)((DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pExportDirectory->AddressOfNames));
+	PWORD pFileAddressOfNameOrdinals=(PWORD)((DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pExportDirectory->AddressOfNameOrdinals));
+	
+	//打印函数信息
+	for(i=0;i<pExportDirectory->NumberOfFunctions;i++){
+		DWORD addressOfFunction=*(pFileAddressOfFunctions+i);
+		
+		if(addressOfFunction){
+				memset(szTmp,0,0x100);
+				sprintf(szTmp,"AddressOfFunction:%X\n",addressOfFunction);						
+				strcat(szBuffer,szTmp);
+
+				memset(szTmp,0,0x100);
+				sprintf(szTmp,"Ordinal:%X\n",i+pExportDirectory->Base);						
+				strcat(szBuffer,szTmp);
+
+		
+			
+			for(j=0;j<pExportDirectory->NumberOfNames;j++){
+				if(*(pFileAddressOfNameOrdinals+j)==i){
+					memset(szTmp,0,0x100);
+					sprintf(szTmp,"AddressOfName:%s\t",(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,*(pFileAddressOfNames+j)));						
+					strcat(szBuffer,szTmp);
+
+					
+				}
+			}
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,"\n");						
+			strcat(szBuffer,szTmp);
+		}
+
+		
+	}
+
+	SetWindowText(hRichEdit,szBuffer);
+
+}
+
+
+//打印重定位表
+/*VOID PrintRelocationTable(LPVOID pFileBuffer)
+{
+
+	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,6);
+	//获得重定位表在FileBuffer中的Address位置
+	DWORD relocationFileBufferAddress =RvaToFileBufferAddress(pFileBuffer,pDataDirectory->VirtualAddress);
+
+	//找到
+	PIMAGE_BASE_RELOCATION pRelocationTables=(PIMAGE_BASE_RELOCATION)relocationFileBufferAddress;
+
+	DWORD i=0;
+
+	printf("=============重定位表信息=================\n");
+	//pRelocationTables->SizeOfBlock || pRelocationTables->VirtualAddress 全为0时，则遍历结束
+	while(pRelocationTables->VirtualAddress)
+	{
+		i++;
+		DWORD sizeOfBlock=pRelocationTables->SizeOfBlock;
+		DWORD virtualAddress=pRelocationTables->VirtualAddress;
+		DWORD sectionIndex=RvaToSectionIndex(pFileBuffer,virtualAddress);
+		
+		//打印每个重定位表的具体信息
+		printf("***表:%d\tsizeOfBlock:%d\tvirtualAddress:%X\tsectionIndex:%d\n",i,sizeOfBlock,virtualAddress,sectionIndex);
+		//计算BLOCK的数量
+		DWORD numBlock=0;
+		numBlock=(sizeOfBlock-8)/2;
+		
+		DWORD j=0;
+		PWORD pStartBlock=(PWORD)pRelocationTables+4;
+		for(j=0;j<numBlock;j++)
+		{
+			//硬编码地方的地址
+			DWORD rvaChange=(DWORD)((*(PWORD)pStartBlock)&0x0FFF)+virtualAddress;
+			DWORD isChange=(*(PWORD)pStartBlock)&0xF000;
+			DWORD fileOffSet=RvaToFileOffset(pFileBuffer,rvaChange);
+			char* isChangeTxt=NULL;
+			isChangeTxt="否";
+			if((isChange^0x3000)==0){
+				isChangeTxt="是";
+			}
+			
+
+			printf("%d\tChange:%s\trva:%X\tfileOffSet:%X\n",j+1,isChangeTxt,rvaChange,fileOffSet);
+	
+			pStartBlock++;
+
+		}
+		
+
+		//下一个重定位表地址
+		pRelocationTables=(PIMAGE_BASE_RELOCATION)((char*)pRelocationTables+sizeOfBlock);
+
+
+	}
+
+
+}
+
+//打印导入表
+VOID PrintImportTable(LPVOID pFileBuffer)
+{
+
+	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,2);
+	//获得导入表在FileBuffer中的Address位置
+	DWORD importTableFileBufferAddress =RvaToFileBufferAddress(pFileBuffer,pDataDirectory->VirtualAddress);
+
+	//找到第一个导入表
+	PIMAGE_IMPORT_DESCRIPTOR pImportTables=(PIMAGE_IMPORT_DESCRIPTOR)importTableFileBufferAddress;
+
+
+	printf("=============导入表信息=================\n");
+	
+	while(pImportTables->Characteristics|pImportTables->FirstThunk|pImportTables->ForwarderChain|pImportTables->Name|pImportTables->OriginalFirstThunk|pImportTables->TimeDateStamp)
+	{
+		
+		DWORD nameRVA=pImportTables->Name;
+		char* pDllNames=(char*)RvaToFileBufferAddress(pFileBuffer,nameRVA);
+		printf("***********%s*********\n",pDllNames);
+		DWORD timeDateStamp = pImportTables->TimeDateStamp;
+		printf("***timeStamp:%d***\n");
+		DWORD originalFirstThunk=pImportTables->OriginalFirstThunk;
+		DWORD firstThunk=pImportTables->FirstThunk;
+
+		PDWORD pOriginalFirstThunk=(PDWORD)RvaToFileBufferAddress(pFileBuffer,originalFirstThunk);
+
+		PDWORD pFirstThunk=(PDWORD)RvaToFileBufferAddress(pFileBuffer,firstThunk);
+
+		//遍历OriginalFirstThunk
+		printf("------------OriginalFirstThunk----------\n");
+		while(*pOriginalFirstThunk){
+			DWORD imageData=(DWORD)*pOriginalFirstThunk;
+			//最高位判断最高位是否为1 如果是,那么除去最高位的值就是函数的导出序号				
+
+			if(imageData & 0x80000000){
+				DWORD indexOfExport=imageData & 0x7FFFFFFF;//导出表的函数序号
+				printf("导出表函数序号:%d\n",indexOfExport);
+
+			}else{
+				PIMAGE_IMPORT_BY_NAME pImportByName=(PIMAGE_IMPORT_BY_NAME)RvaToFileBufferAddress(pFileBuffer,imageData);//导出表函数名
+				char* pImportFunNames=(char*)pImportByName->Name;
+				printf("导出表函数名称:%s\n",pImportFunNames);
+			}
+			pOriginalFirstThunk++;
+		}
+
+		//遍历FirstThunk
+		printf("------------FirstThunk----------\n");
+		while(*pFirstThunk){
+			DWORD imageData=(DWORD)*pFirstThunk;
+			//最高位判断最高位是否为1 如果是,那么除去最高位的值就是函数的导出序号				
+
+			if(imageData & 0x80000000){
+				DWORD indexOfExport=imageData & 0x7FFFFFFF;//导出表的函数序号
+				printf("导出表序号:%d\n",indexOfExport);
+
+			}else{
+				PIMAGE_IMPORT_BY_NAME pImportByName=(PIMAGE_IMPORT_BY_NAME)RvaToFileBufferAddress(pFileBuffer,imageData);//导出表函数名
+				char* pImportFunNames=(char*)pImportByName->Name;
+				printf("导出表函数名称:%s\n",pImportFunNames);
+			}
+			pFirstThunk++;
+		}
+	
+
+		//下一个导入表地址
+		pImportTables++;
+
+
+	}
+
+
+}
+
+//打印绑定导入表
+VOID PrintBoundImportTable(LPVOID pFileBuffer)
+{
+
+	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,12);
+
+	//获得导入表在FileBuffer中的Address位置
+	DWORD importBoundTableFileBufferAddress =RvaToFileBufferAddress(pFileBuffer,pDataDirectory->VirtualAddress);
+
+	//找到第一个绑定导入表
+	PIMAGE_BOUND_IMPORT_DESCRIPTOR pImportBoundTable=(PIMAGE_BOUND_IMPORT_DESCRIPTOR)importBoundTableFileBufferAddress;
+	
+	//绑定导入表的表头
+	PIMAGE_BOUND_IMPORT_DESCRIPTOR pImportBoundTable1=pImportBoundTable;
+
+	printf("=============绑定导入表信息=================\n");
+	DWORD i=0;
+
+	while(pImportBoundTable->NumberOfModuleForwarderRefs|pImportBoundTable->OffsetModuleName|pImportBoundTable->TimeDateStamp)
+	{
+		DWORD timeDateStamp=pImportBoundTable->TimeDateStamp;
+		WORD  numberOfModuleForwarderRefs=0;
+
+		numberOfModuleForwarderRefs=pImportBoundTable->NumberOfModuleForwarderRefs;
+		
+		printf("---IMAGE_BOUND_IMPORT_DESCRIPTOR---\n");
+		printf("numberOfModuleForwarderRefs:%d\n",numberOfModuleForwarderRefs);
+
+		printf("timeDateStamp:%d\n",pImportBoundTable->TimeDateStamp);
+		
+		printf("OffsetModuleName:%s\n",(char*)pImportBoundTable1+pImportBoundTable->OffsetModuleName);
+
+		DWORD j=0;
+		
+		PIMAGE_BOUND_FORWARDER_REF pBoundForwarderRef=(PIMAGE_BOUND_FORWARDER_REF)pImportBoundTable+1;
+
+		
+		printf("***********IMAGE_BOUND_FORWARDER_REF***************\n");
+
+		for(j=0;j<numberOfModuleForwarderRefs;j++){
+			
+			printf("timeDateStamp:%d\n",pBoundForwarderRef->TimeDateStamp);
+			printf("OffsetModuleName:%s\n",(char*)pImportBoundTable1+pBoundForwarderRef->OffsetModuleName);
+			printf("Reserved:%d\n",pBoundForwarderRef->Reserved);
+
+			pBoundForwarderRef++;
+			
+		}
+		
+
+		//下一个绑定导入表地址
+		pImportBoundTable+=(numberOfModuleForwarderRefs+1);
+
+
+	}
+
+
+}
+
+//打印资源表
+VOID PrintResourceTable(LPVOID pFileBuffer){
+	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,3);
+
+	//获得资源表在FileBuffer中的Address位置
+	DWORD resourceTableFileBufferAddress =RvaToFileBufferAddress(pFileBuffer,pDataDirectory->VirtualAddress);
+	
+	printResource(pFileBuffer,(DWORD)resourceTableFileBufferAddress,(PIMAGE_RESOURCE_DIRECTORY)resourceTableFileBufferAddress,1);
+}
+
+//递归打印资源表的函数
+//TableAddr:资源表表头的位置
+//pResourceDir
+//index:层数
+VOID printResource(LPVOID pFileBuffer,DWORD TableAddr,PIMAGE_RESOURCE_DIRECTORY pResourceDir,int index){
+	
+	WORD countOfDirectory=0;
+	countOfDirectory=pResourceDir->NumberOfIdEntries+pResourceDir->NumberOfNamedEntries;
+	PIMAGE_RESOURCE_DIRECTORY_ENTRY pResourceDirEntry=(PIMAGE_RESOURCE_DIRECTORY_ENTRY)(pResourceDir+1);
+
+	WORD i=0;
+	
+
+
+	for(i=0;i<countOfDirectory;i++){
+
+		if(pResourceDirEntry->NameIsString){
+			PIMAGE_RESOURCE_DIR_STRING_U pString = (PIMAGE_RESOURCE_DIR_STRING_U)((DWORD)pResourceDir + pResourceDirEntry->NameOffset);
+			WCHAR nodeString[256]={0};
+			wcsncpy(nodeString,pString->NameString,pString->Length);
+				
+			printIndexTitle(index,nodeString);
+
+				
+		}else{
+			DWORD id=pResourceDirEntry->NameOffset;
+			if(index==1){
+				WCHAR nodeString[256]={0};
+				switch(id)
+				{
+					case 1: 
+						wcscpy(nodeString,L"Cursor");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 2: 
+						wcscpy(nodeString,L"Bitmap");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 3:
+						wcscpy(nodeString,L"Icon");
+						printIndexTitle(index,nodeString); 
+						break;	
+					case 4: 
+						wcscpy(nodeString,L"Menu");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 5: 
+						wcscpy(nodeString,L"Dialog");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 6: 
+						wcscpy(nodeString,L"String");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 7:
+						wcscpy(nodeString,L"FontDir");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 8:
+						wcscpy(nodeString,L"Font");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 9: 
+						wcscpy(nodeString,L"Accelerator");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 10: 
+						wcscpy(nodeString,L"RCDATA");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 11:
+						wcscpy(nodeString,L"MessageTable");
+						printIndexTitle(index,nodeString); 
+						break;
+					case 12: 
+						wcscpy(nodeString,L"GroupCursor");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 14: 
+						wcscpy(nodeString,L"GroupIcon");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 16: 
+						wcscpy(nodeString,L"Version");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 17: 
+						wcscpy(nodeString,L"DlgInclude");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 19: 
+						wcscpy(nodeString,L"PlugPlay");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 20: 
+						wcscpy(nodeString,L"VXD");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 21: 
+						wcscpy(nodeString,L"ANICursor");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 22: 
+						wcscpy(nodeString,L"ANIIcon");
+						printIndexTitle(index,nodeString); 
+						break;
+
+					case 23: 
+						wcscpy(nodeString,L"HTML");
+						printIndexTitle(index,nodeString); 
+						break;
+
+
+					default: 
+						printIndexID(index,id); 
+						break;
+				}
+				
+			}else{
+				printIndexID(index,id);
+			}
+			
+		}
+
+		if(pResourceDirEntry->DataIsDirectory==0){
+			
+			PIMAGE_DATA_DIRECTORY  pData = (PIMAGE_DATA_DIRECTORY)((DWORD)TableAddr + (DWORD)pResourceDirEntry->OffsetToData);
+			
+			CHAR infoString[500]={0};
+		
+			DWORD fileOffset=RvaToFileOffset(pFileBuffer,pData->VirtualAddress);
+			sprintf(infoString,"fileOffset:%x,RVA:%x,size:%x",fileOffset,pData->VirtualAddress,pData->Size);
+			printIndexTitle(index+1,infoString);
+			
+			return;
+		
+		}
+
+			printResource(pFileBuffer,TableAddr,(PIMAGE_RESOURCE_DIRECTORY)((DWORD)TableAddr+(DWORD)pResourceDirEntry->OffsetToDirectory),index+1);
+			
+			pResourceDirEntry++;
+		
+	}
+
+}
+
+//打印names
+//index 层数
+//names
+VOID printIndexTitle(int index,WCHAR* names){
+	int i=0;
+	
+	for(i=0;i<index;i++){
+		if(i<index-1){
+			printf("    ");
+		}else{
+			printf("|---");
+		}
+		
+	}
+	wprintf(L"%s\n",names);
+}
+
+//打印names
+//index 层数
+//names
+VOID printIndexTitle(int index,CHAR* names){
+	int i=0;
+	
+	for(i=0;i<index;i++){
+		if(i<index-1){
+			printf("    ");
+		}else{
+			printf("|---");
+		}
+		
+	}
+	printf("%s\n",names);
+}
+
+//打印ID
+//index 层数
+//id
+VOID printIndexID(int index,DWORD id){
+	int i=0;
+	
+	for(i=0;i<index;i++){
+		if(i<index-1){
+			printf("    ");
+		}else{
+			printf("|---");
+		}
+	}
+	if(index==3){
+		printf("CodePage:%d\n",id);
+	}else{
+		printf("ID:%d\n",id);
+	}
+
+}*/
+
+
+
+

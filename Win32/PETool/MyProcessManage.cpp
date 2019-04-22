@@ -85,3 +85,22 @@ DWORD WINAPI PEDicReadThread(LPVOID lpParameter){
 	return 0;
 
 }
+
+//获取PE目录详情表对话框的线程
+DWORD WINAPI PEDicDetailThread(LPVOID lpParameter){
+
+	ShowDicDetail();
+	
+	return 0;
+
+}
+
+//读取PE目录表详细信息的线程
+DWORD WINAPI PEDicDetailReadThread(LPVOID lpParameter){
+	
+	InitPEDicDetailView(g_DICDetailDlg);
+
+	return 0;
+
+}
+
