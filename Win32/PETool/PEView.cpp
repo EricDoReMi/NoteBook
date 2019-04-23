@@ -335,20 +335,18 @@ void AlertDicDetail(){
 
 //打开目录详情对话框
 void ShowDicDetail(){
-
+	
 	DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_DICDETAIL),g_DICDlg,DicDetailDialogProc);
 	return;
 }
 
 //初始化PE的目录详情
 void InitPEDicDetailView(HWND hDlg){
-	HWND hDicDetailEdit = GetDlgItem(hDlg,IDC_RICHEDIT2);
-	SendMessage(hDicDetailEdit,EM_SETEVENTMASK,0,ENM_SELCHANGE|ENM_MOUSEEVENTS|ENM_CHANGE|ENM_KEYEVENTS|ENM_SCROLL|ENM_DROPFILES);
-    SendMessage(hDicDetailEdit,EM_EXLIMITTEXT,0,-1);
+	HWND hDicDetailEdit = GetDlgItem(hDlg,IDC_RICHEDIT1);
 
 
 	//打印导出表
-	//PrintExportTable(hDicDetailEdit);
+	PrintExportTable(hDicDetailEdit);
 }
 
 

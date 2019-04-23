@@ -403,6 +403,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow)
 {
+    HINSTANCE edit_hinstance=LoadLibrary(TEXT("RichEd20.dll"));
+
+
+
 
 	//使用通用控件
 	INITCOMMONCONTROLSEX icex;				
@@ -412,12 +416,17 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	
 
  	hAppInstance=hInstance;
-	HINSTANCE hRich=LoadLibrary(TEXT("RichEd20.dll"));
+
+	
 
 
 	DialogBox(hInstance,MAKEINTRESOURCE(IDD_DIALOG_MAIN),NULL,MainDialogProc);
-
-	FreeLibrary(hRich);
+	
+	if (edit_hinstance)
+	{
+		FreeLibrary(edit_hinstance);
+	}
+	
 	return 0;
 }
 

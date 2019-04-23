@@ -1,7 +1,5 @@
 #include <windows.h>
 
-
-
 LRESULT CALLBACK WndProc(
 	HWND hwndDlg,  // handle to dialog box			
 	UINT uMsg,     // message			
@@ -60,8 +58,18 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 
 LRESULT CALLBACK WndProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	HDC hdc;
+	PAINTSTRUCT ps;
+	RECT rect;
+
 	switch (uMsg)
 	   {
+			 case WM_PAINT:
+				 hdc = BeginPaint(hwndDlg,&ps);
+				 GetClientRect(hwndDlg,&rect);
+				 DrawText(hdc,TEXT("大家好，这是我的第一个程序！"),-1,&rect,DT_SINGLELINE|DT_CENTER|DT_VCENTER);
+				 EndPaint(hwndDlg, &ps);
+				 return 0;
 	         case WM_CLOSE:
 	             DestroyWindow(hwndDlg);
 		         break;

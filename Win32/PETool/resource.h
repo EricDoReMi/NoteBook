@@ -73,8 +73,7 @@
 #define IDC_BUTTON_DIC_BOUND            1047
 #define IDC_BUTTON_DIC_IAT              1048
 #define IDC_BUTTON_DIC_CLOSE            1049
-#define IDC_RICHEDIT1                   1058
-#define IDC_RICHEDIT2                   1059
+#define IDC_RICHEDIT1                   1060
 
 // Next default values for new objects
 // 
@@ -82,7 +81,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        106
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1060
+#define _APS_NEXT_CONTROL_VALUE         1061
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
