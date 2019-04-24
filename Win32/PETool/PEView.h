@@ -38,14 +38,15 @@ void InitPEDicDetailView(HWND hDlg);
 //打印导出表
 VOID PrintExportTable(HWND hRichEdit);
 
-//打印重定位表
-/*VOID PrintRelocationTable(LPVOID pFileBuffer);
 
 //打印导入表
-VOID PrintImportTable(LPVOID pFileBuffer);
+VOID PrintImportTable(HWND hRichEdit);
+
+//打印重定位表
+VOID PrintRelocationTable(HWND hRichEdit);
 
 //打印绑定导入表
-VOID PrintBoundImportTable(LPVOID pFileBuffer);
+/*VOID PrintBoundImportTable(LPVOID pFileBuffer);
 
 //打印资源表
 VOID PrintResourceTable(LPVOID pFileBuffer);

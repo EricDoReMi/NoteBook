@@ -268,11 +268,7 @@ BOOL CALLBACK DicDialogProc(
 
 			break;
 			}
-		case WM_SIZE:
-			{
-				AdjustEditWindow(hwndDlg,hDicDetailEdit);
-				break;
-			}
+	
 		case WM_CLOSE:
 			{
 			EndDialog(hwndDlg, 0);
@@ -296,8 +292,6 @@ BOOL CALLBACK DicDialogProc(
 						{
 							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_IMPORT;
 							
-							
-
 							AlertDicDetail();		
 							return TRUE;
 						}
@@ -305,31 +299,31 @@ BOOL CALLBACK DicDialogProc(
 					case IDC_BUTTON_DIC_EXPORT:
 						{	
 							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_EXPORT;
-							//AlertDicDetail();
+							AlertDicDetail();
 							return TRUE;
 						}
 					case IDC_BUTTON_DIC_RESOURSE:
 						{	
 							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_RESOURSE;
-							//AlertDicDetail();
+							AlertDicDetail();
 							return TRUE;
 						}
 					case IDC_BUTTON_DIC_RELOCATION:
 						{	
 							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_RELOCATION;
-							//AlertDicDetail();
+							AlertDicDetail();
 							return TRUE;
 						}
 					case IDC_BUTTON_DIC_BOUND:
 						{	
 							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_BOUND;
-							//AlertDicDetail();
+							AlertDicDetail();
 							return TRUE;
 						}
 					case IDC_BUTTON_DIC_IAT:
 						{	
 							IDC_BUTTON_DIC_Index=IDC_BUTTON_DIC_IAT;
-							//AlertDicDetail();
+							AlertDicDetail();
 							return TRUE;
 						}
 						

@@ -6,7 +6,11 @@
 //filePath 文件名完整的路径
 char* getFileNameFromPath(char* filePath);
 
-//根据窗口大小，调整richEdit的大小
-void AdjustEditWindow(HWND hwndMain,HWND hwndEdit);
+
+//检查目录表是否存在
+bool checkDicTableExist();
+
+//向richEdit增加写入内容
+void appendRichEdit(HWND hRichEdit,TCHAR* szBuffer,DWORD sizeOfSzBuffer);
 
 #endif

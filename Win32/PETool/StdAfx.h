@@ -30,6 +30,7 @@
 #include "MyProcessManage.h"
 #include "PEView.h"
 
+
 extern HINSTANCE hAppInstance;
 extern HWND g_hwndDlg;//Ö÷´°¿Ú¾ä±ú
 extern HWND g_PEDlg;//PE´°¿Ú¾ä±ú

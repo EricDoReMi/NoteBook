@@ -16,10 +16,18 @@ void ShowPEHead(){
 	stopenfile.lpstrFilter=szPeFileExt;
 	stopenfile.lpstrFile=szFileName;
 	stopenfile.nMaxFile=MAX_PATH;
-	GetOpenFileName(&stopenfile);
+	if(GetOpenFileName(&stopenfile)){
+
+		if(!ReadPEFile(szFileName,&pFileBuffer)){
+			MessageBox(g_hwndDlg,"不是有效的PE文件",0,MB_OK);
+			return;
+		}
+
+		//打开PE对话框
+		DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_HEADER),g_hwndDlg,PEDialogProc);
+	}
 	
-	//打开PE对话框
-	DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_HEADER),g_hwndDlg,PEDialogProc);
+	
 	return;
 
 
@@ -34,10 +42,6 @@ void ReadPEHead(){
 	PIMAGE_FILE_HEADER pPEHeader = NULL;
 	PIMAGE_OPTIONAL_HEADER32 pOptionHeader = NULL;
 	
-	
-	if(!ReadPEFile(szFileName,&pFileBuffer)){
-		return;
-	}
 
 	
 	pPEHeader=getPEHeader(pFileBuffer);
@@ -335,8 +339,13 @@ void AlertDicDetail(){
 
 //打开目录详情对话框
 void ShowDicDetail(){
+	if(checkDicTableExist()){
+		DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_DICDETAIL),g_DICDlg,DicDetailDialogProc);
+
+	}else{
+		MessageBox(g_DICDlg,TEXT("没有相关目录详情"),0,MB_OK);
+	}
 	
-	DialogBox(hAppInstance,MAKEINTRESOURCE(IDD_DIALOG_DICDETAIL),g_DICDlg,DicDetailDialogProc);
 	return;
 }
 
@@ -345,10 +354,50 @@ void InitPEDicDetailView(HWND hDlg){
 	hDicDetailEdit = GetDlgItem(hDlg,IDC_RICHEDIT1);
 	SendMessage(hDicDetailEdit,EM_SETEVENTMASK,0,ENM_SELCHANGE|ENM_MOUSEEVENTS|ENM_CHANGE|ENM_KEYEVENTS|ENM_SCROLL|ENM_DROPFILES);
     SendMessage(hDicDetailEdit,EM_EXLIMITTEXT,0,-1);
+	
+	switch(IDC_BUTTON_DIC_Index)
+		{
+			case IDC_BUTTON_DIC_IMPORT:
+				{
+					//打印导入表
+					PrintImportTable(hDicDetailEdit);
+						
+					break;
+				}
+						
+			case IDC_BUTTON_DIC_EXPORT:
+				{	
+					//打印导出表
+					PrintExportTable(hDicDetailEdit);
+					
+					break;
+				}
+			case IDC_BUTTON_DIC_RESOURSE:
+				{	
+					
+					
+					break;
+				}
+			case IDC_BUTTON_DIC_RELOCATION:
+				{	
+					//打印重定位表
+					PrintRelocationTable(hDicDetailEdit);
+					break;
+				}
+			case IDC_BUTTON_DIC_BOUND:
+				{	
+							
+					break;
+				}
+			case IDC_BUTTON_DIC_IAT:
+				{	
+								
+								
+					break;
+				}
+		}
 
 
-	//打印导出表
-	PrintExportTable(hDicDetailEdit);
 }
 
 
@@ -357,7 +406,7 @@ void InitPEDicDetailView(HWND hDlg){
 VOID PrintExportTable(HWND hRichEdit){
 
 	//用于设置文本的字符串
-	TCHAR szBuffer[0x1000];
+	TCHAR szBuffer[0x10000];
 	TCHAR szTmp[0x100];
 
 	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,1);
@@ -369,7 +418,7 @@ VOID PrintExportTable(HWND hRichEdit){
 	
 
 	
-	memset(szBuffer,0,0x1000);
+	memset(szBuffer,0,0x10000);
 	sprintf(szBuffer,TEXT("%s"),TEXT("=============导出表信息=================\n"));						
 	DWORD PEName=(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pExportDirectory->Name);
 	memset(szTmp,0,0x100);
@@ -377,35 +426,37 @@ VOID PrintExportTable(HWND hRichEdit){
 
 	strcat(szBuffer,szTmp);
 	
-/*	memset(szTmp,0,0x100);
+	memset(szTmp,0,0x100);
 	sprintf(szTmp,"Base:%X\n",pExportDirectory->Base);						
-	wcscat(szBuffer,szTmp);
+	strcat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"NumberOfFunctions:%X\n",pExportDirectory->NumberOfFunctions);						
-	wcscat(szBuffer,szTmp);
+	strcat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"NumberOfNames:%X\n",pExportDirectory->NumberOfNames);						
-	wcscat(szBuffer,szTmp);
+	strcat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"AddressOfFunctions:%X\n",pExportDirectory->AddressOfFunctions);						
-	wcscat(szBuffer,szTmp);
+	strcat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"AddressOfNames:%X\n",pExportDirectory->AddressOfNames);						
-	wcscat(szBuffer,szTmp);
+	strcat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"AddressOfNameOrdinals:%X\n",pExportDirectory->AddressOfNameOrdinals);						
-	wcscat(szBuffer,szTmp);
+	strcat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,TEXT("******导出表函数******\n"));						
-	wcscat(szBuffer,szTmp);
-	
+	strcat(szBuffer,szTmp);
 
+	//下一组输入区
+	appendRichEdit(hRichEdit,szBuffer,0x10000);
+	
 	DWORD i=0;
 	DWORD j=0;
 
@@ -420,11 +471,11 @@ VOID PrintExportTable(HWND hRichEdit){
 		if(addressOfFunction){
 				memset(szTmp,0,0x100);
 				sprintf(szTmp,"AddressOfFunction:%X\n",addressOfFunction);						
-				wcscat(szBuffer,szTmp);
+				strcat(szBuffer,szTmp);
 
 				memset(szTmp,0,0x100);
 				sprintf(szTmp,"Ordinal:%X\n",i+pExportDirectory->Base);						
-				wcscat(szBuffer,szTmp);
+				strcat(szBuffer,szTmp);
 
 		
 			
@@ -432,31 +483,153 @@ VOID PrintExportTable(HWND hRichEdit){
 				if(*(pFileAddressOfNameOrdinals+j)==i){
 					memset(szTmp,0,0x100);
 					sprintf(szTmp,"AddressOfName:%s\t",(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,*(pFileAddressOfNames+j)));						
-					wcscat(szBuffer,szTmp);
+					strcat(szBuffer,szTmp);
 
 					
 				}
 			}
-			memset(szTmp,0,0x100);
-			sprintf(szTmp,"\n");						
-			wcscat(szBuffer,szTmp);
+
+		}
+		//下一组输入区
+		appendRichEdit(hRichEdit,szBuffer,0x10000);
+		
+	}
+
+
+
+
+}
+
+//打印导入表
+VOID PrintImportTable(HWND hRichEdit)
+{
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x10000];
+	TCHAR szTmp[0x100];
+
+	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,2);
+	//获得导入表在FileBuffer中的Address位置
+	DWORD importTableFileBufferAddress =RvaToFileBufferAddress(pFileBuffer,pDataDirectory->VirtualAddress);
+
+	//找到第一个导入表
+	PIMAGE_IMPORT_DESCRIPTOR pImportTables=(PIMAGE_IMPORT_DESCRIPTOR)importTableFileBufferAddress;
+
+
+	
+	memset(szTmp,0,0x100);
+	sprintf(szTmp,TEXT("=============导入表信息=================\n"));						
+	strcat(szBuffer,szTmp);
+	//下一组输入区
+	appendRichEdit(hRichEdit,szBuffer,0x10000);
+
+	while(pImportTables->Characteristics|pImportTables->FirstThunk|pImportTables->ForwarderChain|pImportTables->Name|pImportTables->OriginalFirstThunk|pImportTables->TimeDateStamp)
+	{
+		
+		DWORD nameRVA=pImportTables->Name;
+		char* pDllNames=(char*)RvaToFileBufferAddress(pFileBuffer,nameRVA);
+		
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("***********%s*********\n"),pDllNames);						
+		strcat(szBuffer,szTmp);
+
+		DWORD timeDateStamp = pImportTables->TimeDateStamp;
+		
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("***timeStamp:%X***\n"),timeDateStamp);						
+		strcat(szBuffer,szTmp);
+
+		DWORD originalFirstThunk=pImportTables->OriginalFirstThunk;
+		DWORD firstThunk=pImportTables->FirstThunk;
+
+		PDWORD pOriginalFirstThunk=(PDWORD)RvaToFileBufferAddress(pFileBuffer,originalFirstThunk);
+
+		PDWORD pFirstThunk=(PDWORD)RvaToFileBufferAddress(pFileBuffer,firstThunk);
+
+		//遍历OriginalFirstThunk
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("------------OriginalFirstThunk----------\n"));						
+		strcat(szBuffer,szTmp);
+
+		//下一组输入区
+		appendRichEdit(hRichEdit,szBuffer,0x10000);
+
+		while(*pOriginalFirstThunk){
+			DWORD imageData=(DWORD)*pOriginalFirstThunk;
+			//最高位判断最高位是否为1 如果是,那么除去最高位的值就是函数的导出序号				
+
+			if(imageData & 0x80000000){
+				DWORD indexOfExport=imageData & 0x7FFFFFFF;//导出表的函数序号
+
+				memset(szTmp,0,0x100);
+				sprintf(szTmp,TEXT("导出表函数序号:%d\n"),indexOfExport);						
+				strcat(szBuffer,szTmp);
+
+			}else{
+				PIMAGE_IMPORT_BY_NAME pImportByName=(PIMAGE_IMPORT_BY_NAME)RvaToFileBufferAddress(pFileBuffer,imageData);//导出表函数名
+				char* pImportFunNames=(char*)pImportByName->Name;
+	
+
+				memset(szTmp,0,0x100);
+				sprintf(szTmp,TEXT("导出表函数名称:%s\n"),pImportFunNames);						
+				strcat(szBuffer,szTmp);
+				
+			}
+
+			
+			pOriginalFirstThunk++;
+			
 		}
 
-		
-	}*/
 
-	CHARRANGE stcf; //定义结构，EM_EXSETSEL消息需要此消息，
-	memset(&stcf,0,sizeof(stcf));//并且将成员变量设置为 -1 是将光标置文本尾部
-	stcf.cpMax = -1;
-	stcf.cpMin = -1;
-	SetWindowText(hRichEdit,szBuffer);
+		//遍历FirstThunk
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("------------FirstThunk----------\n"));						
+		strcat(szBuffer,szTmp);
+
+
+		while(*pFirstThunk){
+			DWORD imageData=(DWORD)*pFirstThunk;
+			//最高位判断最高位是否为1 如果是,那么除去最高位的值就是函数的导出序号				
+
+			if(imageData & 0x80000000){
+				DWORD indexOfExport=imageData & 0x7FFFFFFF;//导出表的函数序号
+				
+				memset(szTmp,0,0x100);
+				sprintf(szTmp,TEXT("导出表序号:%d\n"),indexOfExport);						
+				strcat(szBuffer,szTmp);
+
+			}else{
+				PIMAGE_IMPORT_BY_NAME pImportByName=(PIMAGE_IMPORT_BY_NAME)RvaToFileBufferAddress(pFileBuffer,imageData);//导出表函数名
+				char* pImportFunNames=(char*)pImportByName->Name;
+
+				memset(szTmp,0,0x100);
+				sprintf(szTmp,TEXT("导出表函数名称:%s\n"),pImportFunNames);						
+				strcat(szBuffer,szTmp);
+			}
+
+			
+			pFirstThunk++;
+		}
+	
+
+		//下一个导入表地址
+		pImportTables++;
+		//下一组输入区
+		appendRichEdit(hRichEdit,szBuffer,0x10000);
+
+		
+	}
+
 
 }
 
 
 //打印重定位表
-/*VOID PrintRelocationTable(LPVOID pFileBuffer)
+VOID PrintRelocationTable(HWND hRichEdit)
 {
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x10000];
+	TCHAR szTmp[0x100];
 
 	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,6);
 	//获得重定位表在FileBuffer中的Address位置
@@ -467,9 +640,13 @@ VOID PrintExportTable(HWND hRichEdit){
 
 	DWORD i=0;
 
-	printf("=============重定位表信息=================\n");
+	memset(szBuffer,0,0x10000);
+	sprintf(szBuffer,TEXT("%s"),TEXT("=============重定位表信息=================\n"));
+	//下一组输入区
+	appendRichEdit(hRichEdit,szBuffer,0x10000);
+
 	//pRelocationTables->SizeOfBlock || pRelocationTables->VirtualAddress 全为0时，则遍历结束
-	while(pRelocationTables->VirtualAddress)
+	while(pRelocationTables->VirtualAddress || pRelocationTables->SizeOfBlock)
 	{
 		i++;
 		DWORD sizeOfBlock=pRelocationTables->SizeOfBlock;
@@ -477,7 +654,13 @@ VOID PrintExportTable(HWND hRichEdit){
 		DWORD sectionIndex=RvaToSectionIndex(pFileBuffer,virtualAddress);
 		
 		//打印每个重定位表的具体信息
-		printf("***表:%d\tsizeOfBlock:%d\tvirtualAddress:%X\tsectionIndex:%d\n",i,sizeOfBlock,virtualAddress,sectionIndex);
+		
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("***表:%d\tsizeOfBlock:%d\tvirtualAddress:%X\tsectionIndex:%d\n"),i,sizeOfBlock,virtualAddress,sectionIndex);						
+		strcat(szBuffer,szTmp);
+
+		
+
 		//计算BLOCK的数量
 		DWORD numBlock=0;
 		numBlock=(sizeOfBlock-8)/2;
@@ -496,100 +679,34 @@ VOID PrintExportTable(HWND hRichEdit){
 				isChangeTxt="是";
 			}
 			
+			
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("%d\tChange:%s\trva:%X\tfileOffSet:%X\n"),j+1,isChangeTxt,rvaChange,fileOffSet);						
+			strcat(szBuffer,szTmp);
 
-			printf("%d\tChange:%s\trva:%X\tfileOffSet:%X\n",j+1,isChangeTxt,rvaChange,fileOffSet);
-	
 			pStartBlock++;
+
+			
 
 		}
 		
 
 		//下一个重定位表地址
 		pRelocationTables=(PIMAGE_BASE_RELOCATION)((char*)pRelocationTables+sizeOfBlock);
-
-
-	}
-
-
-}
-
-//打印导入表
-VOID PrintImportTable(LPVOID pFileBuffer)
-{
-
-	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,2);
-	//获得导入表在FileBuffer中的Address位置
-	DWORD importTableFileBufferAddress =RvaToFileBufferAddress(pFileBuffer,pDataDirectory->VirtualAddress);
-
-	//找到第一个导入表
-	PIMAGE_IMPORT_DESCRIPTOR pImportTables=(PIMAGE_IMPORT_DESCRIPTOR)importTableFileBufferAddress;
-
-
-	printf("=============导入表信息=================\n");
-	
-	while(pImportTables->Characteristics|pImportTables->FirstThunk|pImportTables->ForwarderChain|pImportTables->Name|pImportTables->OriginalFirstThunk|pImportTables->TimeDateStamp)
-	{
+		appendRichEdit(hRichEdit,szBuffer,0x10000);
 		
-		DWORD nameRVA=pImportTables->Name;
-		char* pDllNames=(char*)RvaToFileBufferAddress(pFileBuffer,nameRVA);
-		printf("***********%s*********\n",pDllNames);
-		DWORD timeDateStamp = pImportTables->TimeDateStamp;
-		printf("***timeStamp:%d***\n");
-		DWORD originalFirstThunk=pImportTables->OriginalFirstThunk;
-		DWORD firstThunk=pImportTables->FirstThunk;
-
-		PDWORD pOriginalFirstThunk=(PDWORD)RvaToFileBufferAddress(pFileBuffer,originalFirstThunk);
-
-		PDWORD pFirstThunk=(PDWORD)RvaToFileBufferAddress(pFileBuffer,firstThunk);
-
-		//遍历OriginalFirstThunk
-		printf("------------OriginalFirstThunk----------\n");
-		while(*pOriginalFirstThunk){
-			DWORD imageData=(DWORD)*pOriginalFirstThunk;
-			//最高位判断最高位是否为1 如果是,那么除去最高位的值就是函数的导出序号				
-
-			if(imageData & 0x80000000){
-				DWORD indexOfExport=imageData & 0x7FFFFFFF;//导出表的函数序号
-				printf("导出表函数序号:%d\n",indexOfExport);
-
-			}else{
-				PIMAGE_IMPORT_BY_NAME pImportByName=(PIMAGE_IMPORT_BY_NAME)RvaToFileBufferAddress(pFileBuffer,imageData);//导出表函数名
-				char* pImportFunNames=(char*)pImportByName->Name;
-				printf("导出表函数名称:%s\n",pImportFunNames);
-			}
-			pOriginalFirstThunk++;
-		}
-
-		//遍历FirstThunk
-		printf("------------FirstThunk----------\n");
-		while(*pFirstThunk){
-			DWORD imageData=(DWORD)*pFirstThunk;
-			//最高位判断最高位是否为1 如果是,那么除去最高位的值就是函数的导出序号				
-
-			if(imageData & 0x80000000){
-				DWORD indexOfExport=imageData & 0x7FFFFFFF;//导出表的函数序号
-				printf("导出表序号:%d\n",indexOfExport);
-
-			}else{
-				PIMAGE_IMPORT_BY_NAME pImportByName=(PIMAGE_IMPORT_BY_NAME)RvaToFileBufferAddress(pFileBuffer,imageData);//导出表函数名
-				char* pImportFunNames=(char*)pImportByName->Name;
-				printf("导出表函数名称:%s\n",pImportFunNames);
-			}
-			pFirstThunk++;
-		}
-	
-
-		//下一个导入表地址
-		pImportTables++;
-
 
 	}
 
 
+
+
 }
+
+
 
 //打印绑定导入表
-VOID PrintBoundImportTable(LPVOID pFileBuffer)
+/*VOID PrintBoundImportTable(LPVOID pFileBuffer)
 {
 
 	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,12);
@@ -648,7 +765,7 @@ VOID PrintBoundImportTable(LPVOID pFileBuffer)
 }
 
 //打印资源表
-VOID PrintResourceTable(LPVOID pFileBuffer){
+/*VOID PrintResourceTable(LPVOID pFileBuffer){
 	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,3);
 
 	//获得资源表在FileBuffer中的Address位置
