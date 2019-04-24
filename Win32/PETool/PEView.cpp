@@ -348,7 +348,7 @@ void InitPEDicDetailView(HWND hDlg){
 
 
 	//打印导出表
-	//PrintExportTable(hDicDetailEdit);
+	PrintExportTable(hDicDetailEdit);
 }
 
 
@@ -370,39 +370,40 @@ VOID PrintExportTable(HWND hRichEdit){
 
 	
 	memset(szBuffer,0,0x1000);
-	sprintf(szBuffer,"%s\n","=============导出表信息=================");						
-	
+	sprintf(szBuffer,TEXT("%s"),TEXT("=============导出表信息=================\n"));						
+	DWORD PEName=(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pExportDirectory->Name);
 	memset(szTmp,0,0x100);
-	sprintf(szTmp,"Name:%s\n",(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,pExportDirectory->Name));						
+	sprintf (szTmp,TEXT("Name:%s\n"),PEName);						
+
 	strcat(szBuffer,szTmp);
 	
-	memset(szTmp,0,0x100);
+/*	memset(szTmp,0,0x100);
 	sprintf(szTmp,"Base:%X\n",pExportDirectory->Base);						
-	strcat(szBuffer,szTmp);
+	wcscat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"NumberOfFunctions:%X\n",pExportDirectory->NumberOfFunctions);						
-	strcat(szBuffer,szTmp);
+	wcscat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"NumberOfNames:%X\n",pExportDirectory->NumberOfNames);						
-	strcat(szBuffer,szTmp);
+	wcscat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"AddressOfFunctions:%X\n",pExportDirectory->AddressOfFunctions);						
-	strcat(szBuffer,szTmp);
+	wcscat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"AddressOfNames:%X\n",pExportDirectory->AddressOfNames);						
-	strcat(szBuffer,szTmp);
+	wcscat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,"AddressOfNameOrdinals:%X\n",pExportDirectory->AddressOfNameOrdinals);						
-	strcat(szBuffer,szTmp);
+	wcscat(szBuffer,szTmp);
 
 	memset(szTmp,0,0x100);
-	sprintf(szTmp,"******导出表函数******\n");						
-	strcat(szBuffer,szTmp);
+	sprintf(szTmp,TEXT("******导出表函数******\n"));						
+	wcscat(szBuffer,szTmp);
 	
 
 	DWORD i=0;
@@ -419,11 +420,11 @@ VOID PrintExportTable(HWND hRichEdit){
 		if(addressOfFunction){
 				memset(szTmp,0,0x100);
 				sprintf(szTmp,"AddressOfFunction:%X\n",addressOfFunction);						
-				strcat(szBuffer,szTmp);
+				wcscat(szBuffer,szTmp);
 
 				memset(szTmp,0,0x100);
 				sprintf(szTmp,"Ordinal:%X\n",i+pExportDirectory->Base);						
-				strcat(szBuffer,szTmp);
+				wcscat(szBuffer,szTmp);
 
 		
 			
@@ -431,18 +432,18 @@ VOID PrintExportTable(HWND hRichEdit){
 				if(*(pFileAddressOfNameOrdinals+j)==i){
 					memset(szTmp,0,0x100);
 					sprintf(szTmp,"AddressOfName:%s\t",(DWORD)pFileBuffer+RvaToFileOffset(pFileBuffer,*(pFileAddressOfNames+j)));						
-					strcat(szBuffer,szTmp);
+					wcscat(szBuffer,szTmp);
 
 					
 				}
 			}
 			memset(szTmp,0,0x100);
 			sprintf(szTmp,"\n");						
-			strcat(szBuffer,szTmp);
+			wcscat(szBuffer,szTmp);
 		}
 
 		
-	}
+	}*/
 
 	CHARRANGE stcf; //定义结构，EM_EXSETSEL消息需要此消息，
 	memset(&stcf,0,sizeof(stcf));//并且将成员变量设置为 -1 是将光标置文本尾部
