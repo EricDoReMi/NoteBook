@@ -39,6 +39,7 @@ extern HWND g_DICDetailDlg;//PE目录表详情窗口的句柄
 extern TCHAR szFileName[256];//PE文件的路径
 extern LPVOID pFileBuffer;//PE文件的FileBuffer
 extern int IDC_BUTTON_DIC_Index;//被点击了的目录详情的Button的ID
+extern HWND hDicDetailEdit;//目录详情的RichEdit
 
 
 // TODO: reference additional headers your program requires here

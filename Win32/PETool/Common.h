@@ -6,4 +6,7 @@
 //filePath 文件名完整的路径
 char* getFileNameFromPath(char* filePath);
 
+//根据窗口大小，调整richEdit的大小
+void AdjustEditWindow(HWND hwndMain,HWND hwndEdit);
+
 #endif

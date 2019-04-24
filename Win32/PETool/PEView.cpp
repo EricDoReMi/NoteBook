@@ -342,11 +342,13 @@ void ShowDicDetail(){
 
 //初始化PE的目录详情
 void InitPEDicDetailView(HWND hDlg){
-	HWND hDicDetailEdit = GetDlgItem(hDlg,IDC_RICHEDIT1);
+	hDicDetailEdit = GetDlgItem(hDlg,IDC_RICHEDIT1);
+	SendMessage(hDicDetailEdit,EM_SETEVENTMASK,0,ENM_SELCHANGE|ENM_MOUSEEVENTS|ENM_CHANGE|ENM_KEYEVENTS|ENM_SCROLL|ENM_DROPFILES);
+    SendMessage(hDicDetailEdit,EM_EXLIMITTEXT,0,-1);
 
 
 	//打印导出表
-	PrintExportTable(hDicDetailEdit);
+	//PrintExportTable(hDicDetailEdit);
 }
 
 
@@ -365,6 +367,7 @@ VOID PrintExportTable(HWND hRichEdit){
 	//找到导出表
 	PIMAGE_EXPORT_DIRECTORY pExportDirectory=(PIMAGE_EXPORT_DIRECTORY)exportDirectoryFileAddress;
 	
+
 	
 	memset(szBuffer,0,0x1000);
 	sprintf(szBuffer,"%s\n","=============导出表信息=================");						
@@ -441,6 +444,10 @@ VOID PrintExportTable(HWND hRichEdit){
 		
 	}
 
+	CHARRANGE stcf; //定义结构，EM_EXSETSEL消息需要此消息，
+	memset(&stcf,0,sizeof(stcf));//并且将成员变量设置为 -1 是将光标置文本尾部
+	stcf.cpMax = -1;
+	stcf.cpMin = -1;
 	SetWindowText(hRichEdit,szBuffer);
 
 }

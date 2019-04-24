@@ -11,7 +11,7 @@ HWND g_DICDetailDlg;//PE目录表详情窗口的句柄
 TCHAR szFileName[256];//PE文件的路径
 LPVOID pFileBuffer=NULL;//PE文件的FileBuffer
 int IDC_BUTTON_DIC_Index;//被点击了的目录详情的Button的ID
-static HWND hWinRich;
+HWND hDicDetailEdit;//目录详情的RichEdit
 
 
 BOOL CALLBACK MainDialogProc(									
@@ -268,6 +268,11 @@ BOOL CALLBACK DicDialogProc(
 
 			break;
 			}
+		case WM_SIZE:
+			{
+				AdjustEditWindow(hwndDlg,hDicDetailEdit);
+				break;
+			}
 		case WM_CLOSE:
 			{
 			EndDialog(hwndDlg, 0);
@@ -406,8 +411,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     HINSTANCE edit_hinstance=LoadLibrary(TEXT("RichEd20.dll"));
 
 
-
-
 	//使用通用控件
 	INITCOMMONCONTROLSEX icex;				
 	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);				
@@ -429,6 +432,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	
 	return 0;
 }
+
+
 
 
 
