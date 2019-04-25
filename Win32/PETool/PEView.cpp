@@ -515,13 +515,13 @@ VOID PrintImportTable(HWND hRichEdit)
 	PIMAGE_IMPORT_DESCRIPTOR pImportTables=(PIMAGE_IMPORT_DESCRIPTOR)importTableFileBufferAddress;
 
 
-	
+	memset(szBuffer,0,0x10000);
 	memset(szTmp,0,0x100);
 	sprintf(szTmp,TEXT("=============导入表信息=================\n"));						
 	strcat(szBuffer,szTmp);
 	//下一组输入区
 	appendRichEdit(hRichEdit,szBuffer,0x10000);
-
+	
 	while(pImportTables->Characteristics|pImportTables->FirstThunk|pImportTables->ForwarderChain|pImportTables->Name|pImportTables->OriginalFirstThunk|pImportTables->TimeDateStamp)
 	{
 		
@@ -706,8 +706,13 @@ VOID PrintRelocationTable(HWND hRichEdit)
 
 
 //打印绑定导入表
-/*VOID PrintBoundImportTable(LPVOID pFileBuffer)
+VOID PrintBoundImportTable(HWND hRichEdit)
 {
+
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x10000];
+	TCHAR szTmp[0x100];
+
 
 	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,12);
 
@@ -719,8 +724,14 @@ VOID PrintRelocationTable(HWND hRichEdit)
 	
 	//绑定导入表的表头
 	PIMAGE_BOUND_IMPORT_DESCRIPTOR pImportBoundTable1=pImportBoundTable;
+	
+	memset(szBuffer,0,0x10000);
 
-	printf("=============绑定导入表信息=================\n");
+
+	sprintf(szBuffer,TEXT("%s"),TEXT("=============绑定导入表信息=================\n"));
+	//下一组输入区
+	appendRichEdit(hRichEdit,szBuffer,0x10000);
+
 	DWORD i=0;
 
 	while(pImportBoundTable->NumberOfModuleForwarderRefs|pImportBoundTable->OffsetModuleName|pImportBoundTable->TimeDateStamp)
@@ -730,12 +741,24 @@ VOID PrintRelocationTable(HWND hRichEdit)
 
 		numberOfModuleForwarderRefs=pImportBoundTable->NumberOfModuleForwarderRefs;
 		
-		printf("---IMAGE_BOUND_IMPORT_DESCRIPTOR---\n");
-		printf("numberOfModuleForwarderRefs:%d\n",numberOfModuleForwarderRefs);
 
-		printf("timeDateStamp:%d\n",pImportBoundTable->TimeDateStamp);
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("---IMAGE_BOUND_IMPORT_DESCRIPTOR---\n"));						
+		strcat(szBuffer,szTmp);
 		
-		printf("OffsetModuleName:%s\n",(char*)pImportBoundTable1+pImportBoundTable->OffsetModuleName);
+
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("numberOfModuleForwarderRefs:%d\n"),numberOfModuleForwarderRefs);						
+		strcat(szBuffer,szTmp);
+
+
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("timeDateStamp:%X\n"),pImportBoundTable->TimeDateStamp);						
+		strcat(szBuffer,szTmp);
+		
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("OffsetModuleName:%s\n"),(char*)pImportBoundTable1+pImportBoundTable->OffsetModuleName);						
+		strcat(szBuffer,szTmp);
 
 		DWORD j=0;
 		
@@ -744,16 +767,35 @@ VOID PrintRelocationTable(HWND hRichEdit)
 		
 		printf("***********IMAGE_BOUND_FORWARDER_REF***************\n");
 
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("***********IMAGE_BOUND_FORWARDER_REF***************\n"));						
+		strcat(szBuffer,szTmp);
+		
+
+		//下一组输入区
+		appendRichEdit(hRichEdit,szBuffer,0x10000);
+
 		for(j=0;j<numberOfModuleForwarderRefs;j++){
-			
-			printf("timeDateStamp:%d\n",pBoundForwarderRef->TimeDateStamp);
-			printf("OffsetModuleName:%s\n",(char*)pImportBoundTable1+pBoundForwarderRef->OffsetModuleName);
-			printf("Reserved:%d\n",pBoundForwarderRef->Reserved);
+
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("timeDateStamp:%X\n"),pBoundForwarderRef->TimeDateStamp);						
+			strcat(szBuffer,szTmp);
+
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("OffsetModuleName:%s\n"),(char*)pImportBoundTable1+pBoundForwarderRef->OffsetModuleName);						
+			strcat(szBuffer,szTmp);
+
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("Reserved:%d\n"),pBoundForwarderRef->Reserved);						
+			strcat(szBuffer,szTmp);
 
 			pBoundForwarderRef++;
 			
 		}
 		
+		
+		//下一组输入区
+		appendRichEdit(hRichEdit,szBuffer,0x10000);
 
 		//下一个绑定导入表地址
 		pImportBoundTable+=(numberOfModuleForwarderRefs+1);

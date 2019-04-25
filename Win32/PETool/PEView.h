@@ -46,10 +46,10 @@ VOID PrintImportTable(HWND hRichEdit);
 VOID PrintRelocationTable(HWND hRichEdit);
 
 //打印绑定导入表
-/*VOID PrintBoundImportTable(LPVOID pFileBuffer);
+VOID PrintBoundImportTable(HWND hRichEdit);
 
 //打印资源表
-VOID PrintResourceTable(LPVOID pFileBuffer);
+/*VOID PrintResourceTable(LPVOID pFileBuffer);
 
 //递归打印资源表的函数
 //TableAddr:资源表表头的位置
