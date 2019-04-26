@@ -49,7 +49,7 @@ VOID PrintRelocationTable(HWND hRichEdit);
 VOID PrintBoundImportTable(HWND hRichEdit);
 
 //打印资源表
-/*VOID PrintResourceTable(LPVOID pFileBuffer);
+VOID PrintResourceTable(HWND hRichEdit);
 
 //递归打印资源表的函数
 //TableAddr:资源表表头的位置
@@ -65,11 +65,11 @@ VOID printIndexTitle(int index,WCHAR* names);
 //打印names
 //index 层数
 //names
-VOID printIndexTitle(int index,CHAR* names);
+VOID printIndexTitle(int index,TCHAR* names);
 
 //打印ID
 //index 层数
 //id
-VOID printIndexID(int index,DWORD id);*/
+VOID printIndexID(int index,DWORD id);
 
 #endif

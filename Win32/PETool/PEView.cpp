@@ -374,7 +374,8 @@ void InitPEDicDetailView(HWND hDlg){
 				}
 			case IDC_BUTTON_DIC_RESOURSE:
 				{	
-					
+					//打印资源表
+					PrintResourceTable(hDicDetailEdit);
 					
 					break;
 				}
@@ -397,9 +398,7 @@ void InitPEDicDetailView(HWND hDlg){
 				}
 		}
 
-
 }
-
 
 //=================打印目录表详情===================
 //打印导出表
@@ -764,8 +763,6 @@ VOID PrintBoundImportTable(HWND hRichEdit)
 		
 		PIMAGE_BOUND_FORWARDER_REF pBoundForwarderRef=(PIMAGE_BOUND_FORWARDER_REF)pImportBoundTable+1;
 
-		
-		printf("***********IMAGE_BOUND_FORWARDER_REF***************\n");
 
 		memset(szTmp,0,0x100);
 		sprintf(szTmp,TEXT("***********IMAGE_BOUND_FORWARDER_REF***************\n"));						
@@ -807,7 +804,16 @@ VOID PrintBoundImportTable(HWND hRichEdit)
 }
 
 //打印资源表
-/*VOID PrintResourceTable(LPVOID pFileBuffer){
+VOID PrintResourceTable(HWND hRichEdit){
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x10000];
+	TCHAR szTmp[0x100];
+	memset(szBuffer,0,0x10000);
+
+	sprintf(szBuffer,TEXT("%s"),TEXT("=============资源表信息=================\n"));
+	//下一组输入区
+	appendRichEdit(hRichEdit,szBuffer,0x10000);
+
 	PIMAGE_DATA_DIRECTORY pDataDirectory=getDataDirectory(pFileBuffer,3);
 
 	//获得资源表在FileBuffer中的Address位置
@@ -821,7 +827,10 @@ VOID PrintBoundImportTable(HWND hRichEdit)
 //pResourceDir
 //index:层数
 VOID printResource(LPVOID pFileBuffer,DWORD TableAddr,PIMAGE_RESOURCE_DIRECTORY pResourceDir,int index){
+
 	
+
+
 	WORD countOfDirectory=0;
 	countOfDirectory=pResourceDir->NumberOfIdEntries+pResourceDir->NumberOfNamedEntries;
 	PIMAGE_RESOURCE_DIRECTORY_ENTRY pResourceDirEntry=(PIMAGE_RESOURCE_DIRECTORY_ENTRY)(pResourceDir+1);
@@ -843,95 +852,95 @@ VOID printResource(LPVOID pFileBuffer,DWORD TableAddr,PIMAGE_RESOURCE_DIRECTORY 
 		}else{
 			DWORD id=pResourceDirEntry->NameOffset;
 			if(index==1){
-				WCHAR nodeString[256]={0};
+				TCHAR nodeString[256]={0};
 				switch(id)
 				{
 					case 1: 
-						wcscpy(nodeString,L"Cursor");
+						strcpy(nodeString,"Cursor");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 2: 
-						wcscpy(nodeString,L"Bitmap");
+						strcpy(nodeString,"Bitmap");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 3:
-						wcscpy(nodeString,L"Icon");
+						strcpy(nodeString,"Icon");
 						printIndexTitle(index,nodeString); 
 						break;	
 					case 4: 
-						wcscpy(nodeString,L"Menu");
+						strcpy(nodeString,"Menu");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 5: 
-						wcscpy(nodeString,L"Dialog");
+						strcpy(nodeString,"Dialog");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 6: 
-						wcscpy(nodeString,L"String");
+						strcpy(nodeString,"String");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 7:
-						wcscpy(nodeString,L"FontDir");
+						strcpy(nodeString,"FontDir");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 8:
-						wcscpy(nodeString,L"Font");
+						strcpy(nodeString,"Font");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 9: 
-						wcscpy(nodeString,L"Accelerator");
+						strcpy(nodeString,"Accelerator");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 10: 
-						wcscpy(nodeString,L"RCDATA");
+						strcpy(nodeString,"RCDATA");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 11:
-						wcscpy(nodeString,L"MessageTable");
+						strcpy(nodeString,"MessageTable");
 						printIndexTitle(index,nodeString); 
 						break;
 					case 12: 
-						wcscpy(nodeString,L"GroupCursor");
+						strcpy(nodeString,"GroupCursor");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 14: 
-						wcscpy(nodeString,L"GroupIcon");
+						strcpy(nodeString,"GroupIcon");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 16: 
-						wcscpy(nodeString,L"Version");
+						strcpy(nodeString,"Version");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 17: 
-						wcscpy(nodeString,L"DlgInclude");
+						strcpy(nodeString,"DlgInclude");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 19: 
-						wcscpy(nodeString,L"PlugPlay");
+						strcpy(nodeString,"PlugPlay");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 20: 
-						wcscpy(nodeString,L"VXD");
+						strcpy(nodeString,"VXD");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 21: 
-						wcscpy(nodeString,L"ANICursor");
+						strcpy(nodeString,"ANICursor");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 22: 
-						wcscpy(nodeString,L"ANIIcon");
+						strcpy(nodeString,"ANIIcon");
 						printIndexTitle(index,nodeString); 
 						break;
 
 					case 23: 
-						wcscpy(nodeString,L"HTML");
+						strcpy(nodeString,"HTML");
 						printIndexTitle(index,nodeString); 
 						break;
 
@@ -974,7 +983,7 @@ VOID printResource(LPVOID pFileBuffer,DWORD TableAddr,PIMAGE_RESOURCE_DIRECTORY 
 //names
 VOID printIndexTitle(int index,WCHAR* names){
 	int i=0;
-	
+
 	for(i=0;i<index;i++){
 		if(i<index-1){
 			printf("    ");
@@ -989,18 +998,34 @@ VOID printIndexTitle(int index,WCHAR* names){
 //打印names
 //index 层数
 //names
-VOID printIndexTitle(int index,CHAR* names){
+VOID printIndexTitle(int index,TCHAR* names){
+
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x10000];
+	TCHAR szTmp[0x100];
+	memset(szBuffer,0,0x10000);
+
 	int i=0;
 	
 	for(i=0;i<index;i++){
 		if(i<index-1){
-			printf("    ");
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("    "));						
+			strcat(szBuffer,szTmp);
 		}else{
-			printf("|---");
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("|---"));						
+			strcat(szBuffer,szTmp);
 		}
 		
 	}
-	printf("%s\n",names);
+
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("%s\n"),names);						
+		strcat(szBuffer,szTmp);
+		//下一组输入区
+		appendRichEdit(hDicDetailEdit,szBuffer,0x10000);
+
 }
 
 //打印ID
@@ -1008,21 +1033,38 @@ VOID printIndexTitle(int index,CHAR* names){
 //id
 VOID printIndexID(int index,DWORD id){
 	int i=0;
+
+	//用于设置文本的字符串
+	TCHAR szBuffer[0x10000];
+	TCHAR szTmp[0x100];
+	memset(szBuffer,0,0x10000);
 	
 	for(i=0;i<index;i++){
 		if(i<index-1){
-			printf("    ");
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("    "));						
+			strcat(szBuffer,szTmp);
 		}else{
-			printf("|---");
+			memset(szTmp,0,0x100);
+			sprintf(szTmp,TEXT("|---"));						
+			strcat(szBuffer,szTmp);
 		}
 	}
+
 	if(index==3){
-		printf("CodePage:%d\n",id);
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("CodePage:%d\n"),id);						
+		strcat(szBuffer,szTmp);
 	}else{
-		printf("ID:%d\n",id);
+		memset(szTmp,0,0x100);
+		sprintf(szTmp,TEXT("ID:%d\n"),id);						
+		strcat(szBuffer,szTmp);
 	}
 
-}*/
+	//下一组输入区
+	appendRichEdit(hDicDetailEdit,szBuffer,0x10000);
+
+}
 
 
 
