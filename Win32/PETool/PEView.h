@@ -42,6 +42,9 @@ VOID PrintExportTable(HWND hRichEdit);
 //打印导入表
 VOID PrintImportTable(HWND hRichEdit);
 
+//打印IAT
+VOID PrintIatTable(HWND hRichEdit);
+
 //打印重定位表
 VOID PrintRelocationTable(HWND hRichEdit);
 
