@@ -11,3 +11,6 @@ E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.Properties.Resources.reso
 E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.csproj.GenerateResource.Cache
 E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.exe
 E:\VSWorkSpace\CSBasic\ClassEvent\obj\Debug\ClassEvent.pdb
+F:\NoteBook\CSBasic\ClassEvent\bin\Debug\ClassEvent.exe.config
+F:\NoteBook\CSBasic\ClassEvent\obj\Debug\ClassEvent.exe
+F:\NoteBook\CSBasic\ClassEvent\obj\Debug\ClassEvent.pdb
