@@ -38,5 +38,7 @@ namespace SecondDemo
         #endregion
         public string Name { get; set; }
         public int age { get; set; }
+
+        double Salary { get; set; }
     }
 }
